@@ -1,27 +1,27 @@
 # James Tennant • jtennant • pa1
 
-Lex : Lex.o List.o
+all: Lex ListTest
+
+Lex: Lex.o List.o
 	gcc -std=c17 -Wall -o Lex Lex.o List.o
 
-Lex.o : Lex.c List.h
+Lex.o: Lex.c List.h
 	gcc -std=c17 -Wall -c Lex.c
 
 ListTest: ListTest.o List.o
 	gcc -std=c17 -Wall -o ListTest ListTest.o List.o
 
-ListTest.o : ListTest.c List.h
+ListTest.o: ListTest.c List.h
 	gcc -std=c17 -Wall -c ListTest.c
 
-List.o : List.c List.h
+List.o: List.c List.h
 	gcc -std=c17 -Wall -c List.c
 
-clean :
+clean:
 	rm -f Lex ListTest Lex.o ListTest.o List.o
 
-checkTest : 
+checkTest: 
 	valgrind --leak-check=full ListTest
 
-checkLex :
+checkLex:
 	valgrind --leak-check=full Lex in3 blah3
-
-
