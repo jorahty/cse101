@@ -1,32 +1,33 @@
 // James Tennant • jtennant • pa1
 
-#include<stdio.h>
-#include<stdlib.h>
-#include<stdbool.h>
-#include"List.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include "List.h"
 
-int main(int argc, char* argv[]){
+int main(int argc, char* argv[]) {
    
    List A = newList();
    List B = newList();
    List C = NULL;
    int i;
 
-   for(i=1; i<=20; i++){
+   for (i = 1; i <= 20; i++ ) {
       append(A,i);
       prepend(B,i);
    }
 
    printList(stdout,A); 
    printf("\n");
-   printList(stdout,B); 
+   printList(stdout,B);
    printf("\n");
 
-   for(moveFront(A); index(A)>=0; moveNext(A)){
+   for (moveFront(A); index(A)>=0; moveNext(A)) {
       printf("%d ", get(A));
    }
+
    printf("\n");
-   for(moveBack(B); index(B)>=0; movePrev(B)){
+   for (moveBack(B); index(B) >= 0; movePrev(B)) {
       printf("%d ", get(B));
    }
    printf("\n");
@@ -54,7 +55,7 @@ int main(int argc, char* argv[]){
    freeList(&B);
    freeList(&C);
 
-   return(0);
+   return 0;
 }
 
 /*
