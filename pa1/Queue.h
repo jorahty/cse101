@@ -1,9 +1,8 @@
 // James Tennant • jtennant • pa1
 
-#ifndef QUEUE_H_INCLUDE_
-#define QUEUE_H_INCLUDE_
+#pragma once
 
-#include<stdbool.h>
+#include <stdbool.h>
 
 
 // Exported types -------------------------------------------------------------
@@ -60,5 +59,3 @@ void printQueue(Queue Q);
 // equals()
 // Returns true if A is same int sequence as B, false otherwise.
 bool equals(Queue A, Queue B);
-
-#endif
