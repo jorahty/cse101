@@ -1,7 +1,5 @@
-/****************************************************************************************
-*  ListClient.c
-*  Test client for List ADT
-*****************************************************************************************/
+// James Tennant • jtennant • pa1
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>

@@ -1,7 +1,5 @@
-//-----------------------------------------------------------------------------
-// Queue.h
-// Header file for Queue ADT
-//-----------------------------------------------------------------------------
+// James Tennant • jtennant • pa1
+
 #ifndef QUEUE_H_INCLUDE_
 #define QUEUE_H_INCLUDE_
 

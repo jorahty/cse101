@@ -1,12 +1,4 @@
-#------------------------------------------------------------------------------
-# Makefile for CSE 101 Programming Assignment 1
-#
-# make                   makes Lex
-# make ListClient        makes ListClient
-# make clean             removes all binaries
-# make checkClient       checks ListClient for memory errors
-# make checkLex          checks Lex for memory errors
-#------------------------------------------------------------------------------
+# James Tennant • jtennant • pa1
 
 Lex : Lex.o List.o
 	gcc -std=c17 -Wall -o Lex Lex.o List.o
