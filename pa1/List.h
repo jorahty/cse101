@@ -37,10 +37,11 @@ void movePrev(List L);
 // if cursor is defined and at back, cursor becomes undefined; if cursor is undefined do nothing
 void moveNext(List L);
 
-void prepend(List L, int x); // Insert new element into L. If L is non-empty,
-// insertion takes place before front element.
-void append(List L, int x); // Insert new element into L. If L is non-empty,
-// insertion takes place after back element.
+// Insert new element into L. If L is non-empty, insertion takes place before front element.
+void prepend(List L, int x);
+
+// Insert new element into L. If L is non-empty, insertion takes place after back element.
+void append(List L, int x);
 
 void insertBefore(List L, int x); // Insert new element before cursor. Pre: length() > 0, index() >= 0
 void insertAfter(List L, int x); // Insert new element after cursor. Pre: length() > 0, index() >= 0
