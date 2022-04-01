@@ -46,8 +46,10 @@ void freeNode(Node* pN){
 
 // Creates and returns a new empty List
 List newList() {
-   // All fields (front, back, cursor, index, length) are NULL (i.e. 0)
-   return calloc(1, sizeof(ListObj));
+   // Most fields (front, back, cursor, length) are NULL (or 0)
+   List L = calloc(1, sizeof(ListObj));
+   L->index = -1; // index is undefined
+   return L;
 }
 
 // Frees all heap memory associated with *pL, and sets *pL to NULL
@@ -72,11 +74,64 @@ int length(List L) {
    return L->length;
 }
 
+// Returns index of cursor element if defined, -1 otherwise
+int index(List L) {
+   if (L == NULL) {
+      printf("List Error: calling length() on NULL List reference\n");
+      exit(1);
+   }
+   return L->index;
+}
+
 // ██ Manipulation Procedures ██
 
-// Delete the front element. Pre: length()>0
+// Deletes the front element. Pre: length() > 0
 void deleteFront(List L) {
-   
+   if (L == NULL) {
+      printf("List Error: calling deleteFront() on NULL List reference\n");
+      exit(1);
+   }
+   if (length(L) < 1) {
+      printf("List Error: calling deleteFront on an empty List\n");
+      freeList(&L);
+      exit(1);
+   }
+
+   // If cursor in front, undefine cursor
+   if (L->cursor == L->front) {
+      delete(L);
+   }
+
+   // Save front before updating to new front
+   // so original front can be deleted after
+   Node N = L->front; 
+   if (length(L) > 1) {
+      L->front = L->front->next;
+   } else {
+      L->front = L->back = NULL; // Only one node
+   }
+   L->length--;
+   freeNode(&N);
+}
+
+// Deletes cursor element, making cursor undefined. Pre: length() > 0, index() >= 0
+void delete(List L) {
+   if (L == NULL) {
+      printf("List Error: calling deleteFront() on NULL List reference\n");
+      exit(1);
+   }
+   if (length(L) < 1) {
+      printf("List Error: calling deleteFront on an empty List\n");
+      freeList(&L);
+      exit(1);
+   }
+   if (index(L) < 0) {
+      printf("List Error: calling deleteFront on an empty List\n");
+      freeList(&L);
+      exit(1);
+   }
+   L->cursor = NULL;
+   L->index = -1;
 }
 
 // ██ Other Functions ██
