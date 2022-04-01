@@ -46,7 +46,7 @@ void freeNode(Node* pN){
 
 // Creates and returns a new empty List
 List newList() {
-   // All fields (front, back, cursor, index, length) are NULL
+   // All fields (front, back, cursor, index, length) are NULL (i.e. 0)
    return calloc(1, sizeof(ListObj));
 }
 
@@ -61,8 +61,18 @@ void freeList(List* pL) {
    }
 }
 
-// Prints to the file pointed to by out, a
-// string representation of L consisting
-// of a space separated sequence of integers,
-// with front on left.
-// void printList(FILE* out, List L);
+// ██ Other Functions ██
+
+// Prints to the file pointed to by out, a string representation of L
+// consisting of a space-separated sequence of integers, with front on left.
+void printList(FILE* out, List L) {
+   if (L == NULL) {
+      printf("List Error: calling printList() on NULL List reference\n");
+      exit(1);
+   }
+
+   for (Node N = L->front; N != NULL; N = N->next) {
+      printf("%d ", N->data);
+   }
+   printf("\n");
+}
