@@ -55,7 +55,7 @@ List newList() {
 // Frees all heap memory associated with *pL, and sets *pL to NULL
 void freeList(List* pL) {
    if (pL && *pL) {
-      while (length(*pL)) {
+      while (length(*pL) > 0) {
          deleteFront(*pL);
       }
       free(*pL);
@@ -153,6 +153,39 @@ bool equals(List A, List B) {
 }
 
 // ██ Manipulation Procedures ██
+
+// Resets L to its original empty state.
+void clear(List L) {
+   if (L == NULL) {
+      printf("List Error: calling clear() on NULL List reference\n");
+      exit(1);
+   }
+   while (length(L)) {
+      deleteFront(L);
+   }
+   L->front = L->back = L->cursor = NULL;
+   L->index = -1;
+   L->length = 0;
+}
+
+// Overwrites the cursor element’s data with x. Pre: length() > 0, index() >= 0
+void set(List L, int x) {
+   if (L == NULL) {
+      printf("List Error: calling set() on NULL List reference\n");
+      exit(1);
+   }
+   if (length(L) < 1) {
+      printf("List Error: calling set() on empty List\n");
+      freeList(&L);
+      exit(1);
+   }
+   if (index(L) < 0) {
+      printf("List Error: calling set() on List with undefined index\n");
+      freeList(&L);
+      exit(1);
+   }
+   L->cursor->data = x;
+}
 
 // If L is non-empty, sets cursor under the front element, otherwise does nothing.
 void moveFront(List L) {
