@@ -83,6 +83,75 @@ int index(List L) {
    return L->index;
 }
 
+// Returns front element of L. Pre: length() > 0
+int front(List L) {
+   if (L == NULL) {
+      printf("List Error: calling front() on NULL List reference\n");
+      exit(1);
+   }
+   if (length(L) < 1) {
+      printf("List Error: calling front() on an empty List\n");
+      freeList(&L);
+      exit(1);
+   }
+   return L->front->data;
+}
+
+// Returns back element of L. Pre: length() > 0
+int back(List L) {
+   if (L == NULL) {
+      printf("List Error: calling back() on NULL List reference\n");
+      exit(1);
+   }
+   if (length(L) < 1) {
+      printf("List Error: calling back() on an empty List\n");
+      freeList(&L);
+      exit(1);
+   }
+   return L->back->data;
+}
+
+// Returns cursor element of L. Pre: length() > 0, index() >= 0
+int get(List L) {
+   if (L == NULL) {
+      printf("List Error: calling get() on NULL List reference\n");
+      exit(1);
+   }
+   if (length(L) < 1) {
+      printf("List Error: calling get() on an empty List\n");
+      freeList(&L);
+      exit(1);
+   }
+   if (index(L) < 0) {
+      printf("List Error: calling get() on List with undefined index\n");
+      freeList(&L);
+      exit(1);
+   }
+   return L->cursor->data;
+}
+
+// Returns true iff A & B are in same state, false otherwise
+bool equals(List A, List B) {
+   if (A == NULL || B == NULL) {
+      printf("List Error: calling equals() on NULL List reference\n");
+      exit(1);
+   }
+
+   bool eq = false;
+   Node N = NULL;
+   Node M = NULL;
+
+   eq = (A->length == B->length);
+   N = A->front;
+   M = B->front;
+   while (eq && N != NULL) {
+      eq = (N->data == M->data);
+      N = N->next;
+      M = M->next;
+   }
+   return eq;
+}
+
 // ██ Manipulation Procedures ██
 
 // Insert new element into L. If L is non-empty, insertion takes place after back element.
@@ -93,7 +162,7 @@ void append(List L, int x) {
    }
 
    Node N = newNode(x);
-   
+
    if (length(L) == 0) { 
       L->front = L->back = N; 
    } else { 
@@ -110,7 +179,7 @@ void deleteFront(List L) {
       exit(1);
    }
    if (length(L) < 1) {
-      printf("List Error: calling deleteFront on an empty List\n");
+      printf("List Error: calling deleteFront() on an empty List\n");
       freeList(&L);
       exit(1);
    }
