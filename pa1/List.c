@@ -154,6 +154,36 @@ bool equals(List A, List B) {
 
 // ██ Manipulation Procedures ██
 
+// If L is non-empty, sets cursor under the front element, otherwise does nothing.
+void moveFront(List L) {
+   if (L == NULL) {
+      printf("List Error: calling moveFront() on NULL List reference\n");
+      exit(1);
+   }
+
+   if (length(L) > 0) {
+      L->cursor = L->front;
+      L->index = 0;
+   }
+}
+
+// If cursor is defined and not at back, move cursor one step toward the back of L;
+// if cursor is defined and at back, cursor becomes undefined; if cursor is undefined do nothing
+void moveNext(List L) {
+   if (L == NULL) {
+      printf("List Error: calling moveNext() on NULL List reference\n");
+      exit(1);
+   }
+   if (L->cursor == NULL) { return; } // cursor undefined
+   if (L->cursor == L->back) { // cursor defined and at back
+      L->cursor = NULL;
+      L->index = -1;
+      return;
+   } // cursor defined and not at back
+   L->cursor = L->cursor->next;
+   L->index++;
+}
+
 // Insert new element into L. If L is non-empty, insertion takes place before front element.
 void prepend(List L, int x) {
    if (L == NULL) {
@@ -171,6 +201,10 @@ void prepend(List L, int x) {
       N->next = L->front;
 
       L->front = N; // Update the front
+
+      if (L->index > -1) { 
+         L->index++; // Update index if defined
+      }
    }
    L->length++;
 }
