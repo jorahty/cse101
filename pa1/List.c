@@ -85,6 +85,24 @@ int index(List L) {
 
 // ██ Manipulation Procedures ██
 
+// Insert new element into L. If L is non-empty, insertion takes place after back element.
+void append(List L, int x) {
+   if (L == NULL) {
+      printf("List Error: calling append() on NULL List reference\n");
+      exit(1);
+   }
+
+   Node N = newNode(x);
+   
+   if (length(L) == 0) { 
+      L->front = L->back = N; 
+   } else { 
+      L->back->next = N; 
+      L->back = N; 
+   }
+   L->length++;
+}
+
 // Deletes the front element. Pre: length() > 0
 void deleteFront(List L) {
    if (L == NULL) {
