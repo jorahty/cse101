@@ -356,7 +356,37 @@ void deleteFront(List L) {
 }
 
 // Delete the back element. Pre: length() > 0
-// void deleteBack(List L);
+void deleteBack(List L) {
+   if (L == NULL) {
+      printf("List Error: calling deleteBack() on NULL List reference\n");
+      exit(1);
+   }
+   if (length(L) < 1) {
+      printf("List Error: calling deleteBack() on an empty List\n");
+      freeList(&L);
+      exit(1);
+   }
+
+   // If cursor in back, undefine cursor element
+   if (L->cursor == L->back) {
+      L->cursor = NULL;
+      L->index = -1;
+   }
+
+   // Save back before updating to new back
+   // so original back can be deleted after
+   Node N = L->back;
+
+   if (length(L) > 1) { // Multiple elements
+      L->back->prev->next = NULL; // Unhook second-to-last element
+      L->back = L->back->prev; // Update back
+   } else {
+      // Only one element so front & back become NULL
+      L->front = L->back = NULL;
+   }
+   L->length--;
+   freeNode(&N);
+}
 
 // Deletes cursor element, making cursor undefined. Pre: length() > 0, index() >= 0
 void delete(List L) {
