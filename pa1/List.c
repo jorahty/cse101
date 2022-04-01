@@ -65,16 +65,15 @@ void freeList(List* pL) {
 
 // Returns the number of elements in L
 int length(List L) {
-   if (L == NULL) {
-      printf("List Error: calling length() on NULL List reference\n");
-      exit(1);
-   }
    return(L->length);
 }
 
 // ██ Manipulation Procedures ██
 
-void deleteFront(List L); // Delete the front element. Pre: length()>0
+// Delete the front element. Pre: length()>0
+void deleteFront(List L) {
+
+}
 
 // ██ Other Functions ██
 
