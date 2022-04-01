@@ -211,8 +211,10 @@ void moveBack(List L) {
    }
 }
 
-// If cursor is defined and not at front, move cursor one step toward the front of L;
-// if cursor is defined and at front, cursor becomes undefined; if cursor is undefined do nothing
+// If cursor is defined and not at front,
+// move cursor one step toward the front of L;
+// if cursor is defined and at front, cursor becomes undefined;
+// if cursor is undefined do nothing
 void movePrev(List L) {
    if (L == NULL) {
       printf("List Error: calling movePrev() on NULL List reference\n");
@@ -228,8 +230,10 @@ void movePrev(List L) {
    L->index--;
 }
 
-// If cursor is defined and not at back, move cursor one step toward the back of L;
-// if cursor is defined and at back, cursor becomes undefined; if cursor is undefined do nothing
+// If cursor is defined and not at back,
+// move cursor one step toward the back of L;
+// if cursor is defined and at back, cursor becomes undefined;
+// if cursor is undefined do nothing
 void moveNext(List L) {
    if (L == NULL) {
       printf("List Error: calling moveNext() on NULL List reference\n");
