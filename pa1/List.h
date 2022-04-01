@@ -25,7 +25,7 @@ bool equals(List A, List B); // Returns true iff A & B are in same state, false 
 // ██ Manipulation Procedures ██
 
 void clear(List L); // Resets L to its original empty state.
-void set(List L, int x); // Overwrites the cursor element’s data with x. Pre: length()>0, index()>=0
+void set(List L, int x); // Overwrites the cursor element’s data with x. Pre: length() > 0, index() >= 0
 void moveFront(List L); // If L is non-empty, sets cursor under the front element, otherwise does nothing.
 void moveBack(List L); // If L is non-empty, sets cursor under the back element, otherwise does nothing.
 
@@ -42,11 +42,11 @@ void prepend(List L, int x); // Insert new element into L. If L is non-empty,
 void append(List L, int x); // Insert new element into L. If L is non-empty,
 // insertion takes place after back element.
 
-void insertBefore(List L, int x); // Insert new element before cursor. Pre: length()>0, index()>=0
-void insertAfter(List L, int x); // Insert new element after cursor. Pre: length()>0, index()>=0
-void deleteFront(List L); // Delete the front element. Pre: length()>0
-void deleteBack(List L); // Delete the back element. Pre: length()>0
-void delete(List L); // Delete cursor element, making cursor undefined. Pre: length()>0, index()>=0
+void insertBefore(List L, int x); // Insert new element before cursor. Pre: length() > 0, index() >= 0
+void insertAfter(List L, int x); // Insert new element after cursor. Pre: length() > 0, index() >= 0
+void deleteFront(List L); // Delete the front element. Pre: length() > 0
+void deleteBack(List L); // Delete the back element. Pre: length() > 0
+void delete(List L); // Delete cursor element, making cursor undefined. Pre: length() > 0, index() >= 0
 
 // ██ Other Functions ██
 
