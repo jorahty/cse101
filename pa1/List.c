@@ -53,13 +53,28 @@ List newList() {
 // Frees all heap memory associated with *pL, and sets *pL to NULL
 void freeList(List* pL) {
    if (pL && *pL) {
-      // while (!isEmpty(*pL)) {
+      while (length(*pL)) {
          // deleteFront(*pL);
-      // }
+      }
       free(*pL);
       *pL = NULL;
    }
 }
+
+// ██ Access Functions ██
+
+// Returns the number of elements in L
+int length(List L) {
+   if (L == NULL) {
+      printf("List Error: calling length() on NULL List reference\n");
+      exit(1);
+   }
+   return(L->length);
+}
+
+// ██ Manipulation Procedures ██
+
+void deleteFront(List L); // Delete the front element. Pre: length()>0
 
 // ██ Other Functions ██
 
