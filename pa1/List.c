@@ -5,6 +5,64 @@
 #include <stdbool.h>
 #include "List.h"
 
-List newList() {
-   return 0; // For now
+// ██ Private Types ██
+
+// Define private Node type
+typedef struct NodeObj* Node;
+
+// Define private NodeObj type
+typedef struct NodeObj {
+   int data;
+   Node next;
+   Node prev;
+} NodeObj;
+
+// Define private ListObj type
+typedef struct ListObj {
+   Node front;
+   Node back;
+   Node cursor;
+   int index;
+   int length;
+} ListObj;
+
+// ██ Constructors & Destructors ██
+
+// Creates a Node
+Node newNode(int data){
+   Node N = malloc(sizeof(NodeObj));
+   N->data = data;
+   N->next = NULL;
+   return N;
 }
+
+// Deletes a Node
+void freeNode(Node* pN){
+   if (pN && *pN){
+      free(*pN);
+      *pN = NULL;
+   }
+}
+
+// Creates and returns a new empty List
+List newList() {
+   // All fields (front, back, cursor, index, length) are NULL
+   return calloc(1, sizeof(ListObj));
+}
+
+// Frees all heap memory associated with *pL, and sets *pL to NULL
+void freeList(List* pL) {
+   if (pL && *pL) {
+      // while (!isEmpty(*pL)) {
+         // deleteFront(*pL);
+      // }
+      free(*pL);
+      *pL = NULL;
+   }
+}
+
+// Prints to the file pointed to by out, a
+// string representation of L consisting
+// of a space separated sequence of integers,
+// with front on left.
+// void printList(FILE* out, List L);
