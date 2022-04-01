@@ -46,7 +46,7 @@ void freeNode(Node* pN){
 
 // Creates and returns a new empty List
 List newList() {
-   // Most fields (front, back, cursor, length) are NULL (or 0)
+   // Most fields (front, back, cursor, length) are NULL (i.e. 0)
    List L = calloc(1, sizeof(ListObj));
    L->index = -1; // index is undefined
    return L;
@@ -154,6 +154,27 @@ bool equals(List A, List B) {
 
 // ██ Manipulation Procedures ██
 
+// Insert new element into L. If L is non-empty, insertion takes place before front element.
+void prepend(List L, int x) {
+   if (L == NULL) {
+      printf("List Error: calling prepend() on NULL List reference\n");
+      exit(1);
+   }
+
+   Node N = newNode(x); // Create new node with data x
+
+   if (length(L) == 0) {
+      L->front = L->back = N; // List is empty
+   } else { 
+      // Hook up the Nodes
+      L->front->prev = N;
+      N->next = L->front;
+
+      L->front = N; // Update the front
+   }
+   L->length++;
+}
+
 // Insert new element into L. If L is non-empty, insertion takes place after back element.
 void append(List L, int x) {
    if (L == NULL) {
@@ -161,13 +182,16 @@ void append(List L, int x) {
       exit(1);
    }
 
-   Node N = newNode(x);
+   Node N = newNode(x); // Create new Node with data x
 
-   if (length(L) == 0) { 
-      L->front = L->back = N; 
-   } else { 
-      L->back->next = N; 
-      L->back = N; 
+   if (length(L) == 0) {
+      L->front = L->back = N; // List is empty
+   } else {
+      // Hook up the nodes
+      L->back->next = N;
+      N->prev = L->back;
+
+      L->back = N; // Update the back
    }
    L->length++;
 }
