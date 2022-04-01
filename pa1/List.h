@@ -8,7 +8,7 @@
 
 typedef struct ListObj* List;
 
-// ██ Constructors-Destructors ██
+// ██ Constructors & Destructors ██
 
 List newList(); // Creates and returns a new empty List
 void freeList(List* pL); // Frees all heap memory associated with *pL, and sets *pL to NULL
