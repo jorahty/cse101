@@ -4,7 +4,7 @@
 
 #include <stdbool.h>
 
-// ██ Exported Types ██
+// ██ Public Types ██
 
 typedef struct ListObj* List;
 
