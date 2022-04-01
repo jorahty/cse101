@@ -321,3 +321,22 @@ void printList(FILE* out, List L) {
       printf("%d ", N->data);
    }
 }
+
+// Returns a new List representing the same integer
+// sequence as L. The cursor in the new list is undefined,
+// regardless of the state of the cursor in L. The state
+// of L is unchanged.
+List copyList(List L) {
+   if (L == NULL) {
+      printf("List Error: calling copyList() on NULL List reference\n");
+      exit(1);
+   }
+
+   List C = newList(); // Create new List
+
+   for (Node N = L->front; N != NULL; N = N->next) {
+      append(C, N->data); // Transfer integer sequence
+   }
+
+   return C;
+}
