@@ -56,7 +56,7 @@ List newList() {
 void freeList(List* pL) {
    if (pL && *pL) {
       while (length(*pL)) {
-         // deleteFront(*pL);
+         deleteFront(*pL);
       }
       free(*pL);
       *pL = NULL;
@@ -77,7 +77,7 @@ int length(List L) {
 // Returns index of cursor element if defined, -1 otherwise
 int index(List L) {
    if (L == NULL) {
-      printf("List Error: calling length() on NULL List reference\n");
+      printf("List Error: calling index() on NULL List reference\n");
       exit(1);
    }
    return L->index;
@@ -117,16 +117,16 @@ void deleteFront(List L) {
 // Deletes cursor element, making cursor undefined. Pre: length() > 0, index() >= 0
 void delete(List L) {
    if (L == NULL) {
-      printf("List Error: calling deleteFront() on NULL List reference\n");
+      printf("List Error: calling delete() on NULL List reference\n");
       exit(1);
    }
    if (length(L) < 1) {
-      printf("List Error: calling deleteFront on an empty List\n");
+      printf("List Error: calling delete() on an empty List\n");
       freeList(&L);
       exit(1);
    }
    if (index(L) < 0) {
-      printf("List Error: calling deleteFront on an empty List\n");
+      printf("List Error: calling delete() on List with undefined index\n");
       freeList(&L);
       exit(1);
    }
