@@ -249,7 +249,7 @@ void append(List L, int x) {
    if (length(L) == 0) {
       L->front = L->back = N; // List is empty
    } else {
-      // Hook up the nodes
+      // Hook up the Nodes
       L->back->next = N;
       N->prev = L->back;
 
@@ -290,7 +290,34 @@ void insertBefore(List L, int x) {
 }
 
 // Insert new element after cursor. Pre: length() > 0, index() >= 0
-// void insertAfter(List L, int x);
+void insertAfter(List L, int x) {
+   if (L == NULL) {
+      printf("List Error: calling insertAfter() on NULL List reference\n");
+      exit(1);
+   }
+   if (length(L) < 1) {
+      printf("List Error: calling insertAfter() on empty List\n");
+      freeList(&L);
+      exit(1);
+   }
+   if (index(L) < 0) {
+      printf("List Error: calling insertAfter() on List with undefined index\n");
+      freeList(&L);
+      exit(1);
+   }
+
+   Node N = newNode(x); // Create new Node with data x
+
+   // Hook up the new Node
+   N->next = L->cursor->next;
+   N->prev = L->cursor;
+
+   // Hook up the surrounding Nodes
+   L->cursor->next->prev = N;
+   L->cursor->next = N;
+
+   L->length++;
+}
 
 // Deletes the front element. Pre: length() > 0
 void deleteFront(List L) {
@@ -304,18 +331,25 @@ void deleteFront(List L) {
       exit(1);
    }
 
-   // If cursor in front, undefine cursor
+   // If cursor in front, undefine cursor element
    if (L->cursor == L->front) {
-      delete(L);
+      L->cursor = NULL;
+      L->index = -1;
    }
 
    // Save front before updating to new front
    // so original front can be deleted after
-   Node N = L->front; 
-   if (length(L) > 1) {
-      L->front = L->front->next;
+   Node N = L->front;
+
+   if (length(L) > 1) { // Multiple elements
+      L->front->next->prev = NULL; // Unhook second element
+      L->front = L->front->next; // Update front
+      if (index(L) > 0) {
+         L->index--; // Decrement index if defined (& not in front)
+      }
    } else {
-      L->front = L->back = NULL; // Only one node
+      // Only one element so front & back become NULL
+      L->front = L->back = NULL;
    }
    L->length--;
    freeNode(&N);
@@ -340,7 +374,18 @@ void delete(List L) {
       freeList(&L);
       exit(1);
    }
-   L->cursor = NULL;
+
+   // Adjust Node before cursor if it exists
+   if (L->cursor->prev != NULL) {
+      L->cursor->prev->next = L->cursor->next;
+   }
+   // Adjust Node after cursor if it exists
+   if (L->cursor->next != NULL) {
+      L->cursor->next->prev = L->cursor->prev;
+   }
+
+   L->length--;
+   freeNode(&(L->cursor));
    L->index = -1;
 }
 
