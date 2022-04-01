@@ -219,7 +219,7 @@ void prepend(List L, int x) {
       exit(1);
    }
 
-   Node N = newNode(x); // Create new node with data x
+   Node N = newNode(x); // Create new Node with data x
 
    if (length(L) == 0) {
       L->front = L->back = N; // List is empty
@@ -258,6 +258,40 @@ void append(List L, int x) {
    L->length++;
 }
 
+// Insert new element before cursor. Pre: length() > 0, index() >= 0
+void insertBefore(List L, int x) {
+   if (L == NULL) {
+      printf("List Error: calling insertBefore() on NULL List reference\n");
+      exit(1);
+   }
+   if (length(L) < 1) {
+      printf("List Error: calling insertBefore() on empty List\n");
+      freeList(&L);
+      exit(1);
+   }
+   if (index(L) < 0) {
+      printf("List Error: calling insertBefore() on List with undefined index\n");
+      freeList(&L);
+      exit(1);
+   }
+
+   Node N = newNode(x); // Create new Node with data x
+
+   // Hook up the new Node
+   N->prev = L->cursor->prev;
+   N->next = L->cursor;
+
+   // Hook up the surrounding Nodes
+   L->cursor->prev->next = N;
+   L->cursor->prev = N;
+
+   L->index++;
+   L->length++;
+}
+
+// Insert new element after cursor. Pre: length() > 0, index() >= 0
+// void insertAfter(List L, int x);
+
 // Deletes the front element. Pre: length() > 0
 void deleteFront(List L) {
    if (L == NULL) {
@@ -286,6 +320,9 @@ void deleteFront(List L) {
    L->length--;
    freeNode(&N);
 }
+
+// Delete the back element. Pre: length() > 0
+// void deleteBack(List L);
 
 // Deletes cursor element, making cursor undefined. Pre: length() > 0, index() >= 0
 void delete(List L) {
