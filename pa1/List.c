@@ -234,5 +234,4 @@ void printList(FILE* out, List L) {
    for (Node N = L->front; N != NULL; N = N->next) {
       printf("%d ", N->data);
    }
-   printf("\n");
 }
