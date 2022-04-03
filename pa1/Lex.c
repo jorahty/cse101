@@ -54,15 +54,8 @@ int main(int argc, char* argv[]) {
 
         // Remove newline
         // strings[i][strlen(strings[i]) - 1] = '\0';
-        strings[i] = strtok(strings[i], "\n");
+        // strings[i] = strtok(strings[i], "\n");
     }
-    printf("             ");
-    for (int i = 0; i < n; i++) { printf("%d    ", i); }
-    printf("\n");
-    printf("strings = ( ");
-    for (int i = 0; i < n; i++) { printf("\"%s\", ", strings[i]); }
-    printf(")\n\n");
-
 
     // Create List of indices that indirectly sorts array
     List L = newList();
@@ -85,11 +78,6 @@ int main(int argc, char* argv[]) {
             }
         }
     }
-
-    printf("\n");
-    printList(stdout, L);
-    printf("\n");
-    freeList(&L);
 
     // Free the array of strings
     for (int i = 0; i < n; i++) { free(strings[i]); }
