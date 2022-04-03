@@ -319,8 +319,12 @@ void insertBefore(List L, int x) {
    N->next = L->cursor;
 
    // Hook up the surrounding Nodes
-   L->cursor->prev->next = N;
-   L->cursor->prev = N;
+   if (L->cursor == L->front) { // If cursor in front
+      L->front = N; // N is the new front
+   } else {
+      L->cursor->prev->next = N; // Link prev to N
+   }
+   L->cursor->prev = N; // Link cursor to N
 
    L->index++;
    L->length++;
@@ -350,8 +354,12 @@ void insertAfter(List L, int x) {
    N->prev = L->cursor;
 
    // Hook up the surrounding Nodes
-   L->cursor->next->prev = N;
-   L->cursor->next = N;
+   if (L->cursor == L->back) { // If cursor in back
+      L->back = N; // N is the new back
+   } else {
+      L->cursor->next->prev = N; // Link next to N
+   }
+   L->cursor->next = N; // Link cursor to N
 
    L->length++;
 }
