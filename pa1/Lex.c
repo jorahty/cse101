@@ -47,13 +47,13 @@ int main(int argc, char* argv[]) {
         fgets(line, KB, in);
 
         // Allocate minimum heap memory for string
-        strings[i] = calloc(strlen(line), sizeof(char)); 
+        int bytes = strlen(line) + 1; // Plus one for '\0'
+        strings[i] = calloc(bytes, sizeof(char)); 
 
         // Copy string from line buffer to array
         strcpy(strings[i], line);
 
         // Remove newline
-        // strings[i][strlen(strings[i]) - 1] = '\0';
         // strings[i] = strtok(strings[i], "\n");
     }
 
@@ -78,6 +78,9 @@ int main(int argc, char* argv[]) {
             }
         }
     }
+
+    // Free List of indices
+    freeList(&L);
 
     // Free the array of strings
     for (int i = 0; i < n; i++) { free(strings[i]); }
