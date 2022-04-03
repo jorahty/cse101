@@ -52,9 +52,6 @@ int main(int argc, char* argv[]) {
 
         // Copy string from line buffer to array
         strcpy(strings[i], line);
-
-        // Remove newline
-        // strings[i] = strtok(strings[i], "\n");
     }
 
     // Create List of indices that indirectly sorts array
@@ -79,7 +76,13 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    // Free List of indices
+    // Use List to write strings in alphabetical order
+    for (moveFront(L); index(L) != -1; moveNext(L)) {
+        int i = get(L);
+        fputs(strings[i], out);
+    }
+
+    // Free the List of indices
     freeList(&L);
 
     // Free the array of strings
