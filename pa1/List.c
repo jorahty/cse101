@@ -30,9 +30,8 @@ typedef struct ListObj {
 
 // Creates a Node
 Node newNode(int data){
-   Node N = malloc(sizeof(NodeObj));
+   Node N = calloc(1, sizeof(NodeObj));
    N->data = data;
-   N->next = NULL;
    return N;
 }
 
