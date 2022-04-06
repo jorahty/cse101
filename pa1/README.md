@@ -11,4 +11,4 @@ Test Client for verifying functionality of List ADT
 Makefile for building Lex & ListTest executables
 
 ## README.md
-Contains file descriptions (This file.)
+Contains file descriptions
