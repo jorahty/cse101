@@ -452,15 +452,20 @@ void delete(List L) {
    // Adjust Node before cursor if it exists
    if (L->cursor->prev != NULL) {
       L->cursor->prev->next = L->cursor->next;
+   } else {
+      L->front = L->cursor->next; // Cursor at front so update front
    }
+
    // Adjust Node after cursor if it exists
    if (L->cursor->next != NULL) {
       L->cursor->next->prev = L->cursor->prev;
+   } else {
+      L->back = L->cursor->prev; // Cursor at back so update back
    }
 
-   L->length--;
    freeNode(&(L->cursor));
    L->index = -1;
+   L->length--;
 }
 
 // ██ Other Functions ██
