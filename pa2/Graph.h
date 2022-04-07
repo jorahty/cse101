@@ -5,6 +5,9 @@
 #include <stdlib.h>
 #include "List.h"
 
+#define INF -1  // Infinity
+#define NIL 0   // Undefined vertex label
+
 // ██ Public Types ██
 
 typedef struct GraphObj* Graph;
