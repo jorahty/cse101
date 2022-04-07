@@ -19,7 +19,20 @@ typedef struct GraphObj {
 
 // ██ Constructors & Destructors ██
 
-Graph newGraph(int n);
+// Create new Graph with n vertices and no edges
+Graph newGraph(int n) {
+	n++; // Array length is n + 1
+	Graph G = malloc(sizeof(Graph));
+	G->neighbors = calloc(n, sizeof(List));
+	G->color = calloc(n, sizeof(char));
+	G->parent = calloc(n, sizeof(int));
+	G->distance = calloc(n, sizeof(int));
+	G->order = n;
+	G->size = 0;
+	G->source = NIL;
+	return G;
+}
+
 void freeGraph(Graph* pG);
 
 // ██ Access Functions ██
