@@ -1,12 +1,7 @@
-#------------------------------------------------------------------------------
-#  Makefile for CMPS 101 Programming Assignment 2
-#
+# James Tennant • jtennant • pa1
 #  make                     makes FindPath
 #  make GraphClient         makes GraphClient
 #  make clean               removes binaries
-#  make checkFind           tests FindPath for memory leaks on in7
-#  make checkClient         tests GraphClient for memory leaks
-#------------------------------------------------------------------------------
 
 BASE_SOURCES   = Graph.c List.c
 BASE_OBJECTS   = Graph.o List.o
@@ -33,9 +28,3 @@ $(BASE_OBJECTS) : $(BASE_SOURCES) $(HEADERS)
 
 clean :
 	$(REMOVE) FindPath GraphClient FindPath.o GraphClient.o $(BASE_OBJECTS)
-
-checkFind : FindPath
-	$(MEMCHECK) FindPath in7 junk7
-
-checkClient : GraphClient
-	$(MEMCHECK) GraphClient
