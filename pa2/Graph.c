@@ -11,7 +11,7 @@ typedef struct GraphObj {
    List* neighbors; // Neighbors of each vertex
    char* color;     // Color of each vertex (w/g/b)
    int* parent;     // Parent of each vertex
-   int* distance;   // Each vertice's distance to source
+   int* distance;   // Distance to source from each vertex
    int order;       // Number of vertices
    int size;        // Number of edges
    int source;      // Most recent source vertex
