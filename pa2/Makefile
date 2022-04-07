@@ -6,7 +6,7 @@ HEADERS      = Graph.h List.h
 COMPILE      = gcc -std=c17 -Wall -c
 LINK         = gcc -std=c17 -Wall -o
 
-all: FindPath GraphClient
+all: FindPath GraphTest
 
 FindPath: FindPath.o $(BASE_OBJECTS)
 	$(LINK) FindPath FindPath.o $(BASE_OBJECTS)
