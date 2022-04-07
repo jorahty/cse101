@@ -11,20 +11,20 @@ LINK           = gcc -std=c17 -Wall -o
 REMOVE         = rm -f
 MEMCHECK       = valgrind --leak-check=full
 
-FindPath : FindPath.o $(BASE_OBJECTS)
+FindPath: FindPath.o $(BASE_OBJECTS)
 	$(LINK) FindPath FindPath.o $(BASE_OBJECTS)
 
-GraphClient : GraphClient.o $(BASE_OBJECTS)
+GraphClient: GraphClient.o $(BASE_OBJECTS)
 	$(LINK) GraphClient GraphClient.o $(BASE_OBJECTS)
 
-FindPath.o : FindPath.c $(HEADERS)
+FindPath.o: FindPath.c $(HEADERS)
 	$(COMPILE) FindPath.c
 
-GraphClient.o : GraphClient.c $(HEADERS)
+GraphClient.o: GraphClient.c $(HEADERS)
 	$(COMPILE) GraphClient.c
 
-$(BASE_OBJECTS) : $(BASE_SOURCES) $(HEADERS)
+$(BASE_OBJECTS): $(BASE_SOURCES) $(HEADERS)
 	$(COMPILE) $(BASE_SOURCES)
 
-clean :
+clean:
 	$(REMOVE) FindPath GraphClient FindPath.o GraphClient.o $(BASE_OBJECTS)
