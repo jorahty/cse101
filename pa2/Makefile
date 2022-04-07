@@ -1,7 +1,4 @@
 # James Tennant • jtennant • pa1
-#  make                     makes FindPath
-#  make GraphClient         makes GraphClient
-#  make clean               removes binaries
 
 BASE_SOURCES   = Graph.c List.c
 BASE_OBJECTS   = Graph.o List.o
@@ -9,7 +6,8 @@ HEADERS        = Graph.h List.h
 COMPILE        = gcc -std=c17 -Wall -c
 LINK           = gcc -std=c17 -Wall -o
 REMOVE         = rm -f
-MEMCHECK       = valgrind --leak-check=full
+
+all: FindPath GraphClient
 
 FindPath: FindPath.o $(BASE_OBJECTS)
 	$(LINK) FindPath FindPath.o $(BASE_OBJECTS)
