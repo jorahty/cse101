@@ -1,11 +1,10 @@
 # James Tennant • jtennant • pa1
 
-BASE_SOURCES   = Graph.c List.c
-BASE_OBJECTS   = Graph.o List.o
-HEADERS        = Graph.h List.h
-COMPILE        = gcc -std=c17 -Wall -c
-LINK           = gcc -std=c17 -Wall -o
-REMOVE         = rm -f
+BASE_SOURCES = Graph.c List.c
+BASE_OBJECTS = Graph.o List.o
+HEADERS      = Graph.h List.h
+COMPILE      = gcc -std=c17 -Wall -c
+LINK         = gcc -std=c17 -Wall -o
 
 all: FindPath GraphClient
 
@@ -25,4 +24,4 @@ $(BASE_OBJECTS): $(BASE_SOURCES) $(HEADERS)
 	$(COMPILE) $(BASE_SOURCES)
 
 clean:
-	$(REMOVE) FindPath GraphClient FindPath.o GraphClient.o $(BASE_OBJECTS)
+	rm -f FindPath GraphClient *.o
