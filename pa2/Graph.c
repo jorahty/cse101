@@ -22,7 +22,7 @@ typedef struct GraphObj {
 // Create new Graph with n vertices and no edges
 Graph newGraph(int n) {
 	n++; // Array length is n + 1
-	Graph G = malloc(sizeof(Graph));
+	Graph G = malloc(sizeof(GraphObj));
 	G->neighbors = calloc(n, sizeof(List));
 	G->color = calloc(n, sizeof(char));
 	G->parent = calloc(n, sizeof(int));
@@ -33,7 +33,24 @@ Graph newGraph(int n) {
 	return G;
 }
 
-void freeGraph(Graph* pG);
+void freeGraph(Graph* pG) {
+	if (pG && *pG) {
+		if ((*pG)->neighbors) {
+			free((*pG)->neighbors);
+		}
+		if ((*pG)->color) {
+			free((*pG)->color);
+		}
+		if ((*pG)->parent) {
+			free((*pG)->parent);
+		}
+		if ((*pG)->distance) {
+			free((*pG)->distance);
+		}
+		free(*pG);
+		*pG = NULL;
+	}
+}
 
 // ██ Access Functions ██
 
