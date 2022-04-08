@@ -198,6 +198,8 @@ void addEdge(Graph G, int u, int v) {
 			break;
 		}
 	}
+	
+	G->size++;
 }
 
 // Pre: 1 ≤ u ≤ getOrder()
