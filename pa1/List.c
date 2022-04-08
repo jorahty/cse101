@@ -159,7 +159,7 @@ void clear(List L) {
       printf("List Error: calling clear() on NULL List reference\n");
       exit(1);
    }
-   while (length(L)) {
+   while (length(L) > 0) {
       deleteFront(L);
    }
    L->front = L->back = L->cursor = NULL;
