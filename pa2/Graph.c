@@ -120,7 +120,7 @@ int getDist(Graph G, int u) {
    return G->distance[u];
 }
 
-//   Append vertices of shortest path from source to u
+// Append vertices of shortest path from source to u
 // Append NIL if no such path exists
 // See PrintPath in /Examples/Pseudo-Code
 // Pre: 1 ≤ u ≤ getOrder(), getSource() != NIL
