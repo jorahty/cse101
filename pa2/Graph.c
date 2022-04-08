@@ -21,18 +21,29 @@ typedef struct GraphObj {
 
 // Create new Graph with n vertices and no edges
 Graph newGraph(int n) {
-	n++; // Array length is n + 1
 	Graph G = malloc(sizeof(GraphObj));
-	G->neighbors = calloc(n, sizeof(List));
-	G->color = calloc(n, sizeof(char));
-	G->parent = calloc(n, sizeof(int));
-	G->distance = calloc(n, sizeof(int));
+
+	int length = n + 1; // Array length is n + 1
+	G->neighbors = calloc(length, sizeof(List));
+	G->color = calloc(length, sizeof(char));
+	G->parent = calloc(length, sizeof(int));
+	G->distance = calloc(length, sizeof(int));
+
+	// Initialize vertex properties
+	for (int i = 1; i <= length; i++) {
+		G->neighbors[i] = newList();
+		G->color[i] = 'w';
+		G->parent[i] = NIL;
+		G->distance[i] = INF;
+	}
+	
 	G->order = n;
 	G->size = 0;
 	G->source = NIL;
 	return G;
 }
 
+// Free all memory & set *pG to NULL
 void freeGraph(Graph* pG) {
 	if (pG && *pG) {
 		if ((*pG)->neighbors) {
@@ -54,20 +65,68 @@ void freeGraph(Graph* pG) {
 
 // ██ Access Functions ██
 
-int getOrder(Graph G);
-int getSize(Graph G);
-int getSource(Graph G);
-int getParent(Graph G, int u);
+// Return order
+int getOrder(Graph G) {
+	if (G == NULL) {
+		printf("Graph Error: calling getOrder() on NULL Graph reference\n");
+		exit(1);
+	}
+	return G->order;
+}
+
+// Return size
+int getSize(Graph G) {
+	if (G == NULL) {
+		printf("Graph Error: calling getSize() on NULL Graph reference\n");
+		exit(1);
+	}
+	return G->size;
+}
+
+// Return (most recent) source
+int getSource(Graph G) {
+	if (G == NULL) {
+		printf("Graph Error: calling getSource() on NULL Graph reference\n");
+		exit(1);
+	}
+	return G->source;
+}
+
+// Return parent of vertex u
+// Pre: 1 ≤ u ≤ getOrder()
+int getParent(Graph G, int u) {
+	if (G == NULL) {
+		printf("Graph Error: calling getParent() on NULL Graph reference\n");
+		exit(1);
+	}
+	if (u < 1 || u > getOrder(G)) {
+		printf("Graph Error: calling getParent() with vertex out of range\n");
+		exit(1);
+	}
+	return G->parent[u];
+}
+
+// Pre: 1 ≤ u ≤ getOrder()
 int getDist(Graph G, int u);
+
+// Pre: 1 ≤ u ≤ getOrder(), getSource() != NIL
 void getPath(List L, Graph G, int u);
 
 // ██ Manipulation Procedures ██
 
 void makeNull(Graph G);
+
+// Pre: 1 ≤ u ≤ getOrder()
 void addEdge(Graph G, int u, int v);
+
+// Pre: 1 ≤ u ≤ getOrder()
 void addArc(Graph G, int u, int v);
+
 void BFS(Graph G, int s);
 
 // ██ Other Functions ██
 
-void printGraph(FILE* out, Graph G);
+// Print adjacency list representation
+void printGraph(FILE* out, Graph G) {
+	
+}
