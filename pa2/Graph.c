@@ -106,9 +106,23 @@ int getParent(Graph G, int u) {
 	return G->parent[u];
 }
 
+// Return distance from source to vertex u
 // Pre: 1 ≤ u ≤ getOrder()
-int getDist(Graph G, int u);
+int getDist(Graph G, int u) {
+	if (G == NULL) {
+		printf("Graph Error: calling getDist() on NULL Graph reference\n");
+		exit(1);
+	}
+	if (u < 1 || u > getOrder(G)) {
+		printf("Graph Error: calling getDist() with vertex out of range\n");
+		exit(1);
+	}
+	return G->distance[u]
+}
 
+//	Append vertices of shortest path from source to u
+// Append NIL if no such path exists
+// See PrintPath in /Examples/Pseudo-Code
 // Pre: 1 ≤ u ≤ getOrder(), getSource() != NIL
 void getPath(List L, Graph G, int u);
 
