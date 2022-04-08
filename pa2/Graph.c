@@ -117,7 +117,7 @@ int getDist(Graph G, int u) {
 		printf("Graph Error: calling getDist() with vertex out of range\n");
 		exit(1);
 	}
-	return G->distance[u]
+	return G->distance[u];
 }
 
 //	Append vertices of shortest path from source to u
