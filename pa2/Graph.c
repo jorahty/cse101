@@ -139,12 +139,11 @@ void makeNull(Graph G) {
 		exit(1);
 	}
 
-	int length = G->order + 1;
-	for (int i = 1; i <= length; i++) {
-		clear(G->neighbors[i]);
-		G->color[i] = 'w';
-		G->parent[i] = NIL;
-		G->distance[i] = INF;
+	for (int u = 1; u <= G->order; u++) {
+		clear(G->neighbors[u]);
+		G->color[u] = 'w';
+		G->parent[u] = NIL;
+		G->distance[u] = INF;
 	}
 
 	G->size = 0;
@@ -210,5 +209,9 @@ void BFS(Graph G, int s);
 
 // Print adjacency List representation
 void printGraph(FILE* out, Graph G) {
-	
+	for (int u = 1; u <= G->order; u++)	{
+		printf("%d: ", u);
+		printList(out, G->neighbors[u]);
+		printf("\n");
+	}
 }
