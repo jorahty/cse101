@@ -30,11 +30,11 @@ Graph newGraph(int n) {
    G->distance = calloc(length, sizeof(int));
 
    // Initialize vertex properties
-   for (int i = 1; i <= length; i++) {
-      G->neighbors[i] = newList();
-      G->color[i] = 'w';
-      G->parent[i] = NIL;
-      G->distance[i] = INF;
+   for (int u = 1; u <= n; u++) {
+      G->neighbors[u] = newList();
+      G->color[u] = 'w';
+      G->parent[u] = NIL;
+      G->distance[u] = INF;
    }
    
    G->order = n;
@@ -47,6 +47,9 @@ Graph newGraph(int n) {
 void freeGraph(Graph* pG) {
    if (pG && *pG) {
       if ((*pG)->neighbors) {
+			for (int u = 1; u <= (*pG)->order; u++) {
+				freeList(&((*pG)->neighbors[u]));
+			}
          free((*pG)->neighbors);
       }
       if ((*pG)->color) {
