@@ -19,9 +19,3 @@ List.o: List.c List.h
 
 clean:
 	rm -f Lex ListTest Lex.o ListTest.o List.o
-
-checkTest: 
-	valgrind --leak-check=full ListTest
-
-checkLex:
-	valgrind --leak-check=full Lex in3 blah3
