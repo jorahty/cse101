@@ -148,16 +148,54 @@ void makeNull(Graph G) {
    G->source = NIL;
 }
 
+// Add new edge joining u and v
+// u is added to adjacency List of v
+// v is added to adjacency List of u
+// Maintain Lists in order of increasing vertex label
 // Pre: 1 ≤ u ≤ getOrder()
 void addEdge(Graph G, int u, int v) {
    if (G == NULL) {
-      printf("Graph Error: calling getDist() on NULL Graph reference\n");
+      printf("Graph Error: calling addEdge() on NULL Graph reference\n");
       exit(1);
    }
-   if (u < 1 || u > getOrder(G)) {
-      printf("Graph Error: calling getDist() with vertex out of range\n");
+   if (u < 1 || u > getOrder(G) || v < 1 || v > getOrder(G)) {
+      printf("Graph Error: calling addEdge() with vertex out of range\n");
       exit(1);
    }
+
+   // 1. Add u to adjacency list of v
+	List L = G->neighbors[v];
+	for (moveFront(L); 1; moveNext(L)) { // Scan for a place to insert i
+
+		// Have we reached the end of the List?
+		if (index(L) == -1) {
+			 append(L, u);
+			 break;
+		}
+
+		// Does u belong before the cursor element?
+		if (u < get(L)) {
+			 insertBefore(L, u);
+			 break;
+		}
+	}
+   
+   // 2. Add v to adjacency list of u
+	L = G->neighbors[u];
+	for (moveFront(L); 1; moveNext(L)) { // Scan for a place to insert i
+
+		// Have we reached the end of the List?
+		if (index(L) == -1) {
+			 append(L, v);
+			 break;
+		}
+
+		// Does u belong before the cursor element?
+		if (v < get(L)) {
+			 insertBefore(L, v);
+			 break;
+		}
+	}
 }
 
 // Pre: 1 ≤ u ≤ getOrder()
@@ -167,7 +205,7 @@ void BFS(Graph G, int s);
 
 // ██ Other Functions ██
 
-// Print adjacency list representation
+// Print adjacency List representation
 void printGraph(FILE* out, Graph G) {
    
 }
