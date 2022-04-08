@@ -203,7 +203,35 @@ void addEdge(Graph G, int u, int v) {
 }
 
 // Pre: 1 ≤ u ≤ getOrder()
-void addArc(Graph G, int u, int v);
+void addArc(Graph G, int u, int v) {
+	if (G == NULL) {
+		printf("Graph Error: calling addArc() on NULL Graph reference\n");
+		exit(1);
+	}
+	if (u < 1 || u > getOrder(G) || v < 1 || v > getOrder(G)) {
+		printf("Graph Error: calling addArc() with vertex out of range\n");
+		exit(1);
+	}
+	
+	// Add v to adjacency list of u
+	List L = G->neighbors[u];
+	for (moveFront(L); 1; moveNext(L)) { // Scan for a place to insert i
+
+		// Have we reached the end of the List?
+		if (index(L) == -1) {
+			append(L, v);
+			break;
+		}
+
+		// Does u belong before the cursor element?
+		if (v < get(L)) {
+			insertBefore(L, v);
+			break;
+		}
+	}
+	
+	G->size++;
+}
 
 void BFS(Graph G, int s);
 
