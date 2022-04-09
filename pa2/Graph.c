@@ -139,7 +139,7 @@ void makeNull(Graph G) {
 		exit(1);
 	}
 
-	for (int u = 1; u <= G->order; u++) {
+	for (int u = 1; u <= getOrder(G); u++) {
 		clear(G->neighbors[u]);
 		G->color[u] = 'w';
 		G->parent[u] = NIL;
@@ -233,13 +233,50 @@ void addArc(Graph G, int u, int v) {
 	G->size++;
 }
 
-void BFS(Graph G, int s);
+void BFS(Graph G, int s) {
+	if (G == NULL) {
+		printf("Graph Error: calling BFS() on NULL Graph reference\n");
+		exit(1);
+    }
+	if (s < 1 || s > getOrder(G)) {
+        printf("Graph Error: calling BFS() with source out of range\n");
+        exit(1);
+    }
+
+	// Initialize all vertices in G
+	for (int u = 1; u <= getOrder(G); u++) {
+		G->color[u] = 'w';
+		G->distance[u] = INF;
+		G->parent[u] = NIL;
+	}
+	
+	// Initialize source
+	G->color[s] = 'g';
+	G->distance[s] = 0;
+
+	List Q = newList(); // Construct a new empty 'Queue'
+	while (length(Q) > 0) {
+		int x = front(Q); deleteFront(Q); // x = Q.pop()
+		List N = G->neighbors[x];
+		for (moveFront(N); index(N) >= 0; moveNext(N)) {
+			int y = get(N);
+			if (G->color[y] == 'w') { // y is undiscovered
+				G->color[y] = 'g'; // discover y
+				G->distance[y] = G->distance[x] + 1;
+				G->parent[y] = x;
+				append(Q, y);
+			}
+		}
+		G->color[x] = 'b'; // Finish x
+	}
+	freeList(&Q);
+}
 
 // ██ Other Functions ██
 
 // Print adjacency List representation
 void printGraph(FILE* out, Graph G) {
-	for (int u = 1; u <= G->order; u++)	{
+	for (int u = 1; u <= getOrder(G); u++)	{
 		printf("%d: ", u);
 		printList(out, G->neighbors[u]);
 		printf("\n");
