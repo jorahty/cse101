@@ -242,8 +242,6 @@ void addArc(Graph G, int u, int v) {
     }
 }
 
-void printStatus(Graph G, List Q);
-
 void BFS(Graph G, int s) {
     if (G == NULL) {
         printf("Graph Error: calling BFS() on NULL Graph reference\n");
