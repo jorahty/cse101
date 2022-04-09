@@ -166,19 +166,27 @@ void addEdge(Graph G, int u, int v) {
 	}
 
 	// 1. Add u to adjacency list of v
+	bool edgeWasAdded = false;
 	List L = G->neighbors[v];
 	for (moveFront(L); 1; moveNext(L)) { // Scan for a place to insert i
 
 		// Have we reached the end of the List?
 		if (index(L) == -1) {
-			 append(L, u);
-			 break;
+			append(L, u);
+			edgeWasAdded = true;
+			break;
 		}
 
 		// Does u belong before the cursor element?
 		if (u < get(L)) {
-			 insertBefore(L, u);
-			 break;
+			insertBefore(L, u);
+			edgeWasAdded = true;
+			break;
+		}
+
+		// Does u equal the cursor element?
+		if (u == get(L)) {
+			break;
 		}
 	}
 	
@@ -189,17 +197,24 @@ void addEdge(Graph G, int u, int v) {
 		// Have we reached the end of the List?
 		if (index(L) == -1) {
 			append(L, v);
+			edgeWasAdded = true;
 			break;
 		}
 
-		// Does u belong before the cursor element?
+		// Does v belong before the cursor element?
 		if (v < get(L)) {
 			insertBefore(L, v);
+			edgeWasAdded = true;
+			break;
+		}
+
+		// Does v equal the cursor element?
+		if (v == get(L)) {
 			break;
 		}
 	}
 	
-	G->size++;
+	if (edgeWasAdded) { G->size++; }
 }
 
 // Pre: 1 ≤ u ≤ getOrder()
@@ -220,17 +235,22 @@ void addArc(Graph G, int u, int v) {
 		// Have we reached the end of the List?
 		if (index(L) == -1) {
 			append(L, v);
-			break;
+			G->size++;
+			return;
 		}
 
-		// Does u belong before the cursor element?
+		// Does v belong before the cursor element?
 		if (v < get(L)) {
 			insertBefore(L, v);
-			break;
+			G->size++;
+			return;
+		}
+
+		// Does v equal the cursor element?
+		if (v == get(L)) {
+			return; // v is already in the adjecency list of u
 		}
 	}
-	
-	G->size++;
 }
 
 void printStatus(Graph G, List Q);
