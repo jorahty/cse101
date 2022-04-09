@@ -9,7 +9,7 @@ void graphClient(void);
 int main(void) {
 
     // Run the test from GraphClient.c
-    graphClient();
+    // graphClient();
 
     // Run the example from lecture
     Graph G = newGraph(6);
@@ -18,6 +18,15 @@ int main(void) {
     addEdge(G, 2, 4);
     addEdge(G, 2, 5);
     addEdge(G, 2, 6);
+    addEdge(G, 3, 4);
+    addEdge(G, 4, 5);
+    addEdge(G, 5, 6);
+
+    printGraph(stdout, G);
+
+	BFS(G, 3);
+
+	printGraphDetails(stdout, G);
 
     freeGraph(&G);
 
