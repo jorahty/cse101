@@ -25,3 +25,6 @@ $(BASE_OBJECTS): $(BASE_SOURCES) $(HEADERS)
 
 clean:
 	rm -f FindPath GraphTest *.o
+
+format:
+	clang-format -i -style=file *.c *.h

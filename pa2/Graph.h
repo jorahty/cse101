@@ -2,20 +2,20 @@
 
 #pragma once
 
-#include <stdlib.h>
 #include "List.h"
+#include <stdlib.h>
 
-#define INF -1  // Infinity
-#define NIL 0   // Undefined vertex label
+#define INF -1 // Infinity
+#define NIL 0 // Undefined vertex label
 
 // ██ Public Types ██
 
-typedef struct GraphObj* Graph;
+typedef struct GraphObj *Graph;
 
 // ██ Constructors & Destructors ██
 
 Graph newGraph(int n);
-void freeGraph(Graph* pG);
+void freeGraph(Graph *pG);
 
 // ██ Access Functions ██
 
@@ -35,4 +35,4 @@ void BFS(Graph G, int s);
 
 // ██ Other Functions ██
 
-void printGraph(FILE* out, Graph G);
+void printGraph(FILE *out, Graph G);

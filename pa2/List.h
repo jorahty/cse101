@@ -7,12 +7,12 @@
 
 // ██ Public Types ██
 
-typedef struct ListObj* List;
+typedef struct ListObj *List;
 
 // ██ Constructors & Destructors ██
 
 List newList(); // Creates and returns a new empty List
-void freeList(List* pL); // Frees all heap memory associated with *pL, and sets *pL to NULL
+void freeList(List *pL); // Frees all heap memory associated with *pL, and sets *pL to NULL
 
 // ██ Access Functions ██
 
@@ -26,9 +26,12 @@ bool equals(List A, List B); // Returns true iff A & B are in same state, false 
 // ██ Manipulation Procedures ██
 
 void clear(List L); // Resets L to its original empty state.
-void set(List L, int x); // Overwrites the cursor element’s data with x. Pre: length() > 0, index() >= 0
-void moveFront(List L); // If L is non-empty, sets cursor under the front element, otherwise does nothing.
-void moveBack(List L); // If L is non-empty, sets cursor under the back element, otherwise does nothing.
+void set(
+    List L, int x); // Overwrites the cursor element’s data with x. Pre: length() > 0, index() >= 0
+void moveFront(
+    List L); // If L is non-empty, sets cursor under the front element, otherwise does nothing.
+void moveBack(
+    List L); // If L is non-empty, sets cursor under the back element, otherwise does nothing.
 
 // If cursor is defined and not at front, move cursor one step toward the front of L;
 // if cursor is defined and at front, cursor becomes undefined; if cursor is undefined do nothing
@@ -44,11 +47,13 @@ void prepend(List L, int x);
 // Insert new element into L. If L is non-empty, insertion takes place after back element.
 void append(List L, int x);
 
-void insertBefore(List L, int x); // Insert new element before cursor. Pre: length() > 0, index() >= 0
+void insertBefore(
+    List L, int x); // Insert new element before cursor. Pre: length() > 0, index() >= 0
 void insertAfter(List L, int x); // Insert new element after cursor. Pre: length() > 0, index() >= 0
 void deleteFront(List L); // Delete the front element. Pre: length() > 0
 void deleteBack(List L); // Delete the back element. Pre: length() > 0
-void delete(List L); // Delete cursor element, making cursor undefined. Pre: length() > 0, index() >= 0
+void delete (
+    List L); // Delete cursor element, making cursor undefined. Pre: length() > 0, index() >= 0
 
 // ██ Other Functions ██
 
@@ -56,7 +61,7 @@ void delete(List L); // Delete cursor element, making cursor undefined. Pre: len
 // string representation of L consisting
 // of a space separated sequence of integers,
 // with front on left.
-void printList(FILE* out, List L);
+void printList(FILE *out, List L);
 
 // Returns a new List representing the same integer
 // sequence as L. The cursor in the new list is undefined,

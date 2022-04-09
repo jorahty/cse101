@@ -12,7 +12,7 @@ int main(void) {
     graphClient();
 
     // Run the example from lecture
-    G = newGraph(6);
+    Graph G = newGraph(6);
     addEdge(G, 1, 2);
     addEdge(G, 1, 3);
     addEdge(G, 2, 4);
