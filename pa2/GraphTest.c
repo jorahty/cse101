@@ -4,9 +4,10 @@
 #include<stdlib.h>
 #include"Graph.h"
 
-int main(int argc, char* argv[]){
-// 0123456789012345678901234567890123456789012345678901234567890123456789
-	// From GraphClient.c  
+int main(void){
+
+	// Run the test from GraphClient.c (compressed) 
+	printf("\033[0;32m");
 	int i,s,max,min,d,n=35;List C=newList();List P=newList();List E=
 	newList();Graph G=NULL;G=newGraph(n);for(i=1;i<n;i++){if(i%7!=0){
 	addEdge(G,i,i+1);}if(i<=28){addEdge(G,i,i+7);}}addEdge(G,9,31);
@@ -21,7 +22,10 @@ int main(int argc, char* argv[]){
 	"ices");printList(stdout,C);printf("\n");printf("Diameter=%d\n",
 	max);printf("Peripheralvert%s:",length(P)==1?"ex":"ices");
 	printList(stdout,P);printf("\n");freeList(&C);freeList(&P);
-	freeList(&E);freeGraph(&G);
+	freeList(&E);freeGraph(&G);printf("\033[0m\n");
+
+	// Run the example from lecture
+	
 
 	return 0;
 }
