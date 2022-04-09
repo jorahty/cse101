@@ -1,4 +1,4 @@
-// James Tennant • jtennant • 1773814
+// James Tennant • jtennant • pa2
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -18,14 +18,21 @@ int main(void){
 	;i++){d=get(E);if(d==min){append(C,i);}else if(d<min){min=d;
 	clear(C);append(C,i);}if(d==max){append(P,i);}else if(d>max){max=d;
 	clear(P);append(P,i);}moveNext(E);}printf("\n");printf(
-	"Radius=%d\n",min);printf("Centralvert%s:",length(C)==1?"ex":
-	"ices");printList(stdout,C);printf("\n");printf("Diameter=%d\n",
-	max);printf("Peripheralvert%s:",length(P)==1?"ex":"ices");
+	"Radius = %d\n",min);printf("Central vert%s: ",length(C)==1?"ex":
+	"ices");printList(stdout,C);printf("\n");printf("Diameter = %d\n",
+	max);printf("Peripheral vert%s: ",length(P)==1?"ex":"ices");
 	printList(stdout,P);printf("\n");freeList(&C);freeList(&P);
 	freeList(&E);freeGraph(&G);printf("\033[0m\n");
 
 	// Run the example from lecture
+	G = newGraph(6);
+	addEdge(G, 1, 2); 
+	addEdge(G, 1, 3); 
+	addEdge(G, 2, 4); 
+	addEdge(G, 2, 5); 
+	addEdge(G, 2, 6); 
 	
+	freeGraph(&G);	
 
 	return 0;
 }
