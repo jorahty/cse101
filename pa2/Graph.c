@@ -9,10 +9,10 @@
 // ██ Private Types ██
 
 typedef struct GraphObj {
-    List *neighbors; // Neighbors of each vertex
-    char *color; // Color of each vertex (w/g/b)
-    int *parent; // Parent of each vertex
-    int *distance; // Distance to source from each vertex
+    List* neighbors; // Neighbors of each vertex
+    char* color; // Color of each vertex (w/g/b)
+    int* parent; // Parent of each vertex
+    int* distance; // Distance to source from each vertex
     int order; // Number of vertices
     int size; // Number of edges
     int source; // Most recent source vertex
@@ -45,7 +45,7 @@ Graph newGraph(int n) {
 }
 
 // Free all memory & set *pG to NULL
-void freeGraph(Graph *pG) {
+void freeGraph(Graph* pG) {
     if (pG && *pG) {
         if ((*pG)->neighbors) {
             for (int u = 1; u <= (*pG)->order; u++) {
@@ -288,7 +288,7 @@ void BFS(Graph G, int s) {
 // ██ Other Functions ██
 
 // Print adjacency List representation
-void printGraph(FILE *out, Graph G) {
+void printGraph(FILE* out, Graph G) {
     for (int u = 1; u <= getOrder(G); u++) {
         printf("%d: ", u);
         printList(out, G->neighbors[u]);

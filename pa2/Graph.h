@@ -10,12 +10,12 @@
 
 // ██ Public Types ██
 
-typedef struct GraphObj *Graph;
+typedef struct GraphObj* Graph;
 
 // ██ Constructors & Destructors ██
 
 Graph newGraph(int n);
-void freeGraph(Graph *pG);
+void freeGraph(Graph* pG);
 
 // ██ Access Functions ██
 
@@ -35,4 +35,4 @@ void BFS(Graph G, int s);
 
 // ██ Other Functions ██
 
-void printGraph(FILE *out, Graph G);
+void printGraph(FILE* out, Graph G);

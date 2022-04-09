@@ -8,7 +8,7 @@
 // ██ Private Types ██
 
 // Define private Node type
-typedef struct NodeObj *Node;
+typedef struct NodeObj* Node;
 
 // Define private NodeObj type
 typedef struct NodeObj {
@@ -36,7 +36,7 @@ Node newNode(int data) {
 }
 
 // Deletes a Node
-void freeNode(Node *pN) {
+void freeNode(Node* pN) {
     if (pN && *pN) {
         free(*pN);
         *pN = NULL;
@@ -52,7 +52,7 @@ List newList() {
 }
 
 // Frees all heap memory associated with *pL, and sets *pL to NULL
-void freeList(List *pL) {
+void freeList(List* pL) {
     if (pL && *pL) {
         while (length(*pL) > 0) {
             deleteFront(*pL);
@@ -472,7 +472,7 @@ void delete (List L) {
 
 // Prints to the file pointed to by out, a string representation of L
 // consisting of a space-separated sequence of integers, with front on left.
-void printList(FILE *out, List L) {
+void printList(FILE* out, List L) {
     if (L == NULL) {
         printf("List Error: calling printList() on NULL List reference\n");
         exit(1);

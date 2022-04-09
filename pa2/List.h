@@ -7,12 +7,12 @@
 
 // ██ Public Types ██
 
-typedef struct ListObj *List;
+typedef struct ListObj* List;
 
 // ██ Constructors & Destructors ██
 
 List newList(); // Creates and returns a new empty List
-void freeList(List *pL); // Frees all heap memory associated with *pL, and sets *pL to NULL
+void freeList(List* pL); // Frees all heap memory associated with *pL, and sets *pL to NULL
 
 // ██ Access Functions ██
 
@@ -61,7 +61,7 @@ void delete (
 // string representation of L consisting
 // of a space separated sequence of integers,
 // with front on left.
-void printList(FILE *out, List L);
+void printList(FILE* out, List L);
 
 // Returns a new List representing the same integer
 // sequence as L. The cursor in the new list is undefined,
