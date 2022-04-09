@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "Graph.h"
 #include "List.h"
 
@@ -186,7 +187,7 @@ void addEdge(Graph G, int u, int v) {
 
 		// Does u equal the cursor element?
 		if (u == get(L)) {
-			break;
+			break; // u is already in the adjecency list of v
 		}
 	}
 	
@@ -210,7 +211,7 @@ void addEdge(Graph G, int u, int v) {
 
 		// Does v equal the cursor element?
 		if (v == get(L)) {
-			break;
+			break; // v is already in the adjecency list of u
 		}
 	}
 	
