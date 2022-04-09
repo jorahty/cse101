@@ -233,6 +233,8 @@ void addArc(Graph G, int u, int v) {
 	G->size++;
 }
 
+void printStatus(Graph G, List Q);
+
 void BFS(Graph G, int s) {
 	if (G == NULL) {
 		printf("Graph Error: calling BFS() on NULL Graph reference\n");
@@ -255,6 +257,7 @@ void BFS(Graph G, int s) {
 	G->distance[s] = 0;
 
 	List Q = newList(); // Construct a new empty 'Queue'
+	append(Q, s);
 	while (length(Q) > 0) {
 		int x = front(Q); deleteFront(Q); // x = Q.pop()
 		List N = G->neighbors[x];
