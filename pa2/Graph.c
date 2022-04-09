@@ -296,7 +296,7 @@ void printGraph(FILE* out, Graph G) {
     }
 }
 
-// Remove lines below when done
+    // Remove lines below when done
 
 #define RED "\033[0;31m"
 #define GRN "\033[0;32m"
@@ -306,7 +306,6 @@ void printGraphDetails(FILE* out, Graph G) {
     for (int u = 1; u <= getOrder(G); u++) {
         printf("%d: ", u);
         printList(out, G->neighbors[u]);
-        printf(" "RED"%c "GRN"%d "CLR"%d\n",
-			G->color[u], G->distance[u], G->parent[u]);
+        printf(" " RED "%c " GRN "%d " CLR "%d\n", G->color[u], G->distance[u], G->parent[u]);
     }
 }

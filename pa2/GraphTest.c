@@ -24,9 +24,9 @@ int main(void) {
 
     printGraph(stdout, G);
 
-	BFS(G, 3);
+    BFS(G, 3);
 
-	printGraphDetails(stdout, G);
+    printGraphDetails(stdout, G);
 
     freeGraph(&G);
 
