@@ -1,6 +1,7 @@
 // James Tennant • jtennant • pa2
 
 #include "Graph.h"
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -11,7 +12,7 @@ int main(void) {
     // Run the test from GraphClient.c
     graphClient();
 
-    // Run the example from lecture
+    // Run lecture example
     Graph G = newGraph(6);
     addEdge(G, 1, 2);
     addEdge(G, 1, 3);
@@ -21,23 +22,38 @@ int main(void) {
     addEdge(G, 3, 4);
     addEdge(G, 4, 5);
     addEdge(G, 5, 6);
-    printf("Graph:\n");
+    printf("Graph from lecture example:\n");
     printGraph(stdout, G);
 
-    printf("\ns = 3\n\n");
     BFS(G, 3);
-
-    List L = newList();
+    printf("\n"
+           "s = %d"
+           "\n\n",
+        getSource(G)); // getSource
+    int expectedParents[] = { 3, 1, NIL, 3, 4, 2 };
+    for (int u = 1; u <= getOrder(G); u++) {
+        assert(getParent(G, u) == expectedParents[u - 1]); // getParent
+    }
 
     printf("Paths:\n");
+    List L = newList();
     for (int u = 1; u <= getOrder(G); u++) {
         getPath(L, G, u);
         printList(stdout, L);
         printf("\n");
         clear(L);
     }
-
     freeList(&L);
+
+    // getSize, makeNull, addArc
+    assert(getSize(G) == 8 && getOrder(G) == 6);
+    makeNull(G);
+    assert(getSize(G) == 0 && getOrder(G) == 6);
+    addArc(G, 6, 3);
+    assert(getSize(G) == 1 && getOrder(G) == 6);
+    printf("\nDigraph with E = { 63 }:\n");
+    printGraph(stdout, G);
+
     freeGraph(&G);
 
     return 0;
