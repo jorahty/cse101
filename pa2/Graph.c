@@ -297,6 +297,10 @@ void BFS(Graph G, int s) {
 
 // Print adjacency List representation
 void printGraph(FILE* out, Graph G) {
+    if (G == NULL) {
+        printf("Graph Error: calling printGraph() on NULL Graph reference\n");
+        exit(1);
+    }
     for (int u = 1; u <= getOrder(G); u++) {
         printf("%d: ", u);
         printList(out, G->neighbors[u]);
