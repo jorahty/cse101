@@ -9,7 +9,7 @@ void graphClient(void);
 int main(void) {
 
     // Run the test from GraphClient.c
-    // graphClient();
+    graphClient();
 
     // Run the example from lecture
     Graph G = newGraph(6);
@@ -21,13 +21,23 @@ int main(void) {
     addEdge(G, 3, 4);
     addEdge(G, 4, 5);
     addEdge(G, 5, 6);
-
+    printf("Graph:\n");
     printGraph(stdout, G);
 
+    printf("\ns = 3\n\n");
     BFS(G, 3);
 
-    printGraphDetails(stdout, G);
+    List L = newList();
 
+    printf("Paths:\n");
+    for (int u = 1; u <= getOrder(G); u++) {
+        getPath(L, G, u);
+        printList(stdout, L);
+        printf("\n");
+        clear(L);
+    }
+
+    freeList(&L);
     freeGraph(&G);
 
     return 0;
