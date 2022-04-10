@@ -26,10 +26,7 @@ int main(void) {
     printGraph(stdout, G);
 
     BFS(G, 3);
-    printf("\n"
-           "s = %d"
-           "\n\n",
-        getSource(G)); // getSource
+    printf("\ns = %d\n\n", getSource(G)); // getSource
     int expectedParents[] = { 3, 1, NIL, 3, 4, 2 };
     for (int u = 1; u <= getOrder(G); u++) {
         assert(getParent(G, u) == expectedParents[u - 1]); // getParent
