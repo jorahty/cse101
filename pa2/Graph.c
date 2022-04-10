@@ -122,7 +122,16 @@ int getDist(Graph G, int u) {
 // Append NIL if no such path exists
 // See PrintPath in /Examples/Pseudo-Code
 // Pre: 1 ≤ u ≤ getOrder(), getSource() != NIL
-void getPath(List L, Graph G, int u);
+void getPath(List L, Graph G, int u) {
+	if (u == getSource(G)) {
+		append(L, u);
+	} else if (getParent(G, u) == NIL) {
+		append(L, -404);
+	} else {
+		getPath(L, G, getParent(G, u));
+		append(L, u);
+	}
+}
 
 // ██ Manipulation Procedures ██
 
@@ -260,6 +269,7 @@ void BFS(Graph G, int s) {
     }
 
     // Initialize source
+	G->source = s;
     G->color[s] = 'g';
     G->distance[s] = 0;
 
@@ -291,19 +301,5 @@ void printGraph(FILE* out, Graph G) {
         printf("%d: ", u);
         printList(out, G->neighbors[u]);
         printf("\n");
-    }
-}
-
-    // Remove lines below when done
-
-#define RED "\033[0;31m"
-#define GRN "\033[0;32m"
-#define CLR "\033[0m"
-
-void printGraphDetails(FILE* out, Graph G) {
-    for (int u = 1; u <= getOrder(G); u++) {
-        printf("%d: ", u);
-        printList(out, G->neighbors[u]);
-        printf(" " RED "%c " GRN "%d " CLR "%d\n", G->color[u], G->distance[u], G->parent[u]);
     }
 }
