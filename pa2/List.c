@@ -477,6 +477,7 @@ void printList(FILE* out, List L) {
         printf("List Error: calling printList() on NULL List reference\n");
         exit(1);
     }
+    if (L->front == NULL) return;
 
     printf("%d", L->front->data);
     for (Node N = L->front->next; N != NULL; N = N->next) {
