@@ -32,7 +32,8 @@ int main(int argc, char* argv[]) {
     Graph G = newGraph(n);
     int u, v;
     while (fscanf(in, "%d %d\n", &u, &v) != EOF) {
-        // addEdge(G, u, v); // Add edges
+        if (u == 0 && v == 0) break;
+        addEdge(G, u, v); // Add edges
     }
 
     printGraph(out, G);
