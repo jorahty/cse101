@@ -44,7 +44,13 @@ int main(int argc, char* argv[]) {
         BFS(G, s);
 
         // Print distance
-        fprintf(out, "\nThe distance from %d to %d is %d\n", s, d, getDist(G, d));
+        fprintf(out, "\nThe distance from %d to %d is ", s, d);
+        int distance = getDist(G, d);
+        if (distance == -1) {
+            fprintf(out, "Infinity\n");
+        } else {
+            fprintf(out, "%d\n", distance);
+        }
 
         // Print path
         List path = newList();
