@@ -47,7 +47,10 @@ int main(int argc, char* argv[]) {
         fprintf(out, "\nThe distance from %d to %d is %d\n", s, d, getDist(G, d));
 
         // Print path
-        fprintf(out, "A shortest %d-%d path is:", s, d);
+        List path = newList();
+        getPath(path, G, d);
+        fprintf(out, "A shortest %d-%d path is: ", s, d);
+        printList(out, path);
         fprintf(out, "\n");
     }
 
