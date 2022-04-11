@@ -35,8 +35,21 @@ int main(int argc, char* argv[]) {
         if (u == 0 && v == 0) break;
         addEdge(G, u, v); // Add edges
     }
+    printGraph(out, G); // Print adjacency list representaion
 
-    printGraph(out, G);
+    // Run BFS
+    int s, d;
+    while (fscanf(in, "%d %d\n", &s, &d) != EOF) {
+        if (s == 0 && d == 0) break;
+        BFS(G, s);
+
+        // Print distance
+        fprintf(out, "\nThe distance from %d to %d is %d\n", s, d, getDist(G, d));
+
+        // Print path
+        fprintf(out, "A shortest %d-%d path is:", s, d);
+        fprintf(out, "\n");
+    }
 
     // Free the Graph
     freeGraph(&G);
