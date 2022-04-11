@@ -55,9 +55,15 @@ int main(int argc, char* argv[]) {
         // Print path
         List path = newList();
         getPath(path, G, d);
-        fprintf(out, "A shortest %d-%d path is: ", s, d);
+		if (front(path) == NIL) {
+			fprintf(out, "No %d-%d path exists\n", s, d);
+			freeList(&path);
+			continue;
+		}
+		fprintf(out, "A shortest %d-%d path is: ", s, d);
         printList(out, path);
         fprintf(out, "\n");
+		freeList(&path);
     }
 
     // Free the Graph
