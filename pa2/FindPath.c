@@ -47,7 +47,7 @@ int main(int argc, char* argv[]) {
         fprintf(out, "\nThe distance from %d to %d is ", s, d);
         int distance = getDist(G, d);
         if (distance == -1) {
-            fprintf(out, "Infinity\n");
+            fprintf(out, "infinity\n");
         } else {
             fprintf(out, "%d\n", distance);
         }
