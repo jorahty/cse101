@@ -66,7 +66,7 @@ void freeGraph(Graph* pG) {
 // Return order
 int getOrder(Graph G) {
     if (G == NULL) {
-        printf("Graph Error: calling getOrder() on NULL Graph reference\n");
+        fprintf(stderr, "Graph Error: calling getOrder() on NULL Graph reference\n");
         exit(1);
     }
     return G->order;
@@ -75,7 +75,7 @@ int getOrder(Graph G) {
 // Return size
 int getSize(Graph G) {
     if (G == NULL) {
-        printf("Graph Error: calling getSize() on NULL Graph reference\n");
+        fprintf(stderr, "Graph Error: calling getSize() on NULL Graph reference\n");
         exit(1);
     }
     return G->size;
@@ -84,7 +84,7 @@ int getSize(Graph G) {
 // Return (most recent) source
 int getSource(Graph G) {
     if (G == NULL) {
-        printf("Graph Error: calling getSource() on NULL Graph reference\n");
+        fprintf(stderr, "Graph Error: calling getSource() on NULL Graph reference\n");
         exit(1);
     }
     return G->source;
@@ -94,11 +94,11 @@ int getSource(Graph G) {
 // Pre: 1 ≤ u ≤ getOrder()
 int getParent(Graph G, int u) {
     if (G == NULL) {
-        printf("Graph Error: calling getParent() on NULL Graph reference\n");
+        fprintf(stderr, "Graph Error: calling getParent() on NULL Graph reference\n");
         exit(1);
     }
     if (u < 1 || u > getOrder(G)) {
-        printf("Graph Error: calling getParent() with vertex out of range\n");
+        fprintf(stderr, "Graph Error: calling getParent() with vertex out of range\n");
         exit(1);
     }
     return G->parent[u];
@@ -108,11 +108,11 @@ int getParent(Graph G, int u) {
 // Pre: 1 ≤ u ≤ getOrder()
 int getDist(Graph G, int u) {
     if (G == NULL) {
-        printf("Graph Error: calling getDist() on NULL Graph reference\n");
+        fprintf(stderr, "Graph Error: calling getDist() on NULL Graph reference\n");
         exit(1);
     }
     if (u < 1 || u > getOrder(G)) {
-        printf("Graph Error: calling getDist() with vertex out of range\n");
+        fprintf(stderr, "Graph Error: calling getDist() with vertex out of range\n");
         exit(1);
     }
     return G->distance[u];
@@ -139,7 +139,7 @@ void getPath(List L, Graph G, int u) {
 // restoring it to its original state
 void makeNull(Graph G) {
     if (G == NULL) {
-        printf("Graph Error: calling makeNull() on NULL Graph reference\n");
+        fprintf(stderr, "Graph Error: calling makeNull() on NULL Graph reference\n");
         exit(1);
     }
 
@@ -161,11 +161,11 @@ void makeNull(Graph G) {
 // Pre: 1 ≤ u ≤ getOrder()
 void addEdge(Graph G, int u, int v) {
     if (G == NULL) {
-        printf("Graph Error: calling addEdge() on NULL Graph reference\n");
+        fprintf(stderr, "Graph Error: calling addEdge() on NULL Graph reference\n");
         exit(1);
     }
     if (u < 1 || u > getOrder(G) || v < 1 || v > getOrder(G)) {
-        printf("Graph Error: calling addEdge() with vertex out of range\n");
+        fprintf(stderr, "Graph Error: calling addEdge() with vertex out of range\n");
         exit(1);
     }
 
@@ -220,11 +220,11 @@ void addEdge(Graph G, int u, int v) {
 // Pre: 1 ≤ u ≤ getOrder()
 void addArc(Graph G, int u, int v) {
     if (G == NULL) {
-        printf("Graph Error: calling addArc() on NULL Graph reference\n");
+        fprintf(stderr, "Graph Error: calling addArc() on NULL Graph reference\n");
         exit(1);
     }
     if (u < 1 || u > getOrder(G) || v < 1 || v > getOrder(G)) {
-        printf("Graph Error: calling addArc() with vertex out of range\n");
+        fprintf(stderr, "Graph Error: calling addArc() with vertex out of range\n");
         exit(1);
     }
 
@@ -253,11 +253,11 @@ void addArc(Graph G, int u, int v) {
 
 void BFS(Graph G, int s) {
     if (G == NULL) {
-        printf("Graph Error: calling BFS() on NULL Graph reference\n");
+        fprintf(stderr, "Graph Error: calling BFS() on NULL Graph reference\n");
         exit(1);
     }
     if (s < 1 || s > getOrder(G)) {
-        printf("Graph Error: calling BFS() with source out of range\n");
+        fprintf(stderr, "Graph Error: calling BFS() with source out of range\n");
         exit(1);
     }
 
@@ -298,12 +298,12 @@ void BFS(Graph G, int s) {
 // Print adjacency List representation
 void printGraph(FILE* out, Graph G) {
     if (G == NULL) {
-        printf("Graph Error: calling printGraph() on NULL Graph reference\n");
+        fprintf(stderr, "Graph Error: calling printGraph() on NULL Graph reference\n");
         exit(1);
     }
     for (int u = 1; u <= getOrder(G); u++) {
-        printf("%d: ", u);
+        fprintf(out, "%d: ", u);
         printList(out, G->neighbors[u]);
-        printf("\n");
+        fprintf(out, "\n");
     }
 }
