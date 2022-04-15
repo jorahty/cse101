@@ -104,55 +104,7 @@ int getParent(Graph G, int u) {
     return G->parent[u];
 }
 
-// Return distance from source to vertex u
-// Pre: 1 ≤ u ≤ getOrder()
-int getDist(Graph G, int u) {
-    if (G == NULL) {
-        fprintf(stderr, "Graph Error: calling getDist() on NULL Graph reference\n");
-        exit(1);
-    }
-    if (u < 1 || u > getOrder(G)) {
-        fprintf(stderr, "Graph Error: calling getDist() with vertex out of range\n");
-        exit(1);
-    }
-    return G->distance[u];
-}
-
-// Append vertices of shortest path from source to u
-// Append NIL if no such path exists
-// See PrintPath in /Examples/Pseudo-Code
-// Pre: 1 ≤ u ≤ getOrder(), getSource() != NIL
-void getPath(List L, Graph G, int u) {
-    if (u == getSource(G)) {
-        append(L, u);
-    } else if (getParent(G, u) == NIL) {
-        append(L, NIL);
-    } else {
-        getPath(L, G, getParent(G, u));
-        append(L, u);
-    }
-}
-
 // ██ Manipulation Procedures ██
-
-// Deletes all edges in G,
-// restoring it to its original state
-void makeNull(Graph G) {
-    if (G == NULL) {
-        fprintf(stderr, "Graph Error: calling makeNull() on NULL Graph reference\n");
-        exit(1);
-    }
-
-    for (int u = 1; u <= getOrder(G); u++) {
-        clear(G->neighbors[u]);
-        G->color[u] = 'w';
-        G->parent[u] = NIL;
-        G->distance[u] = INF;
-    }
-
-    G->size = 0;
-    G->source = NIL;
-}
 
 // Add new edge joining u and v
 // u is added to adjacency List of v
@@ -249,48 +201,6 @@ void addArc(Graph G, int u, int v) {
         // Does v equal the cursor element?
         if (v == get(L)) return;
     }
-}
-
-void BFS(Graph G, int s) {
-    if (G == NULL) {
-        fprintf(stderr, "Graph Error: calling BFS() on NULL Graph reference\n");
-        exit(1);
-    }
-    if (s < 1 || s > getOrder(G)) {
-        fprintf(stderr, "Graph Error: calling BFS() with source out of range\n");
-        exit(1);
-    }
-
-    // Initialize all vertices in G
-    for (int u = 1; u <= getOrder(G); u++) {
-        G->color[u] = 'w';
-        G->distance[u] = INF;
-        G->parent[u] = NIL;
-    }
-
-    // Initialize source
-    G->source = s;
-    G->color[s] = 'g';
-    G->distance[s] = 0;
-
-    List Q = newList(); // Construct a new empty 'Queue'
-    append(Q, s);
-    while (length(Q) > 0) {
-        int x = front(Q);
-        deleteFront(Q); // x = Q.pop()
-        List N = G->neighbors[x];
-        for (moveFront(N); index(N) >= 0; moveNext(N)) {
-            int y = get(N);
-            if (G->color[y] == 'w') { // y is undiscovered
-                G->color[y] = 'g'; // discover y
-                G->distance[y] = G->distance[x] + 1;
-                G->parent[y] = x;
-                append(Q, y);
-            }
-        }
-        G->color[x] = 'b'; // Finish x
-    }
-    freeList(&Q);
 }
 
 // ██ Other Functions ██
