@@ -1,7 +1,7 @@
 // James Tennant • jtennant • pa3
 
-#include "List.h"
 #include "Graph.h"
+#include "List.h"
 #include <stdio.h>
 #include <stdlib.h>
 
