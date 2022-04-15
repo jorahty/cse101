@@ -10,12 +10,12 @@
 
 typedef struct GraphObj {
     List* neighbors; // Neighbors of each vertex
-    char* color; // Color of each vertex (w/g/b)
-    int* parent; // Parent of each vertex
-    int* distance; // Distance to source from each vertex
-    int order; // Number of vertices
-    int size; // Number of edges
-    int source; // Most recent source vertex
+    char* color;     // Color of each vertex (w/g/b)
+    int* parent;     // Parent of each vertex
+    int* discover;   // Discover time of each vertex
+    int* finish;     // Finish time of each vertex
+    int order;       // Number of vertices
+    int size;        // Number of edges
 } GraphObj;
 
 // ██ Constructors & Destructors ██
@@ -28,19 +28,20 @@ Graph newGraph(int n) {
     G->neighbors = calloc(length, sizeof(List));
     G->color = calloc(length, sizeof(char));
     G->parent = calloc(length, sizeof(int));
-    G->distance = calloc(length, sizeof(int));
+    G->discover = calloc(length, sizeof(int));
+    G->finish = calloc(length, sizeof(int));
 
     // Initialize vertex properties
     for (int u = 1; u <= n; u++) {
         G->neighbors[u] = newList();
         G->color[u] = 'w';
         G->parent[u] = NIL;
-        G->distance[u] = INF;
+        G->discover[u] = NIL;
+        G->finish[u] = NIL;
     }
 
     G->order = n;
     G->size = 0;
-    G->source = NIL;
     return G;
 }
 
@@ -55,7 +56,8 @@ void freeGraph(Graph* pG) {
         }
         if ((*pG)->color) free((*pG)->color);
         if ((*pG)->parent) free((*pG)->parent);
-        if ((*pG)->distance) free((*pG)->distance);
+        if ((*pG)->discover) free((*pG)->discover);
+        if ((*pG)->finish) free((*pG)->finish);
         free(*pG);
         *pG = NULL;
     }
