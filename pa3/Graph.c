@@ -81,15 +81,6 @@ int getSize(Graph G) {
     return G->size;
 }
 
-// Return (most recent) source
-int getSource(Graph G) {
-    if (G == NULL) {
-        fprintf(stderr, "Graph Error: calling getSource() on NULL Graph reference\n");
-        exit(1);
-    }
-    return G->source;
-}
-
 // Return parent of vertex u
 // Pre: 1 ≤ u ≤ getOrder()
 int getParent(Graph G, int u) {
