@@ -97,6 +97,34 @@ int getParent(Graph G, int u) {
     return G->parent[u];
 }
 
+// Return discover time of vertex u
+// Pre: 1 ≤ u ≤ getOrder()
+int getDiscover(Graph G, int u) {
+    if (G == NULL) {
+        fprintf(stderr, "Graph Error: calling getDiscover() on NULL Graph reference\n");
+        exit(1);
+    }
+    if (u < 1 || u > getOrder(G)) {
+        fprintf(stderr, "Graph Error: calling getDiscover() with vertex out of range\n");
+        exit(1);
+    }
+    return G->discover[u];
+}
+
+// Return finish time of vertex u
+// Pre: 1 ≤ u ≤ getOrder()
+int getFinish(Graph G, int u) {
+    if (G == NULL) {
+        fprintf(stderr, "Graph Error: calling getFinish() on NULL Graph reference\n");
+        exit(1);
+    }
+    if (u < 1 || u > getOrder(G)) {
+        fprintf(stderr, "Graph Error: calling getFinish() with vertex out of range\n");
+        exit(1);
+    }
+    return G->finish[u];
+}
+
 // ██ Manipulation Procedures ██
 
 // Add new edge joining u and v
