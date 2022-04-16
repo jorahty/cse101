@@ -224,6 +224,51 @@ void addArc(Graph G, int u, int v) {
     }
 }
 
+int time = 0;
+void Visit(Graph G, int x);
+
+// Pre: length(S) == getOrder(G)
+void DFS(Graph G, List S) {
+    if (G == NULL) {
+        fprintf(stderr, "Graph Error: calling DFS() on NULL Graph reference\n");
+        exit(1);
+    }
+    if (length(S) != getOrder(G)) {
+        fprintf(stderr, "Graph Error: calling DFS() with List of invalid length\n");
+        exit(1);
+    }
+
+    // Initialize
+    for (int u = 1; u <= getOrder(G); u++) {
+        G->color[u] = 'w';
+        G->parent[u] = NIL;
+        G->discover[u] = NIL;
+        G->finish[u] = NIL;
+    }
+    time = 0;
+
+    // Main loop of DFS
+    for (moveFront(S); index(S) != -1; moveNext(S)) {
+        int x = get(S);
+        if (G->color[x] == 'w') { Visit(G, x); }
+    }
+}
+
+void Visit(Graph G, int x) {
+    G->discover[x] = (++time); // Discover x
+    G->color[x] = 'g';
+    List N = G->neighbors[x];
+    for (moveFront(N); index(N) != -1; moveNext(N)) { // For every neighbor
+        int y = get(N);
+        if (G->color[y] == 'w') {
+            G->parent[y] = x;
+            Visit(G, y);
+        }
+    }
+    G->color[x] = 'b';
+    G->finish[x] = (++time); // Finish x
+}
+
 // ██ Other Functions ██
 
 // Print adjacency List representation
