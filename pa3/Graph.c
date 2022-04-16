@@ -49,7 +49,9 @@ Graph newGraph(int n) {
 void freeGraph(Graph* pG) {
     if (pG && *pG) {
         if ((*pG)->neighbors) {
-            for (int u = 1; u <= (*pG)->order; u++) freeList(&((*pG)->neighbors[u]));
+            for (int u = 1; u <= (*pG)->order; u++) {
+                freeList(&((*pG)->neighbors[u]));
+            }
             free((*pG)->neighbors);
         }
         if ((*pG)->color) free((*pG)->color);
@@ -223,7 +225,7 @@ void addArc(Graph G, int u, int v) {
 }
 
 int time = 0;
-void Visit(Graph G, int x);
+void Visit(Graph G, List S, int x);
 
 // Pre: length(S) == getOrder(G)
 void DFS(Graph G, List S) {
@@ -243,16 +245,22 @@ void DFS(Graph G, List S) {
         G->discover[u] = NIL;
         G->finish[u] = NIL;
     }
+
     time = 0;
 
+    List L = copyList(S); // Let L be loop order (given by S)
+    clear(S); // Now prepare S to be stack of vertices by finish time
+
     // Main loop of DFS
-    for (moveFront(S); index(S) != -1; moveNext(S)) {
-        int x = get(S);
-        if (G->color[x] == 'w') { Visit(G, x); }
+    for (moveFront(L); index(L) != -1; moveNext(L)) {
+        int x = get(L);
+        if (G->color[x] == 'w') Visit(G, S, x);
     }
+
+    freeList(&L);
 }
 
-void Visit(Graph G, int x) {
+void Visit(Graph G, List S, int x) {
     G->discover[x] = (++time); // Discover x
     G->color[x] = 'g';
     List N = G->neighbors[x];
@@ -260,11 +268,12 @@ void Visit(Graph G, int x) {
         int y = get(N);
         if (G->color[y] == 'w') {
             G->parent[y] = x;
-            Visit(G, y);
+            Visit(G, S, y);
         }
     }
     G->color[x] = 'b';
     G->finish[x] = (++time); // Finish x
+    prepend(S, x); // Push x
 }
 
 // ██ Other Functions ██
