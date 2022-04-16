@@ -123,6 +123,19 @@ int getDist(Graph G, int u) {
 // See PrintPath in /Examples/Pseudo-Code
 // Pre: 1 ≤ u ≤ getOrder(), getSource() != NIL
 void getPath(List L, Graph G, int u) {
+    if (G == NULL) {
+        fprintf(stderr, "Graph Error: calling getPath() on NULL Graph reference\n");
+        exit(1);
+    }
+    if (u < 1 || u > getOrder(G)) {
+        fprintf(stderr, "Graph Error: calling getPath() with vertex out of range\n");
+        exit(1);
+    }
+    if (getSource(G) == NIL) {
+        fprintf(stderr, "Graph Error: calling getPath() on Graph with unset source\n");
+        exit(1);
+    }
+
     if (u == getSource(G)) {
         append(L, u);
     } else if (getParent(G, u) == NIL) {
