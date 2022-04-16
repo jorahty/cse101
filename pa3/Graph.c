@@ -278,6 +278,21 @@ void Visit(Graph G, List S, int x) {
 
 // ██ Other Functions ██
 
+Graph transpose(Graph G) {
+    Graph T = newGraph(getOrder(G)); // new null graph with same # of vertices
+
+    // add arcs
+    for (int x = 1; x <= getOrder(G); x++) { // for every list
+        List L = G->neighbors[x];
+        for (moveFront(L); index(L) != -1; moveNext(L)) { // for every vertex in list
+            int y = get(L);
+            addArc(T, y, x); // add arc from y to x
+        }
+    }
+
+    return T;
+}
+
 // Print adjacency List representation
 void printGraph(FILE* out, Graph G) {
     if (G == NULL) {
