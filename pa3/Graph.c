@@ -273,7 +273,7 @@ void Visit(Graph G, List S, int x) {
     }
     G->color[x] = 'b';
     G->finish[x] = (++time); // Finish x
-    prepend(S, x); // Push x
+    prepend(S, x);
 }
 
 // ██ Other Functions ██
