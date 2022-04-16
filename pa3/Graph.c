@@ -49,7 +49,7 @@ Graph newGraph(int n) {
 void freeGraph(Graph* pG) {
     if (pG && *pG) {
         if ((*pG)->neighbors) {
-            for (int u = 1; u <= (*pG)->order; u++) { freeList(&((*pG)->neighbors[u])); }
+            for (int u = 1; u <= (*pG)->order; u++) freeList(&((*pG)->neighbors[u]));
             free((*pG)->neighbors);
         }
         if ((*pG)->color) free((*pG)->color);
