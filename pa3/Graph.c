@@ -293,6 +293,18 @@ Graph transpose(Graph G) {
     return T;
 }
 
+Graph copyGraph(Graph G) {
+    Graph C = newGraph(getOrder(G));
+
+    for (int u = 1; u <= getOrder(G); u++) {
+        List L = C->neighbors[u];
+        freeList(&L);
+        C->neighbors[u] = copyList(G->neighbors[u]);
+    }
+
+    return C;
+}
+
 // Print adjacency List representation
 void printGraph(FILE* out, Graph G) {
     if (G == NULL) {
