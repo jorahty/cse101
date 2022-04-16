@@ -67,12 +67,11 @@ int main(int argc, char* argv[]) {
         components[i] = newList();
     }
 
+    // Extract components from S
     int i = 0;
     for (moveBack(S); index(S) != -1; movePrev(S)) {
         int x = get(S);
-
         prepend(components[i], x);
-
         if (getParent(Gᵀ, x) == NIL) i++;
     }
 
