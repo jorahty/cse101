@@ -23,3 +23,7 @@ Makefile for building FindPath & GraphTest executables
 
 ## README.md
 File descriptions
+
+# Notes
+- I decided to let `time` be a global variable whose scope is the entire file.
+- I used much of my Graph module from `pa2` for `Graph.c`
