@@ -19,11 +19,11 @@ Test Client for verifying functionality of Graph ADT
 Main program client for performing DFS and finding components
 
 ## Makefile
-Makefile for building FindPath & GraphTest executables
+Makefile for building FindComponents & GraphTest executables
 
 ## README.md
 File descriptions
 
 # Notes
 - I decided to let `time` be a global variable whose scope is the entire file.
-- I used much of my Graph module from `pa2` for `Graph.c`
+- I used much of my Graph module from `pa2` for `Graph.c`.
