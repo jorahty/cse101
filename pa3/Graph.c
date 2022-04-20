@@ -36,8 +36,8 @@ Graph newGraph(int n) {
         G->neighbors[u] = newList();
         G->color[u] = 'w';
         G->parent[u] = NIL;
-        G->discover[u] = NIL;
-        G->finish[u] = NIL;
+        G->discover[u] = UNDEF;
+        G->finish[u] = UNDEF;
     }
 
     G->order = n;
@@ -242,8 +242,8 @@ void DFS(Graph G, List S) {
     for (int u = 1; u <= getOrder(G); u++) {
         G->color[u] = 'w';
         G->parent[u] = NIL;
-        G->discover[u] = NIL;
-        G->finish[u] = NIL;
+        G->discover[u] = UNDEF;
+        G->finish[u] = UNDEF;
     }
 
     time = 0;

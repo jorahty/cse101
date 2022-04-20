@@ -5,8 +5,9 @@
 #include "List.h"
 #include <stdlib.h>
 
-#define INF -1 // Infinity
-#define NIL 0 // Undefined vertex label
+#define INF -1 // Infinity (distance)
+#define NIL 0 // Absent/Nonexistent (vertex)
+#define UNDEF -1 // Undefined (time)
 
 // ██ Public Types ██
 
