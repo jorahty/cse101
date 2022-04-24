@@ -54,41 +54,36 @@ int main(int argc, char* argv[]) {
     DFS(Gᵀ, S); // Now S can be used to print components
 
     // Count components
-    // by counting nil-parent vertices (roots)
     int roots = 0;
     for (moveFront(S); index(S) != -1; moveNext(S)) {
-        int x = get(S);
-        if (getParent(Gᵀ, x) == NIL) roots++;
+        if (getParent(Gᵀ, get(S)) == NIL) roots++;
     }
-
-    // Allocate memory for array of components
-    List* components = calloc(roots, sizeof(List));
-    for (int i = 0; i < roots; i++) {
-        components[i] = newList();
-    }
-
-    // Extract components from S
-    int i = 0;
-    for (moveBack(S); index(S) != -1; movePrev(S)) {
-        int x = get(S);
-        prepend(components[i], x);
-        if (getParent(Gᵀ, x) == NIL) i++;
-    }
-
-    // Print components
     fprintf(out, "\nG contains %d strongly connected components:\n", roots);
-    for (int i = 0; i < roots; i++) {
-        fprintf(out, "Component %d: ", i + 1);
-        printList(out, components[i]);
-        fprintf(out, "\n");
-    }
 
-    // Free array of components
-    for (int i = 0; i < roots; i++) {
-        List L = components[i];
-        freeList(&L);
+    // Determine strong components of G
+    int root = 0;
+    int walk = 0;
+    for (moveBack(S); index(S) != -1; movePrev(S)) { // Walk up S
+        walk++;
+        int x = get(S);
+        if (getParent(Gᵀ, x) == NIL) { // Encounter nil parent
+            root++;
+            fprintf(out, "Component %d:", root);
+
+            // Print down (and walk back up)
+            fprintf(out, " %d", x);
+            for (int i = 0; i < walk - 1; i++) {
+                moveNext(S);
+                fprintf(out, " %d", get(S));
+            }
+            for (int i = 0; i < walk - 1; i++) {
+                movePrev(S);
+            }
+
+            fprintf(out, "\n");
+            walk = 0;
+        }
     }
-    free(components);
 
     // Free S, G, and Gᵀ
     freeList(&S);
