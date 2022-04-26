@@ -12,7 +12,7 @@ typedef struct NodeObj* Node;
 
 // Define private NodeObj type
 typedef struct NodeObj {
-    int data;
+    void* data;
     Node next;
     Node prev;
 } NodeObj;
@@ -29,7 +29,7 @@ typedef struct ListObj {
 // ██ Constructors & Destructors ██
 
 // Creates a Node
-Node newNode(int data) {
+Node newNode(void* data) {
     Node N = calloc(1, sizeof(NodeObj));
     N->data = data;
     return N;
@@ -83,7 +83,7 @@ int index(List L) {
 }
 
 // Returns front element of L. Pre: length() > 0
-int front(List L) {
+void* front(List L) {
     if (L == NULL) {
         fprintf(stderr, "List Error: calling front() on NULL List reference\n");
         exit(1);
@@ -97,7 +97,7 @@ int front(List L) {
 }
 
 // Returns back element of L. Pre: length() > 0
-int back(List L) {
+void* back(List L) {
     if (L == NULL) {
         fprintf(stderr, "List Error: calling back() on NULL List reference\n");
         exit(1);
@@ -111,7 +111,7 @@ int back(List L) {
 }
 
 // Returns cursor element of L. Pre: length() > 0, index() >= 0
-int get(List L) {
+void* get(List L) {
     if (L == NULL) {
         fprintf(stderr, "List Error: calling get() on NULL List reference\n");
         exit(1);
@@ -168,7 +168,7 @@ void clear(List L) {
 }
 
 // Overwrites the cursor element’s data with x. Pre: length() > 0, index() >= 0
-void set(List L, int x) {
+void set(List L, void* x) {
     if (L == NULL) {
         fprintf(stderr, "List Error: calling set() on NULL List reference\n");
         exit(1);
@@ -249,7 +249,7 @@ void moveNext(List L) {
 }
 
 // Insert new element into L. If L is non-empty, insertion takes place before front element.
-void prepend(List L, int x) {
+void prepend(List L, void* x) {
     if (L == NULL) {
         fprintf(stderr, "List Error: calling prepend() on NULL List reference\n");
         exit(1);
@@ -274,7 +274,7 @@ void prepend(List L, int x) {
 }
 
 // Insert new element into L. If L is non-empty, insertion takes place after back element.
-void append(List L, int x) {
+void append(List L, void* x) {
     if (L == NULL) {
         fprintf(stderr, "List Error: calling append() on NULL List reference\n");
         exit(1);
@@ -295,7 +295,7 @@ void append(List L, int x) {
 }
 
 // Insert new element before cursor. Pre: length() > 0, index() >= 0
-void insertBefore(List L, int x) {
+void insertBefore(List L, void* x) {
     if (L == NULL) {
         fprintf(stderr, "List Error: calling insertBefore() on NULL List reference\n");
         exit(1);
@@ -330,7 +330,7 @@ void insertBefore(List L, int x) {
 }
 
 // Insert new element after cursor. Pre: length() > 0, index() >= 0
-void insertAfter(List L, int x) {
+void insertAfter(List L, void* x) {
     if (L == NULL) {
         fprintf(stderr, "List Error: calling insertAfter() on NULL List reference\n");
         exit(1);
@@ -470,8 +470,6 @@ void delete (List L) {
 
 // ██ Other Functions ██
 
-// Prints to the file pointed to by out, a string representation of L
-// consisting of a space-separated sequence of integers, with front on left.
 void printList(FILE* out, List L) {
     if (L == NULL) {
         fprintf(stderr, "List Error: calling printList() on NULL List reference\n");
@@ -479,27 +477,8 @@ void printList(FILE* out, List L) {
     }
     if (L->front == NULL) return;
 
-    fprintf(out, "%d", L->front->data);
+    fprintf(out, "%p", L->front->data);
     for (Node N = L->front->next; N != NULL; N = N->next) {
-        fprintf(out, " %d", N->data);
+        fprintf(out, " %p", N->data);
     }
-}
-
-// Returns a new List representing the same integer
-// sequence as L. The cursor in the new list is undefined,
-// regardless of the state of the cursor in L. The state
-// of L is unchanged.
-List copyList(List L) {
-    if (L == NULL) {
-        fprintf(stderr, "List Error: calling copyList() on NULL List reference\n");
-        exit(1);
-    }
-
-    List C = newList(); // Create new List
-
-    for (Node N = L->front; N != NULL; N = N->next) {
-        append(C, N->data); // Transfer integer sequence
-    }
-
-    return C;
 }
