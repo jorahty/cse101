@@ -9,7 +9,6 @@ AllowShortBlocksOnASingleLine: true
 AllowShortCaseLabelsOnASingleLine: true
 AllowShortFunctionsOnASingleLine: None
 AllowShortIfStatementsOnASingleLine: true
-ColumnLimit: 100
 IndentCaseLabels: false
 IndentWrappedFunctionNames: true
 PointerAlignment: Left
