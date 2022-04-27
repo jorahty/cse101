@@ -16,10 +16,10 @@ Matrix ADT implementation with private type definitions & function definitions
 Test Client for verifying functionality of Matrix ADT
 
 ## Sparse.c
-Main program client for performing matrix operations
+Main program client for performing Matrix operations
 
 ## Makefile
-Makefile for building FindComponents & MatrixTest executables
+Makefile for building Sparse, ListTest & MatrixTest executables
 
 ## README.md
 File descriptions
