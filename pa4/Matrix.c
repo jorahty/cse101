@@ -20,10 +20,20 @@ typedef struct EntryObj* Entry;
 // Define private EntryObj type
 typedef struct EntryObj {
    int col;
-   int val;
+   double val;
 } EntryObj;
 
 // ██ Constructors & Destructors ██
+
+// Creates an Entry
+Entry newEntry(int j, double x) {
+    Entry E = malloc(sizeof(EntryObj));
+    E->col = j;
+    E->val = x;
+    return E;
+}
+
+// No need for freeEntry() because freeNode() will free data
 
 // Returns a reference to a new nXn Matrix object in the zero state.
 Matrix newMatrix(int n) {
@@ -69,7 +79,39 @@ void makeZero(Matrix M);
 
 // Changes the ith row, jth column of M to the value x.
 // Pre: 1<=i<=size(M), 1<=j<=size(M)
-void changeEntry(Matrix M, int i, int j, double x);
+void changeEntry(Matrix M, int i, int j, double x) {
+    List L = M->arr[i];
+    for (moveFront(L); index(L) != -1; moveNext(L)) {
+        Entry E = get(L); // For each Entry E
+
+        if (E->col == j) { // Are we at column j?
+            // Mij already exists!
+            // Overwrite if x ≠ 0, else delete
+            if (x != 0) {
+                E->val = x;
+                return;
+            }
+            delete(L);
+            return;
+        }
+
+        if (E->col > j) { // Did we pass column j?
+            // Mij does not exist!
+            // Create Mij if x ≠ 0
+            if (x != 0) {
+                Entry Mij = newEntry(j, x);
+                insertBefore(L, Mij);
+            }
+            return;
+        }
+    }
+    // Mij belongs at the end of List L
+    // Append if x ≠ 0
+    if (x != 0) {
+        Entry Mij = newEntry(j, x);
+        append(L, Mij);
+    }
+}
 
 // ██ Arithmetic operations ██
 
@@ -104,12 +146,12 @@ Matrix product(Matrix A, Matrix B);
 // in that row. The double val will be rounded to 1 decimal point.
 void printMatrix(FILE* out, Matrix M) {
     for (int i = 1; i <= M->size; i++) {
-        List L = M->arr[i]; // For L in each row
+        List L = M->arr[i]; // For each List L
         if (length(L) == 0) continue; // Skip if empty
         fprintf(out, "%d:", i);
-        for (moveFront(L); index(L) != -1; moveBack(L)) {
-            Entry E = get(L);
-            printf(" (%d, %d)", E->col, E->val);
+        for (moveFront(L); index(L) != -1; moveNext(L)) {
+            Entry E = get(L); // For each Entry E
+            printf(" (%d, %.1f)", E->col, E->val);
         }
         fprintf(out, "\n");
     }
