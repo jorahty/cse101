@@ -59,18 +59,17 @@ void freeMatrix(Matrix* pM) {
         if ((*pM)->arr) {
             for (int i = 1; i <= (*pM)->size; i++) {
 
-                // Free Entries
                 List L = (*pM)->arr[i];
                 for (moveFront(L); index(L) != -1; moveNext(L)) {
                     Entry E = get(L);
-                    freeEntry(&E);
+                    freeEntry(&E); // Free Entry
                 }
 
-                freeList(&((*pM)->arr[i]));
+                freeList(&((*pM)->arr[i])); // Free List
             }
-            free((*pM)->arr);
+            free((*pM)->arr); // Free array of Lists
         }
-        free(*pM);
+        free(*pM); // Free Matrix
         *pM = NULL;
     }
 }
@@ -88,7 +87,28 @@ int NNZ(Matrix M) {
 }
 
 // Return true (1) if matrices A and B are equal, false (0) otherwise.
-int equals(Matrix A, Matrix B);
+int equals(Matrix A, Matrix B) {
+    if (A->size != B->size) return 0;
+
+    // Search for inequality
+    for (int i = 1; i <= A->size; i++) {
+        List X = A->arr[i];
+        List Y = B->arr[i];
+        if (length(X) != length(Y)) return 0;
+
+        moveFront(X);
+        moveFront(Y);
+        while (index(X) != -1) {
+            Entry E = get(X);
+            Entry F = get(Y);
+            if (E->col != F->col || E->val != F->val) return 0;
+            moveNext(X);
+            moveNext(Y);
+        }
+    }
+
+    return 1; // No inequalities found
+}
 
 // ██ Manipulation Procedures ██
 
@@ -144,7 +164,7 @@ Matrix copy(Matrix A) {
         List L = A->arr[i]; // For each List L
         for (moveFront(L); index(L) != -1; moveNext(L)) {
             Entry E = get(L); // For each Entry E
-            changeEntry(M, i, E->col, E->val);
+            changeEntry(M, i, E->col, E->val); // Add to M
         }
     }
     return M;
