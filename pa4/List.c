@@ -38,7 +38,6 @@ Node newNode(void* data) {
 // Deletes a Node
 void freeNode(Node* pN) {
     if (pN && *pN) {
-        if ((*pN)->data) free((*pN)->data); // For pa4, free the Entry!
         free(*pN);
         *pN = NULL;
     }
