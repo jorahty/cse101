@@ -114,9 +114,15 @@ int equals(Matrix A, Matrix B) {
 
 // Re-sets M to the zero Matrix state.
 void makeZero(Matrix M) {
-    int n = M->size;
-    freeMatrix(&M);
-    M = newMatrix(n);
+    for (int i = 1; i <= M->size; i++) {
+        List L = M->arr[i];
+        for (moveFront(L); index(L) != -1; moveNext(L)) {
+            Entry E = get(L);
+            freeEntry(&E); // Free Entry
+        }
+        clear(L);
+    }
+    M->nnz = 0;
 }
 
 // Changes the ith row, jth column of M to the value x.
