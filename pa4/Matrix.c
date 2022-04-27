@@ -33,7 +33,13 @@ Entry newEntry(int j, double x) {
     return E;
 }
 
-// No need for freeEntry() because freeNode() will free data
+// Deletes an Entry
+void freeEntry(Entry* pE) {
+    if (pE && *pE) {
+        free(*pE);
+        *pE = NULL;
+    }
+}
 
 // Returns a reference to a new nXn Matrix object in the zero state.
 Matrix newMatrix(int n) {
@@ -52,6 +58,14 @@ void freeMatrix(Matrix* pM) {
     if (pM && *pM) {
         if ((*pM)->arr) {
             for (int i = 1; i <= (*pM)->size; i++) {
+
+                // Free Entries
+                List L = (*pM)->arr[i];
+                for (moveFront(L); index(L) != -1; moveNext(L)) {
+                    Entry E = get(L);
+                    freeEntry(&E);
+                }
+
                 freeList(&((*pM)->arr[i]));
             }
             free((*pM)->arr);
@@ -95,6 +109,7 @@ void changeEntry(Matrix M, int i, int j, double x) {
                 E->val = x;
                 return;
             }
+            freeEntry(&E); // Must free Entry
             delete(L);
             M->nnz--;
             return;
