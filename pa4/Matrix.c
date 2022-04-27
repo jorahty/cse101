@@ -5,9 +5,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// ██ Public Types ██
+// ██ Private Types ██
 
-typedef struct MatrixObj* Matrix;
+// Define private MatrixObj type
+typedef struct MatrixObj {
+    List* A;
+    int size;
+    int nnz;
+} MatrixObj;
+
+// Define private Entry type
+typedef struct EntryObj* Entry;
+
+// Define private EntryObj type
+typedef struct EntryObj {
+   int col;
+   int val;
+} EntryObj;
 
 // ██ Constructors & Destructors ██
 
