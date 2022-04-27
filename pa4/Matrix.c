@@ -195,7 +195,17 @@ Matrix transpose(Matrix A) {
 }
 
 // Returns a reference to a new Matrix object representing xA.
-Matrix scalarMult(double x, Matrix A);
+Matrix scalarMult(double x, Matrix A) {
+    Matrix M = newMatrix(A->size);
+    for (int i = 1; i <= A->size; i++) {
+        List L = A->arr[i]; // For each List L
+        for (moveFront(L); index(L) != -1; moveNext(L)) {
+            Entry E = get(L); // For each Entry E
+            changeEntry(M, i, E->col, E->val * x); // Scale the value
+        }
+    }
+    return M;
+}
 
 // Returns a reference to a new Matrix object representing A+B.
 // pre: size(A)==size(B)
