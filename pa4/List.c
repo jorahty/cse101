@@ -129,28 +129,6 @@ void* get(List L) {
     return L->cursor->data;
 }
 
-// Returns true iff A & B are in same state, false otherwise
-bool equals(List A, List B) {
-    if (A == NULL || B == NULL) {
-        fprintf(stderr, "List Error: calling equals() on NULL List reference\n");
-        exit(1);
-    }
-
-    bool eq = false;
-    Node N = NULL;
-    Node M = NULL;
-
-    eq = (A->length == B->length);
-    N = A->front;
-    M = B->front;
-    while (eq && N != NULL) {
-        eq = (N->data == M->data);
-        N = N->next;
-        M = M->next;
-    }
-    return eq;
-}
-
 // ██ Manipulation Procedures ██
 
 // Resets L to its original empty state.
