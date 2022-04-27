@@ -138,11 +138,31 @@ void changeEntry(Matrix M, int i, int j, double x) {
 // ██ Arithmetic operations ██
 
 // Returns a reference to a new Matrix object having the same entries as A.
-Matrix copy(Matrix A);
+Matrix copy(Matrix A) {
+    Matrix M = newMatrix(A->size);
+    for (int i = 1; i <= A->size; i++) {
+        List L = A->arr[i]; // For each List L
+        for (moveFront(L); index(L) != -1; moveNext(L)) {
+            Entry E = get(L); // For each Entry E
+            changeEntry(M, i, E->col, E->val);
+        }
+    }
+    return M;
+}
 
 // Returns a reference to a new Matrix object representing the transpose
 // of A.
-Matrix transpose(Matrix A);
+Matrix transpose(Matrix A) {
+    Matrix M = newMatrix(A->size);
+    for (int i = 1; i <= A->size; i++) {
+        List L = A->arr[i]; // For each List L
+        for (moveFront(L); index(L) != -1; moveNext(L)) {
+            Entry E = get(L); // For each Entry E
+            changeEntry(M, E->col, i, E->val); // Swap i & j
+        }
+    }
+    return M;
+}
 
 // Returns a reference to a new Matrix object representing xA.
 Matrix scalarMult(double x, Matrix A);
