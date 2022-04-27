@@ -19,8 +19,8 @@ typedef struct EntryObj* Entry;
 
 // Define private EntryObj type
 typedef struct EntryObj {
-   int col;
-   double val;
+    int col;
+    double val;
 } EntryObj;
 
 // ██ Constructors & Destructors ██
@@ -110,7 +110,7 @@ void changeEntry(Matrix M, int i, int j, double x) {
                 return;
             }
             freeEntry(&E); // Must free Entry
-            delete(L);
+            delete (L);
             M->nnz--;
             return;
         }
