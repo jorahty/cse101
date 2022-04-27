@@ -113,7 +113,11 @@ int equals(Matrix A, Matrix B) {
 // ██ Manipulation Procedures ██
 
 // Re-sets M to the zero Matrix state.
-void makeZero(Matrix M);
+void makeZero(Matrix M) {
+    int n = M->size;
+    freeMatrix(&M);
+    M = newMatrix(n);
+}
 
 // Changes the ith row, jth column of M to the value x.
 // Pre: 1<=i<=size(M), 1<=j<=size(M)
