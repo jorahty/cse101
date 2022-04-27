@@ -102,4 +102,15 @@ Matrix product(Matrix A, Matrix B);
 // of the row number, followed by a colon, a space, then a space separated
 // list of pairs "(col, val)" giving the column numbers and non-zero values
 // in that row. The double val will be rounded to 1 decimal point.
-void printMatrix(FILE* out, Matrix M);
+void printMatrix(FILE* out, Matrix M) {
+    for (int i = 1; i <= M->size; i++) {
+        List L = M->arr[i]; // For L in each row
+        if (length(L) == 0) continue; // Skip if empty
+        fprintf(out, "%d:", i);
+        for (moveFront(L); index(L) != -1; moveBack(L)) {
+            Entry E = get(L);
+            printf(" (%d, %d)", E->col, E->val);
+        }
+        fprintf(out, "\n");
+    }
+}
