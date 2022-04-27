@@ -20,7 +20,7 @@ int main(void) {
     }
 
     // Print List
-    printf("Original List: ");
+    printf("Raw List: ");
     printList(stdout, L);
     printf("\n");
     printf("Unwrapped List: ");
@@ -43,7 +43,7 @@ int main(void) {
     printf("\n");
 
     // Print List
-    printf("Original List: ");
+    printf("Raw List: ");
     printList(stdout, L);
     printf("\n");
     printf("Unwrapped List: ");
