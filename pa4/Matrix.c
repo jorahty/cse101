@@ -64,10 +64,14 @@ void freeMatrix(Matrix* pM) {
 // ██ Access Functions ██
 
 // Return the size of square Matrix M.
-int size(Matrix M);
+int size(Matrix M) {
+    return M->size;
+}
 
 // Return the number of non-zero elements in M.
-int NNZ(Matrix M);
+int NNZ(Matrix M) {
+    return M->nnz;
+}
 
 // Return true (1) if matrices A and B are equal, false (0) otherwise.
 int equals(Matrix A, Matrix B);
@@ -82,7 +86,7 @@ void makeZero(Matrix M);
 void changeEntry(Matrix M, int i, int j, double x) {
     List L = M->arr[i];
     for (moveFront(L); index(L) != -1; moveNext(L)) {
-        Entry E = get(L); // For each Entry E
+        Entry E = get(L); // For each Entry E in List L
 
         if (E->col == j) { // Are we at column j?
             // Mij already exists!
@@ -92,6 +96,7 @@ void changeEntry(Matrix M, int i, int j, double x) {
                 return;
             }
             delete(L);
+            M->nnz--;
             return;
         }
 
@@ -101,6 +106,7 @@ void changeEntry(Matrix M, int i, int j, double x) {
             if (x != 0) {
                 Entry Mij = newEntry(j, x);
                 insertBefore(L, Mij);
+                M->nnz++;
             }
             return;
         }
@@ -110,6 +116,7 @@ void changeEntry(Matrix M, int i, int j, double x) {
     if (x != 0) {
         Entry Mij = newEntry(j, x);
         append(L, Mij);
+        M->nnz++;
     }
 }
 
