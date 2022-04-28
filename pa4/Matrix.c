@@ -215,9 +215,63 @@ Matrix sum(Matrix A, Matrix B);
 // pre: size(A)==size(B)
 Matrix diff(Matrix A, Matrix B);
 
+// Compute dot product of P & Q
+double dot(List P, List Q) {
+    double sum = 0;
+
+    moveFront(P);
+    moveFront(Q);
+    while (index(P) != -1 && index(Q) != -1) {
+        Entry E = get(P), F = get(Q);
+
+        // Same column? Add product to sum & moveNext on both
+        if (E->col == F->col) {
+            sum += E->val * F->val;
+            moveNext(P);
+            moveNext(Q);
+            continue;
+        }
+
+        // P is ahead? moveNext on Q
+        if (E->col > F->col) {
+            moveNext(Q);
+            continue;
+        }
+
+        // Q is ahead so moveNext on P
+        moveNext(P);
+    }
+
+    return sum;
+}
+
 // Returns a reference to a new Matrix object representing AB
 // pre: size(A)==size(B)
-Matrix product(Matrix A, Matrix B);
+Matrix product(Matrix A, Matrix B) {
+    if (A->size != B->size) {
+        fprintf(stderr, "Matrix Error: calling product() on Matrices of unequal size\n");
+        exit(1);
+    }
+    int n = A->size;
+    Matrix M = newMatrix(n); // Create resultant Matrix M
+    Matrix Bᵀ = transpose(B);
+
+    // For every List P in A
+    for (int i = 1; i <= n; i++) {
+        List P = A->arr[i];
+        if (length(P) == 0) continue;
+
+        // For every List Q in Bᵀ
+        for (int j = 1; j <= n; j++) {
+            List Q = Bᵀ->arr[j];
+            if (length(Q) == 0) continue;
+            changeEntry(M, i, j, dot(P, Q)); // Mij = P ⋅ Q
+        }
+    }
+
+    freeMatrix(&Bᵀ);
+    return M;
+}
 
 // ██ Other Functions ██
 
