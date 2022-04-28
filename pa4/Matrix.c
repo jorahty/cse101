@@ -207,13 +207,74 @@ Matrix scalarMult(double x, Matrix A) {
     return M;
 }
 
+// Compute A ± B
+Matrix merge(Matrix A, Matrix B, int pm) {
+    if (A->size != B->size) {
+        fprintf(stderr, "Matrix Error: calling sum() or diff() on Matrices of unequal size\n");
+        exit(1);
+    }
+
+    Matrix M = newMatrix(A->size); // Create resultant Matrix M
+
+    for (int i = 1; i <= A->size; i++) { // For every ith row: Mi = Ai ± Bi
+        List Ai = A->arr[i], Bi = B->arr[i];
+
+        moveFront(Ai);
+        moveFront(Bi);
+        while (index(Ai) != -1 && index(Bi) != -1) {
+            // Reached the end of Ai? Append Bij
+            if (index(Ai) == -1) {
+                Entry Bij = get(Bi);
+                changeEntry(M, i, Bij->col, Bij->val);
+                moveNext(Bi);
+                continue;
+            }
+
+            // Reached the end of Bi? Append Bij
+            if (index(Bi) == -1) {
+                Entry Aij = get(Ai);
+                changeEntry(M, i, Aij->col, Aij->val);
+                moveNext(Ai);
+                continue;
+            }
+
+            Entry Aij = get(Ai), Bij = get(Bi);
+
+            // Same column? Append Aij ± Bij
+            if (Aij->col == Bij->col) {
+                changeEntry(M, i, Aij->col, Aij->val + pm * Bij->val);
+                moveNext(Ai);
+                moveNext(Bi);
+                continue;
+            }
+
+            // Aij is ahead? Append Bij
+            if (Aij->col > Bij->col) {
+                changeEntry(M, i, Bij->col, Bij->val);
+                moveNext(Bi);
+                continue;
+            }
+
+            // Bij is ahead so append Aij
+            changeEntry(M, i, Aij->col, Aij->val);
+            moveNext(Ai);
+        }
+    }
+
+    return M;
+}
+
 // Returns a reference to a new Matrix object representing A+B.
 // pre: size(A)==size(B)
-Matrix sum(Matrix A, Matrix B);
+Matrix sum(Matrix A, Matrix B) {
+    return merge(A, B, 1);
+}
 
 // Returns a reference to a new Matrix object representing A-B.
 // pre: size(A)==size(B)
-Matrix diff(Matrix A, Matrix B);
+Matrix diff(Matrix A, Matrix B) {
+    return merge(A, B, -1);
+}
 
 // Compute dot product of P & Q
 double dot(List P, List Q) {

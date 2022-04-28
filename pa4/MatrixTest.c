@@ -36,20 +36,20 @@ int main(void) {
     printf("\n");
 
     printf("I + J:\n");
-    // Matrix Y = sum(I, J);
-    // printMatrix(stdout, Y);
+    Matrix Y = sum(I, J);
+    printMatrix(stdout, Y);
     printf("\n");
 
     printf("I - J:\n");
-    // Matrix Z = diff(I, J);
-    // printMatrix(stdout, Z);
+    Matrix Z = diff(I, J);
+    printMatrix(stdout, Z);
     printf("\n");
 
     freeMatrix(&I);
     freeMatrix(&J);
     freeMatrix(&X);
-    // freeMatrix(&Y);
-    // freeMatrix(&Z);
+    freeMatrix(&Y);
+    freeMatrix(&Z);
 
     printf("More testing:\n");
 
@@ -117,7 +117,7 @@ void MatrixClient() {
     int n = 100000;
     Matrix A = newMatrix(n);
     Matrix B = newMatrix(n);
-    Matrix C, /*D, E,*/ F, G, H;
+    Matrix C, D, E, F, G, H;
 
     changeEntry(A, 1, 1, 1);
     changeEntry(B, 1, 1, 1);
@@ -151,15 +151,15 @@ void MatrixClient() {
     printMatrix(stdout, C);
     printf("\n");
 
-    // D = sum(A, B);
-    // printf("%d\n", NNZ(D));
-    // printMatrix(stdout, D);
-    // printf("\n");
+    D = sum(A, B);
+    printf("%d\n", NNZ(D));
+    printMatrix(stdout, D);
+    printf("\n");
 
-    // E = diff(A, A);
-    // printf("%d\n", NNZ(E));
-    // printMatrix(stdout, E);
-    // printf("\n");
+    E = diff(A, A);
+    printf("%d\n", NNZ(E));
+    printMatrix(stdout, E);
+    printf("\n");
 
     F = transpose(B);
     printf("%d\n", NNZ(F));
@@ -187,8 +187,8 @@ void MatrixClient() {
     freeMatrix(&A);
     freeMatrix(&B);
     freeMatrix(&C);
-    // freeMatrix(&D);
-    // freeMatrix(&E);
+    freeMatrix(&D);
+    freeMatrix(&E);
     freeMatrix(&F);
     freeMatrix(&G);
     freeMatrix(&H);
