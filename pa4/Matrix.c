@@ -348,7 +348,7 @@ void printMatrix(FILE* out, Matrix M) {
         fprintf(out, "%d:", i);
         for (moveFront(L); index(L) != -1; moveNext(L)) {
             Entry E = get(L); // For each Entry E
-            printf(" (%d, %.1f)", E->col, E->val);
+            fprintf(out, " (%d, %.1f)", E->col, E->val);
         }
         fprintf(out, "\n");
     }
