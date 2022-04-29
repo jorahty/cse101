@@ -102,6 +102,7 @@ int main(int argc, char* argv[]) {
     Matrix J = product(B, B);
     fprintf(out, "B*B =\n");
     printMatrix(out, J);
+    fprintf(out, "\n");
 
     // Free memory
     freeMatrix(&A);
