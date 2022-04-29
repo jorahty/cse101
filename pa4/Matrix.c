@@ -349,10 +349,10 @@ void printMatrix(FILE* out, Matrix M) {
     for (int i = 1; i <= M->size; i++) {
         List L = M->arr[i]; // For each List L
         if (length(L) == 0) continue; // Skip if empty
-        fprintf(out, "%d:", i);
+        fprintf(out, "%d: ", i);
         for (moveFront(L); index(L) != -1; moveNext(L)) {
             Entry E = get(L); // For each Entry E
-            fprintf(out, " (%d, %.1f)", E->col, E->val);
+            fprintf(out, "(%d, %.1f) ", E->col, E->val);
         }
         fprintf(out, "\n");
     }
