@@ -36,8 +36,8 @@ int main(int argc, char* argv[]) {
     Matrix A = newMatrix(n);
     for (int i = 0; i < a; i++) {
         int i, j;
-        float x;
-        fscanf(in, "%d %d %f\n", &i, &j, &x);
+        double x;
+        fscanf(in, "%d %d %lf\n", &i, &j, &x);
         changeEntry(A, i, j, x);
     }
     fprintf(out, "A has %d non-zero entries:\n", a);
@@ -48,8 +48,8 @@ int main(int argc, char* argv[]) {
     Matrix B = newMatrix(n);
     for (int i = 0; i < a; i++) {
         int i, j;
-        float x;
-        fscanf(in, "%d %d %f\n", &i, &j, &x);
+        double x;
+        fscanf(in, "%d %d %lf\n", &i, &j, &x);
         changeEntry(B, i, j, x);
     }
     fprintf(out, "B has %d non-zero entries:\n", b);
