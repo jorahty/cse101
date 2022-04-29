@@ -209,28 +209,24 @@ Matrix scalarMult(double x, Matrix A) {
 
 // Compute A ± B
 Matrix merge(Matrix A, Matrix B, int pm) {
-    if (A->size != B->size) {
-        fprintf(stderr, "Matrix Error: calling sum() or diff() on Matrices of unequal size\n");
-        exit(1);
-    }
-
     Matrix M = newMatrix(A->size); // Create resultant Matrix M
 
-    for (int i = 1; i <= A->size; i++) { // For every ith row: Mi = Ai ± Bi
+    for (int i = 1; i <= A->size; i++) { // Merge every ith row: Mi = Ai ± Bi
         List Ai = A->arr[i], Bi = B->arr[i];
 
         moveFront(Ai);
         moveFront(Bi);
-        while (index(Ai) != -1 && index(Bi) != -1) {
-            // Reached the end of Ai? Append Bij
+        while (index(Ai) != -1 || index(Bi) != -1) { // Loop until both Lists exausted
+
+            // Reached the end of Ai? Append Bij and move on
             if (index(Ai) == -1) {
                 Entry Bij = get(Bi);
-                changeEntry(M, i, Bij->col, Bij->val);
+                changeEntry(M, i, Bij->col, pm * Bij->val);
                 moveNext(Bi);
                 continue;
             }
 
-            // Reached the end of Bi? Append Bij
+            // Reached the end of Bi? Append Aij and move on
             if (index(Bi) == -1) {
                 Entry Aij = get(Ai);
                 changeEntry(M, i, Aij->col, Aij->val);
@@ -238,24 +234,24 @@ Matrix merge(Matrix A, Matrix B, int pm) {
                 continue;
             }
 
-            Entry Aij = get(Ai), Bij = get(Bi);
+            Entry Aij = get(Ai), Bij = get(Bi); // Neither List exausted yet
 
-            // Same column? Append Aij ± Bij
+            // Same column? Append Aij ± Bij and moveNext() on both
             if (Aij->col == Bij->col) {
                 changeEntry(M, i, Aij->col, Aij->val + pm * Bij->val);
                 moveNext(Ai);
-                moveNext(Bi);
+                if (A != B) moveNext(Bi); // Important!
                 continue;
             }
 
-            // Aij is ahead? Append Bij
+            // Aij is ahead? Append Bij and move on
             if (Aij->col > Bij->col) {
-                changeEntry(M, i, Bij->col, Bij->val);
+                changeEntry(M, i, Bij->col, pm * Bij->val);
                 moveNext(Bi);
                 continue;
             }
 
-            // Bij is ahead so append Aij
+            // Bij is ahead so append Aij and move on
             changeEntry(M, i, Aij->col, Aij->val);
             moveNext(Ai);
         }
@@ -267,12 +263,20 @@ Matrix merge(Matrix A, Matrix B, int pm) {
 // Returns a reference to a new Matrix object representing A+B.
 // pre: size(A)==size(B)
 Matrix sum(Matrix A, Matrix B) {
+    if (A->size != B->size) {
+        fprintf(stderr, "Matrix Error: calling sum() on Matrices of unequal size\n");
+        exit(1);
+    }
     return merge(A, B, 1);
 }
 
 // Returns a reference to a new Matrix object representing A-B.
 // pre: size(A)==size(B)
 Matrix diff(Matrix A, Matrix B) {
+    if (A->size != B->size) {
+        fprintf(stderr, "Matrix Error: calling diff() on Matrices of unequal size\n");
+        exit(1);
+    }
     return merge(A, B, -1);
 }
 
