@@ -184,11 +184,17 @@ void List::insertAfter(ListElement x) {
 
 // }
 
-// // Returns a string representation of this List consisting of a comma
-// // separated sequence of elements, surrounded by parentheses
-// std::string List::to_string() const {
+// Returns a string representation of this List consisting of a comma
+// separated sequence of elements, surrounded by parentheses
+std::string List::to_string() const {
+    std::string s = "(";
 
-// }
+    for (Node* N = frontDummy->next; N != backDummy; N = N->next) {
+        s += std::to_string(N->data) + ", ";
+    }
+
+    return s + ")";
+}
 
 // // Returns true if and only if this List is the same integer sequence as R.
 // // The cursors in this List and in R are unchanged
@@ -198,11 +204,11 @@ void List::insertAfter(ListElement x) {
 
 // // ██ Overriden Operators ██
 
-// // operator<<()
-// // Inserts string representation of L into stream
-// std::ostream& operator<<(std::ostream& stream, const List& L) {
-
-// }
+// operator<<()
+// Inserts string representation of L into stream
+std::ostream& operator<<(std::ostream& stream, const List& L) {
+    return stream << L.List::to_string();
+}
 
 // // operator==()
 // // Returns true if and only if A is the same integer sequence as B. The
