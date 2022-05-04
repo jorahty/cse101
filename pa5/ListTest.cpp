@@ -13,6 +13,8 @@ int main() {
 
     cout << "Hello ListTest!\n";
 
+    List L;
+
     provided();
 
     return 0;

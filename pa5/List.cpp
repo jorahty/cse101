@@ -4,16 +4,27 @@
 
 // ██ Private Constructors ██
 
-// List::Node::Node(ListElement x) {
+List::Node::Node(ListElement x) {
+    data = x;
+    next = nullptr;
+    prev = nullptr;
+}
 
-// }
+// ██ Class Constructors & Destructors ██
 
-// // ██ Class Constructors & Destructors ██
+// Creates new List in the empty state
+List::List() {
+    frontDummy = new Node(0);
+    backDummy = new Node(0);
+    frontDummy->next = backDummy;
+    backDummy->prev = frontDummy;
 
-// // Creates new List in the empty state
-// List::List() {
+    beforeCursor = frontDummy;
+    afterCursor = backDummy;
 
-// }
+    pos_cursor = 0;
+    num_elements = 0;
+}
 
 // // Copy constructor
 // List::List(const List& L) {
