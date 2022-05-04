@@ -38,7 +38,7 @@ public:
     List(const List& L);
 
     // Destructor
-    // ~List();
+    ~List();
 
     // ██ Access functions ██
 

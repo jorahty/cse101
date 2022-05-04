@@ -14,8 +14,32 @@ int main() {
     cout << "Hello ListTest!\n";
 
     List L;
-
+    cout << endl;
     cout << L.length() << endl;
+    cout << L << endl;
+
+    L.insertAfter(1);
+    cout << endl;
+    cout << L.length() << endl;
+    cout << L << endl;
+
+    L.insertAfter(2);
+    L.insertAfter(3);
+    L.insertAfter(4);
+    cout << endl;
+    cout << L.length() << endl;
+    cout << L << endl;
+
+    L.moveBack();
+    L.eraseBefore();
+    cout << endl;
+    cout << L.length() << endl;
+    cout << L << endl;
+
+    L.clear();
+    cout << endl;
+    cout << L.length() << endl;
+    cout << L << endl;
 
     provided();
 

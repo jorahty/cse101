@@ -31,10 +31,10 @@ List::List() {
 
 // }
 
-// // Destructor
-// List::~List() {
-
-// }
+// Destructor
+List::~List() {
+    clear();
+}
 
 // ██ Access functions ██
 
@@ -75,19 +75,24 @@ int List::length() const {
 // // ██ Manipulation procedures ██
 
 // // Deletes all elements in this List, setting it to the empty state
-// void List::clear() {
-
-// }
+void List::clear() {
+    moveBack();
+    while (num_elements > 0) {
+        eraseBefore();
+    }
+}
 
 // // Moves cursor to position 0 in this List
 // void List::moveFront() {
 
 // }
 
-// // Moves cursor to position length() in this List
-// void List::moveBack() {
-
-// }
+// Moves cursor to position length() in this List
+void List::moveBack() {
+    beforeCursor = backDummy->prev;
+    afterCursor = backDummy;
+    pos_cursor = num_elements;
+}
 
 // // Advances cursor to next higher position. Returns the List element that
 // // was passed over.
@@ -143,11 +148,22 @@ void List::insertAfter(ListElement x) {
 
 // }
 
-// // Deletes element before cursor
-// // pre: position()>0
-// void List::eraseBefore() {
+// Deletes element before cursor
+// pre: position()>0
+void List::eraseBefore() {
+    if (pos_cursor == 0) {
+        throw std::length_error("List: eraseBefore(): nothing before");
+    }
 
-// }
+    Node* N = beforeCursor;
+    beforeCursor = beforeCursor->prev;
+    beforeCursor->next = afterCursor;
+    afterCursor->prev = beforeCursor;
+
+    pos_cursor--;
+    num_elements--;
+    delete N;
+}
 
 // // ██ Other Functions ██
 
