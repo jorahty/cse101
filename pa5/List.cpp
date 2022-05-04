@@ -103,10 +103,22 @@ int List::length() const {
 
 // }
 
-// // Inserts x after cursor
-// void List::insertAfter(ListElement x) {
+// Inserts x after cursor
+void List::insertAfter(ListElement x) {
+    Node* N = new Node(x);
 
-// }
+    // Hook up the new node
+    N->next = afterCursor;
+    N->prev = beforeCursor;
+
+    // Hook up surrounding nodes
+    beforeCursor->next = N;
+    afterCursor->prev = N;
+
+    // Update fields
+    afterCursor = N;
+    num_elements++;
+}
 
 // // Inserts x before cursor
 // void List::insertBefore(ListElement x) {
