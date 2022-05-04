@@ -36,12 +36,12 @@ List::List() {
 
 // }
 
-// // ██ Access functions ██
+// ██ Access functions ██
 
-// // Returns the length of this List
-// int List::length() const {
-
-// }
+// Returns the length of this List
+int List::length() const {
+    return num_elements;
+}
 
 // // Returns the front element in this List
 // // pre: length()>0

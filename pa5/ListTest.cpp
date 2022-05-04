@@ -15,6 +15,8 @@ int main() {
 
     List L;
 
+    cout << L.length() << endl;
+
     provided();
 
     return 0;
