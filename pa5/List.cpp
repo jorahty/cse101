@@ -187,10 +187,14 @@ void List::insertAfter(ListElement x) {
 // Returns a string representation of this List consisting of a comma
 // separated sequence of elements, surrounded by parentheses
 std::string List::to_string() const {
+    if (num_elements == 0) return "()";
     std::string s = "(";
 
-    for (Node* N = frontDummy->next; N != backDummy; N = N->next) {
-        s += std::to_string(N->data) + ", ";
+    Node* N = frontDummy->next;
+    s += std::to_string(N->data);
+
+    for (N = N->next; N != backDummy; N = N->next) {
+        s += ", " + std::to_string(N->data);
     }
 
     return s + ")";
