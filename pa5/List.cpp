@@ -313,12 +313,12 @@ std::ostream& operator<<(std::ostream& stream, const List& L) {
     return stream << L.List::to_string();
 }
 
-// // operator==()
-// // Returns true if and only if A is the same integer sequence as B. The
-// // cursors in both Lists are unchanged
-// bool operator==(const List& A, const List& B) {
-
-// }
+// operator==()
+// Returns true if and only if A is the same integer sequence as B. The
+// cursors in both Lists are unchanged
+bool operator==(const List& A, const List& B) {
+    return A.List::equals(B);
+}
 
 // // operator=()
 // // Overwrites the state of this List with state of L

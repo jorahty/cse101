@@ -97,9 +97,11 @@ int main() {
 
     cout << (L.equals(R) ? "true" : "false") << endl;
     cout << (R.equals(L) ? "true" : "false") << endl;
+    cout << (L == R ? "true" : "false") << endl;
     R.setBefore(21);
     cout << (L.equals(R) ? "true" : "false") << endl;
     cout << (R.equals(L) ? "true" : "false") << endl;
+    cout << (L == R ? "true" : "false") << endl;
 
     provided();
 
