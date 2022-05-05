@@ -81,6 +81,26 @@ int main() {
     L.setAfter(2);
     printInfo(L);
 
+    L.moveNext();
+    L.insertAfter(-4);
+    L.insertAfter(-2);
+    L.insertAfter(0);
+    printInfo(L);
+
+    List R;
+    R.insertBefore(4);
+    R.insertBefore(2);
+    R.insertBefore(0);
+    R.insertBefore(-2);
+    R.insertBefore(-4);
+    printInfo(R);
+
+    cout << (L.equals(R) ? "true" : "false") << endl;
+    cout << (R.equals(L) ? "true" : "false") << endl;
+    R.setBefore(21);
+    cout << (L.equals(R) ? "true" : "false") << endl;
+    cout << (R.equals(L) ? "true" : "false") << endl;
+
     provided();
 
     return 0;

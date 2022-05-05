@@ -287,11 +287,23 @@ std::string List::to_string() const {
     return s + ")";
 }
 
-// // Returns true if and only if this List is the same integer sequence as R.
-// // The cursors in this List and in R are unchanged
-// bool List::equals(const List& R) const {
+// Returns true if and only if this List is the same integer sequence as R.
+// The cursors in this List and in R are unchanged
+bool List::equals(const List& R) const {
+    bool eq = false;
+    Node* N = nullptr;
+    Node* M = nullptr;
 
-// }
+    eq = (this->num_elements == R.num_elements);
+    N = this->frontDummy->next;
+    M = R.frontDummy->next;
+    while (eq && N != this->backDummy) {
+        eq = (N->data == M->data);
+        N = N->next;
+        M = M->next;
+    }
+    return eq;
+}
 
 // // ██ Overriden Operators ██
 
