@@ -68,6 +68,12 @@ int main() {
     printInfo(L);
 
     L.insertBefore(7);
+    L.insertBefore(9);
+    L.insertBefore(13);
+    printInfo(L);
+
+    L.moveFront();
+    L.eraseAfter();
     printInfo(L);
 
     provided();

@@ -197,17 +197,27 @@ void List::insertBefore(ListElement x) {
 
 // }
 
-// // Deletes element after cursor
-// // pre: position()<length()
-// void List::eraseAfter() {
+// Deletes element after cursor
+// pre: position()<length()
+void List::eraseAfter() {
+    if (pos_cursor >= num_elements) {
+        throw std::length_error("List: eraseAfter(): at back");
+    }
 
-// }
+    Node* N = afterCursor;
+    afterCursor = afterCursor->next;
+    afterCursor->prev = beforeCursor;
+    beforeCursor->next = afterCursor;
+
+    num_elements--;
+    delete N;
+}
 
 // Deletes element before cursor
 // pre: position()>0
 void List::eraseBefore() {
     if (pos_cursor == 0) {
-        throw std::length_error("List: eraseBefore(): nothing before");
+        throw std::length_error("List: eraseBefore(): at front");
     }
 
     Node* N = beforeCursor;
