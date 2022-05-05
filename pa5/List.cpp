@@ -34,6 +34,8 @@ List::List() {
 // Destructor
 List::~List() {
     clear();
+    delete frontDummy;
+    delete backDummy;
 }
 
 // ██ Access functions ██
