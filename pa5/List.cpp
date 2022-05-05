@@ -26,10 +26,24 @@ List::List() {
     num_elements = 0;
 }
 
-// // Copy constructor
-// List::List(const List& L) {
+// Copy constructor
+List::List(const List& L) {
+    // Make this an empty List
+    frontDummy = new Node(0);
+    backDummy = new Node(0);
+    frontDummy->next = backDummy;
+    backDummy->prev = frontDummy;
+    beforeCursor = frontDummy;
+    afterCursor = backDummy;
+    pos_cursor = 0;
+    num_elements = 0;
 
-// }
+    // Load elements of L into this List
+    for (Node* N = L.frontDummy->next; N != L.backDummy; N = N->next) {
+        this->insertAfter(N->data);
+        this->moveNext();
+    }
+}
 
 // Destructor
 List::~List() {
