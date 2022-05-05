@@ -109,6 +109,10 @@ int main() {
     cout << L.findNext(5) << endl;
     cout << L.findPrev(2) << endl;
 
+    cout << L << endl;
+    cout << R << endl;
+    cout << L.concat(R) << endl;
+
     cout << "\033[0m"; // Reset color
 
     provided(); // Run test provided in ListClient.cpp

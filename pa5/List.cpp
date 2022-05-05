@@ -276,14 +276,32 @@ int List::findPrev(ListElement x) {
 // is not moved with respect to the retained elements, i.e. it lies between
 // the same two retained elements that it did before cleanup() was called
 // void List::cleanup() {
+//     List F;
 
+//     // For each element:
+//     for (Node* N = frontDummy->next; N != backDummy; N = N->next) {
+//         int x = N->data;
+//         if (F.findNext(x) != -1) { // If found, remove it
+
+//             continue;
+//         }
+//         F.insertBefore(x); // Mark found
+//     }
 // }
 
 // Returns a new List consisting of the elements of this List, followed by
 // the elements of L. The cursor in the returned List will be at postion 0
-// List List::concat(const List& L) const {
-
-// }
+List List::concat(const List& L) const {
+    List R;
+    for (Node* N = frontDummy->next; N != backDummy; N = N->next) {
+        R.insertBefore(N->data);
+    }
+    for (Node* N = L.frontDummy->next; N != L.backDummy; N = N->next) {
+        R.insertBefore(N->data);
+    }
+    R.moveFront();
+    return R;
+}
 
 // Returns a string representation of this List consisting of a comma
 // separated sequence of elements, surrounded by parentheses
