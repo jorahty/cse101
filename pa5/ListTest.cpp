@@ -67,6 +67,9 @@ int main() {
     L.clear();
     printInfo(L);
 
+    L.insertBefore(7);
+    printInfo(L);
+
     provided();
 
     return 0;

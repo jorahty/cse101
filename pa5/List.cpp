@@ -182,6 +182,7 @@ void List::insertBefore(ListElement x) {
     // Update fields
     beforeCursor = N;
     num_elements++;
+    pos_cursor++;
 }
 
 // // Overwrites the List element after the cursor with x
