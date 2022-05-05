@@ -123,12 +123,18 @@ ListElement List::moveNext() {
     return beforeCursor->data;
 }
 
-// // Advances cursor to next lower position. Returns the List element that
-// // was passed over.
-// // pre: position()>0
-// ListElement List::movePrev() {
-
-// }
+// Advances cursor to next lower position. Returns the List element that
+// was passed over.
+// pre: position()>0
+ListElement List::movePrev() {
+    if (pos_cursor <= 0) {
+        throw std::length_error("List: movePrev(): at front");
+    }
+    afterCursor = beforeCursor;
+    beforeCursor = beforeCursor->prev;
+    pos_cursor--;
+    return afterCursor->data;
+}
 
 // Inserts x after cursor
 void List::insertAfter(ListElement x) {

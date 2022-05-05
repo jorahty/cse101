@@ -61,6 +61,9 @@ int main() {
     L.moveNext();
     printInfo(L);
 
+    L.movePrev();
+    printInfo(L);
+
     L.clear();
     printInfo(L);
 
