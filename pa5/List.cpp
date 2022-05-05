@@ -243,18 +243,32 @@ void List::eraseBefore() {
 // is found, places the cursor immediately after the found element, then
 // returns the final cursor position. If x is not found, places the cursor
 // at position length(), and returns -1
-// int List::findNext(ListElement x) {
-
-// }
+int List::findNext(ListElement x) {
+    moveFront();
+    while (pos_cursor != num_elements) {
+        moveNext();
+        if (beforeCursor->data == x) {
+            return pos_cursor;
+        }
+    }
+    return -1;
+}
 
 // Starting from the current cursor position, performs a linear search (in
 // the direction back-to-front) for the first occurrence of element x. If x
 // is found, places the cursor immediately before the found element, then
 // returns the final cursor position. If x is not found, places the cursor
 // at position 0, and returns -1
-// int List::findPrev(ListElement x) {
-
-// }
+int List::findPrev(ListElement x) {
+    moveBack();
+    while (pos_cursor != 0) {
+        movePrev();
+        if (afterCursor->data == x) {
+            return pos_cursor;
+        }
+    }
+    return -1;
+}
 
 // Removes any repeated elements in this List, leaving only unique elements.
 // The order of the remaining elements is obtained by retaining the frontmost

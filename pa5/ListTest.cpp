@@ -105,6 +105,10 @@ int main() {
     cout << (R.equals(L) ? "true" : "false") << endl;
     cout << (L == R ? "true" : "false") << endl;
 
+    cout << L.findNext(0) << endl;
+    cout << L.findNext(5) << endl;
+    cout << L.findPrev(2) << endl;
+
     cout << "\033[0m"; // Reset color
 
     provided(); // Run test provided in ListClient.cpp
@@ -173,32 +177,32 @@ void provided() {
     cout << "D==A is " << (D == A ? "true" : "false") << endl;
     cout << endl;
 
-    // cout << B.findNext(5) << endl;
-    // cout << B << endl;
-    // B.eraseBefore();
-    // B.eraseAfter();
-    // cout << B << endl;
-    // cout << B.position() << endl;
-    // cout << B.findPrev(2) << endl;
-    // B.eraseBefore();
-    // B.eraseAfter();
-    // cout << B << endl;
-    // cout << B.position() << endl;
-    // cout << B.findNext(20) << endl;
-    // cout << B.position() << endl;
-    // cout << B.findPrev(20) << endl;
-    // cout << B.position() << endl;
-    // cout << endl;
+    cout << B.findNext(5) << endl;
+    cout << B << endl;
+    B.eraseBefore();
+    B.eraseAfter();
+    cout << B << endl;
+    cout << B.position() << endl;
+    cout << B.findPrev(2) << endl;
+    B.eraseBefore();
+    B.eraseAfter();
+    cout << B << endl;
+    cout << B.position() << endl;
+    cout << B.findNext(20) << endl;
+    cout << B.position() << endl;
+    cout << B.findPrev(20) << endl;
+    cout << B.position() << endl;
+    cout << endl;
 
-    // for (i = 10; i >= 1; i--) {
-    //     A.insertAfter(i);
-    //     A.movePrev();
-    // }
-    // cout << "A = " << A << endl;
-    // for (i = 1; i <= 15; i++) {
-    //     A.moveNext();
-    // }
-    // cout << A.position() << endl;
+    for (i = 10; i >= 1; i--) {
+        A.insertAfter(i);
+        A.movePrev();
+    }
+    cout << "A = " << A << endl;
+    for (i = 1; i <= 15; i++) {
+        A.moveNext();
+    }
+    cout << A.position() << endl;
     // A.cleanup();
     // cout << "A = " << A << endl;
     // cout << A.position() << endl;
