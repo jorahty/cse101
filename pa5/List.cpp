@@ -167,10 +167,22 @@ void List::insertAfter(ListElement x) {
     num_elements++;
 }
 
-// // Inserts x before cursor
-// void List::insertBefore(ListElement x) {
+// Inserts x before cursor
+void List::insertBefore(ListElement x) {
+    Node* N = new Node(x);
 
-// }
+    // Hook up the new node
+    N->next = afterCursor;
+    N->prev = beforeCursor;
+
+    // Hook up surrounding nodes
+    beforeCursor->next = N;
+    afterCursor->prev = N;
+
+    // Update fields
+    beforeCursor = N;
+    num_elements++;
+}
 
 // // Overwrites the List element after the cursor with x
 // // pre: position()<length()
