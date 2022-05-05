@@ -354,6 +354,19 @@ bool operator==(const List& A, const List& B) {
 
 // operator=()
 // Overwrites the state of this List with state of L
-// List& operator=(const List& L) {
+List& List::operator=(const List& L) {
+    if (this != &L) { // Not self assignment
+        // Make a temporary copy of L
+        List temp = L;
 
-// }
+        // Swap fields
+        std::swap(frontDummy, temp.frontDummy);
+        std::swap(backDummy, temp.backDummy);
+        std::swap(beforeCursor, temp.beforeCursor);
+        std::swap(afterCursor, temp.afterCursor);
+        std::swap(num_elements, temp.num_elements);
+        std::swap(pos_cursor, temp.pos_cursor);
+    }
+
+    return *this;
+}

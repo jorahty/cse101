@@ -87,7 +87,9 @@ int main() {
 
     cout << L << endl;
     cout << R << endl;
-    cout << L.concat(R) << endl;
+    L = L.concat(R);
+    L.movePrev();
+    printInfo(L);
 
     cout << "\033[0m"; // Reset color
 
@@ -98,7 +100,7 @@ int main() {
 
 void printInfo(const List& L) {
     cout << endl;
-    cout << "length front back position peekNext peekPrev\n";
+    cout << "length front back position peekPrev peekNext\n";
     cout << L.length();
     if (L.length() > 0) {
         cout << setw(9) << L.front();
@@ -108,13 +110,13 @@ void printInfo(const List& L) {
         cout << setw(6) << "NA";
     }
     cout << setw(5) << L.position();
-    if (L.position() < L.length()) {
-        cout << setw(9) << L.peekNext();
+    if (L.position() > 0) {
+        cout << setw(9) << L.peekPrev();
     } else {
         cout << setw(9) << "NA";
     }
-    if (L.position() > 0) {
-        cout << setw(9) << L.peekPrev();
+    if (L.position() < L.length()) {
+        cout << setw(9) << L.peekNext();
     } else {
         cout << setw(9) << "NA";
     }
