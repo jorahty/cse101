@@ -185,17 +185,23 @@ void List::insertBefore(ListElement x) {
     pos_cursor++;
 }
 
-// // Overwrites the List element after the cursor with x
-// // pre: position()<length()
-// void List::setAfter(ListElement x) {
+// Overwrites the List element after the cursor with x
+// pre: position()<length()
+void List::setAfter(ListElement x) {
+    if (pos_cursor >= num_elements) {
+        throw std::length_error("List: setAfter(): at back");
+    }
+    afterCursor->data = x;
+}
 
-// }
-
-// // Overwrites the List element before the cursor with x
-// // pre: position()>0
-// void List::setBefore(ListElement x) {
-
-// }
+// Overwrites the List element before the cursor with x
+// pre: position()>0
+void List::setBefore(ListElement x) {
+    if (pos_cursor == 0) {
+        throw std::length_error("List: setBefore(): at front");
+    }
+    beforeCursor->data = x;
+}
 
 // Deletes element after cursor
 // pre: position()<length()

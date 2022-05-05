@@ -76,6 +76,11 @@ int main() {
     L.eraseAfter();
     printInfo(L);
 
+    L.moveNext();
+    L.setBefore(4);
+    L.setAfter(2);
+    printInfo(L);
+
     provided();
 
     return 0;
