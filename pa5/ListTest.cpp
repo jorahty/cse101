@@ -123,7 +123,7 @@ void printInfo(const List& L) {
 }
 
 void provided() {
-    cout << "\nProvided test from ListClient.cpp:\n\n";
+    cout << "\nProvided test from ListClient.cpp:\n";
 
     int i, n = 10;
     List A, B, C, D;
