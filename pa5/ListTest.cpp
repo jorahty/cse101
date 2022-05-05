@@ -10,31 +10,7 @@ using namespace std;
 
 void provided();
 
-void printInfo(const List& L) {
-    cout << endl;
-    cout << "length front back position peekNext peekPrev\n";
-    cout << L.length();
-    if (L.length() > 0) {
-        cout << setw(9) << L.front();
-        cout << setw(6) << L.back();
-    } else {
-        cout << setw(9) << "NA";
-        cout << setw(6) << "NA";
-    }
-    cout << setw(5) << L.position();
-    if (L.position() < L.length()) {
-        cout << setw(9) << L.peekNext();
-    } else {
-        cout << setw(9) << "NA";
-    }
-    if (L.position() > 0) {
-        cout << setw(9) << L.peekPrev();
-    } else {
-        cout << setw(9) << "NA";
-    }
-    cout << endl;
-    cout << L << endl;
-}
+void printInfo(const List& L);
 
 int main() {
 
@@ -118,6 +94,32 @@ int main() {
     provided(); // Run test provided in ListClient.cpp
 
     return 0;
+}
+
+void printInfo(const List& L) {
+    cout << endl;
+    cout << "length front back position peekNext peekPrev\n";
+    cout << L.length();
+    if (L.length() > 0) {
+        cout << setw(9) << L.front();
+        cout << setw(6) << L.back();
+    } else {
+        cout << setw(9) << "NA";
+        cout << setw(6) << "NA";
+    }
+    cout << setw(5) << L.position();
+    if (L.position() < L.length()) {
+        cout << setw(9) << L.peekNext();
+    } else {
+        cout << setw(9) << "NA";
+    }
+    if (L.position() > 0) {
+        cout << setw(9) << L.peekPrev();
+    } else {
+        cout << setw(9) << "NA";
+    }
+    cout << endl;
+    cout << L << endl;
 }
 
 void provided() {
