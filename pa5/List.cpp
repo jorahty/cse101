@@ -236,37 +236,37 @@ void List::eraseBefore() {
     delete N;
 }
 
-// // ██ Other Functions ██
+// ██ Other Functions ██
 
-// // Starting from the current cursor position, performs a linear search (in
-// // the direction front-to-back) for the first occurrence of element x. If x
-// // is found, places the cursor immediately after the found element, then
-// // returns the final cursor position. If x is not found, places the cursor
-// // at position length(), and returns -1
+// Starting from the current cursor position, performs a linear search (in
+// the direction front-to-back) for the first occurrence of element x. If x
+// is found, places the cursor immediately after the found element, then
+// returns the final cursor position. If x is not found, places the cursor
+// at position length(), and returns -1
 // int List::findNext(ListElement x) {
 
 // }
 
-// // Starting from the current cursor position, performs a linear search (in
-// // the direction back-to-front) for the first occurrence of element x. If x
-// // is found, places the cursor immediately before the found element, then
-// // returns the final cursor position. If x is not found, places the cursor
-// // at position 0, and returns -1
+// Starting from the current cursor position, performs a linear search (in
+// the direction back-to-front) for the first occurrence of element x. If x
+// is found, places the cursor immediately before the found element, then
+// returns the final cursor position. If x is not found, places the cursor
+// at position 0, and returns -1
 // int List::findPrev(ListElement x) {
 
 // }
 
-// // Removes any repeated elements in this List, leaving only unique elements.
-// // The order of the remaining elements is obtained by retaining the frontmost
-// // occurrance of each element, and removing all other occurances. The cursor
-// // is not moved with respect to the retained elements, i.e. it lies between
-// // the same two retained elements that it did before cleanup() was called
+// Removes any repeated elements in this List, leaving only unique elements.
+// The order of the remaining elements is obtained by retaining the frontmost
+// occurrance of each element, and removing all other occurances. The cursor
+// is not moved with respect to the retained elements, i.e. it lies between
+// the same two retained elements that it did before cleanup() was called
 // void List::cleanup() {
 
 // }
 
-// // Returns a new List consisting of the elements of this List, followed by
-// // the elements of L. The cursor in the returned List will be at postion 0
+// Returns a new List consisting of the elements of this List, followed by
+// the elements of L. The cursor in the returned List will be at postion 0
 // List List::concat(const List& L) const {
 
 // }
@@ -305,7 +305,7 @@ bool List::equals(const List& R) const {
     return eq;
 }
 
-// // ██ Overriden Operators ██
+// ██ Overriden Operators ██
 
 // operator<<()
 // Inserts string representation of L into stream
@@ -320,8 +320,8 @@ bool operator==(const List& A, const List& B) {
     return A.List::equals(B);
 }
 
-// // operator=()
-// // Overwrites the state of this List with state of L
+// operator=()
+// Overwrites the state of this List with state of L
 // List& operator=(const List& L) {
 
 // }
