@@ -91,6 +91,17 @@ int main() {
     L.movePrev();
     printInfo(L);
 
+    L.clear();
+    L.insertBefore(1);
+    L.insertBefore(2);
+    L.insertBefore(3);
+    L.insertBefore(2);
+    L.moveFront();
+    printInfo(L);
+
+    L.cleanup();
+    printInfo(L);
+
     cout << "\033[0m"; // Reset color
 
     provided(); // Run test provided in ListClient.cpp
@@ -211,96 +222,96 @@ void provided() {
         A.moveNext();
     }
     cout << A.position() << endl;
-    // A.cleanup();
-    // cout << "A = " << A << endl;
-    // cout << A.position() << endl;
-    // cout << endl;
+    A.cleanup();
+    cout << "A = " << A << endl;
+    cout << A.position() << endl;
+    cout << endl;
 
-    // List E = A;
-    // cout << "E==A is " << (E == A ? "true" : "false") << endl;
+    List E = A;
+    cout << "E==A is " << (E == A ? "true" : "false") << endl;
 
-    // cout << endl;
+    cout << endl;
 
-    // List F = A.concat(B);
-    // cout << "F = " << F << endl;
-    // cout << "length: " << F.length() << endl;
-    // cout << "front: " << F.front() << endl;
-    // cout << "back: " << F.back() << endl;
-    // cout << "position: " << F.position() << endl;
-    // for (i = 1; i <= 7; i++) {
-    //     cout << "peekNext: " << F.peekNext() << endl;
-    //     F.insertBefore(-i);
-    //     cout << F.moveNext() << endl;
-    // }
-    // cout << "F = " << F << endl;
+    List F = A.concat(B);
+    cout << "F = " << F << endl;
+    cout << "length: " << F.length() << endl;
+    cout << "front: " << F.front() << endl;
+    cout << "back: " << F.back() << endl;
+    cout << "position: " << F.position() << endl;
+    for (i = 1; i <= 7; i++) {
+        cout << "peekNext: " << F.peekNext() << endl;
+        F.insertBefore(-i);
+        cout << F.moveNext() << endl;
+    }
+    cout << "F = " << F << endl;
 
-    // cout << endl;
+    cout << endl;
 
-    // cout << "test exceptions: " << endl;
-    // cout << "A = " << A << endl;
-    // A.moveFront();
-    // try {
-    //     A.peekPrev();
-    // } catch (std::range_error& e) {
-    //     cout << e.what() << endl;
-    //     cout << "   continuing without interruption" << endl;
-    // }
-    // try {
-    //     A.movePrev();
-    // } catch (std::range_error& e) {
-    //     cout << e.what() << endl;
-    //     cout << "   continuing without interruption" << endl;
-    // }
-    // try {
-    //     A.setBefore(5);
-    // } catch (std::range_error& e) {
-    //     cout << e.what() << endl;
-    //     cout << "   continuing without interruption" << endl;
-    // }
-    // try {
-    //     A.eraseBefore();
-    // } catch (std::range_error& e) {
-    //     cout << e.what() << endl;
-    //     cout << "   continuing without interruption" << endl;
-    // }
-    // A.moveBack();
-    // try {
-    //     A.peekNext();
-    // } catch (std::range_error& e) {
-    //     cout << e.what() << endl;
-    //     cout << "   continuing without interruption" << endl;
-    // }
-    // try {
-    //     A.moveNext();
-    // } catch (std::range_error& e) {
-    //     cout << e.what() << endl;
-    //     cout << "   continuing without interruption" << endl;
-    // }
-    // try {
-    //     A.setAfter(5);
-    // } catch (std::range_error& e) {
-    //     cout << e.what() << endl;
-    //     cout << "   continuing without interruption" << endl;
-    // }
-    // try {
-    //     A.eraseAfter();
-    // } catch (std::range_error& e) {
-    //     cout << e.what() << endl;
-    //     cout << "   continuing without interruption" << endl;
-    // }
-    // A.clear();
-    // try {
-    //     A.front();
-    // } catch (std::length_error& e) {
-    //     cout << e.what() << endl;
-    //     cout << "   continuing without interruption" << endl;
-    // }
-    // try {
-    //     A.back();
-    // } catch (std::length_error& e) {
-    //     cout << e.what() << endl;
-    //     cout << "   continuing without interruption" << endl;
-    // }
+    cout << "test exceptions: " << endl;
+    cout << "A = " << A << endl;
+    A.moveFront();
+    try {
+        A.peekPrev();
+    } catch (std::range_error& e) {
+        cout << e.what() << endl;
+        cout << "   continuing without interruption" << endl;
+    }
+    try {
+        A.movePrev();
+    } catch (std::range_error& e) {
+        cout << e.what() << endl;
+        cout << "   continuing without interruption" << endl;
+    }
+    try {
+        A.setBefore(5);
+    } catch (std::range_error& e) {
+        cout << e.what() << endl;
+        cout << "   continuing without interruption" << endl;
+    }
+    try {
+        A.eraseBefore();
+    } catch (std::range_error& e) {
+        cout << e.what() << endl;
+        cout << "   continuing without interruption" << endl;
+    }
+    A.moveBack();
+    try {
+        A.peekNext();
+    } catch (std::range_error& e) {
+        cout << e.what() << endl;
+        cout << "   continuing without interruption" << endl;
+    }
+    try {
+        A.moveNext();
+    } catch (std::range_error& e) {
+        cout << e.what() << endl;
+        cout << "   continuing without interruption" << endl;
+    }
+    try {
+        A.setAfter(5);
+    } catch (std::range_error& e) {
+        cout << e.what() << endl;
+        cout << "   continuing without interruption" << endl;
+    }
+    try {
+        A.eraseAfter();
+    } catch (std::range_error& e) {
+        cout << e.what() << endl;
+        cout << "   continuing without interruption" << endl;
+    }
+    A.clear();
+    try {
+        A.front();
+    } catch (std::length_error& e) {
+        cout << e.what() << endl;
+        cout << "   continuing without interruption" << endl;
+    }
+    try {
+        A.back();
+    } catch (std::length_error& e) {
+        cout << e.what() << endl;
+        cout << "   continuing without interruption" << endl;
+    }
 
-    // cout << endl;
+    cout << endl;
 }

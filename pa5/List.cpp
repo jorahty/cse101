@@ -63,7 +63,7 @@ int List::length() const {
 // pre: length()>0
 ListElement List::front() const {
     if (num_elements == 0) {
-        throw std::length_error("List: front(): empty List");
+        throw std::length_error("List: front(): empty list");
     }
     return frontDummy->next->data;
 }
@@ -72,7 +72,7 @@ ListElement List::front() const {
 // pre: length()>0
 ListElement List::back() const {
     if (num_elements == 0) {
-        throw std::length_error("List: back(): empty List");
+        throw std::length_error("List: back(): empty list");
     }
     return backDummy->prev->data;
 }
@@ -86,7 +86,7 @@ int List::position() const {
 // pre: position()<length()
 ListElement List::peekNext() const {
     if (pos_cursor >= num_elements) {
-        throw std::length_error("List: peekNext(): nothing next");
+        throw std::range_error("List: peekNext(): cursor at back");
     }
     return afterCursor->data;
 }
@@ -95,7 +95,7 @@ ListElement List::peekNext() const {
 // pre: position()>0
 ListElement List::peekPrev() const {
     if (pos_cursor <= 0) {
-        throw std::length_error("List: peekPrev(): nothing prev");
+        throw std::range_error("List: peekPrev(): cursor at front");
     }
     return beforeCursor->data;
 }
@@ -129,7 +129,7 @@ void List::moveBack() {
 // pre: position()<length()
 ListElement List::moveNext() {
     if (pos_cursor >= num_elements) {
-        throw std::length_error("List: moveNext(): at back");
+        throw std::range_error("List: moveNext(): cursor at back");
     }
     beforeCursor = afterCursor;
     afterCursor = afterCursor->next;
@@ -142,7 +142,7 @@ ListElement List::moveNext() {
 // pre: position()>0
 ListElement List::movePrev() {
     if (pos_cursor <= 0) {
-        throw std::length_error("List: movePrev(): at front");
+        throw std::range_error("List: movePrev(): cursor at front");
     }
     afterCursor = beforeCursor;
     beforeCursor = beforeCursor->prev;
@@ -189,7 +189,7 @@ void List::insertBefore(ListElement x) {
 // pre: position()<length()
 void List::setAfter(ListElement x) {
     if (pos_cursor >= num_elements) {
-        throw std::length_error("List: setAfter(): at back");
+        throw std::range_error("List: setAfter(): cursor at back");
     }
     afterCursor->data = x;
 }
@@ -198,7 +198,7 @@ void List::setAfter(ListElement x) {
 // pre: position()>0
 void List::setBefore(ListElement x) {
     if (pos_cursor == 0) {
-        throw std::length_error("List: setBefore(): at front");
+        throw std::range_error("List: setBefore(): cursor at front");
     }
     beforeCursor->data = x;
 }
@@ -207,7 +207,7 @@ void List::setBefore(ListElement x) {
 // pre: position()<length()
 void List::eraseAfter() {
     if (pos_cursor >= num_elements) {
-        throw std::length_error("List: eraseAfter(): at back");
+        throw std::range_error("List: eraseAfter(): cursor at back");
     }
 
     Node* N = afterCursor;
@@ -223,7 +223,7 @@ void List::eraseAfter() {
 // pre: position()>0
 void List::eraseBefore() {
     if (pos_cursor == 0) {
-        throw std::length_error("List: eraseBefore(): at front");
+        throw std::range_error("List: eraseBefore(): cursor at front");
     }
 
     Node* N = beforeCursor;
@@ -275,19 +275,51 @@ int List::findPrev(ListElement x) {
 // occurrance of each element, and removing all other occurances. The cursor
 // is not moved with respect to the retained elements, i.e. it lies between
 // the same two retained elements that it did before cleanup() was called
-// void List::cleanup() {
-//     List F;
+void List::cleanup() {
 
-//     // For each element:
-//     for (Node* N = frontDummy->next; N != backDummy; N = N->next) {
-//         int x = N->data;
-//         if (F.findNext(x) != -1) { // If found, remove it
+    // Scan from left to right, remove repeated elements
 
-//             continue;
-//         }
-//         F.insertBefore(x); // Mark found
-//     }
-// }
+    // For each element, remove all occurances that follow
+
+    // When removing an element, adjust cursor accordingly
+    // Is the element I'm deleting before or after cursor? Fix that
+
+    // For each element N:
+    for (Node* N = frontDummy->next; N != backDummy; N = N->next) {
+
+        // For each element M that follows N:
+        for (Node* M = N->next; M != backDummy;) {
+
+            Node* R = M;
+            M = M->next;
+
+            // Is R a repeat of N?
+            if (R->data == N->data) { // Then delete it!
+
+                // 1. Adjust cursor (if necessary)
+
+                // Is R directly after the cursor? Move afterCursor next
+                if (R == afterCursor) {
+                    afterCursor = afterCursor->next;
+                }
+
+                // Is R directly before the cursor? Move beforeCursor prev
+                if (R == beforeCursor) {
+                    beforeCursor = beforeCursor->prev;
+                    pos_cursor--;
+                }
+
+                // 2. Splice out R
+                R->prev->next = R->next;
+                R->next->prev = R->prev;
+
+                // 3. Delete R
+                delete R;
+                num_elements--;
+            }
+        }
+    }
+}
 
 // Returns a new List consisting of the elements of this List, followed by
 // the elements of L. The cursor in the returned List will be at postion 0
