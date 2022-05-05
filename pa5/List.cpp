@@ -86,9 +86,9 @@ ListElement List::peekPrev() const {
     return beforeCursor->data;
 }
 
-// // ██ Manipulation procedures ██
+// ██ Manipulation procedures ██
 
-// // Deletes all elements in this List, setting it to the empty state
+// Deletes all elements in this List, setting it to the empty state
 void List::clear() {
     moveBack();
     while (num_elements > 0) {
@@ -96,10 +96,12 @@ void List::clear() {
     }
 }
 
-// // Moves cursor to position 0 in this List
-// void List::moveFront() {
-
-// }
+// Moves cursor to position 0 in this List
+void List::moveFront() {
+    beforeCursor = frontDummy;
+    afterCursor = frontDummy->next;
+    pos_cursor = 0;
+}
 
 // Moves cursor to position length() in this List
 void List::moveBack() {
@@ -108,12 +110,18 @@ void List::moveBack() {
     pos_cursor = num_elements;
 }
 
-// // Advances cursor to next higher position. Returns the List element that
-// // was passed over.
-// // pre: position()<length()
-// ListElement List::moveNext() {
-
-// }
+// Advances cursor to next higher position. Returns the List element that
+// was passed over.
+// pre: position()<length()
+ListElement List::moveNext() {
+    if (pos_cursor >= num_elements) {
+        throw std::length_error("List: moveNext(): at back");
+    }
+    beforeCursor = afterCursor;
+    afterCursor = afterCursor->next;
+    pos_cursor++;
+    return beforeCursor->data;
+}
 
 // // Advances cursor to next lower position. Returns the List element that
 // // was passed over.

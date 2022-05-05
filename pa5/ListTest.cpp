@@ -1,10 +1,10 @@
 // James Tennant • jtennant • pa5
 
 #include "List.h"
+#include <iomanip>
 #include <iostream>
 #include <stdexcept>
 #include <string>
-#include <iomanip>
 
 using namespace std;
 
@@ -53,6 +53,12 @@ int main() {
 
     L.moveBack();
     L.eraseBefore();
+    printInfo(L);
+
+    L.moveFront();
+    printInfo(L);
+
+    L.moveNext();
     printInfo(L);
 
     L.clear();
