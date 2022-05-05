@@ -4,42 +4,59 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include <iomanip>
 
 using namespace std;
 
 void provided();
+
+void printInfo(const List& L) {
+    cout << endl;
+    cout << "length front back position peekNext peekPrev\n";
+    cout << L.length();
+    if (L.length() > 0) {
+        cout << setw(9) << L.front();
+        cout << setw(6) << L.back();
+    } else {
+        cout << setw(9) << "NA";
+        cout << setw(6) << "NA";
+    }
+    cout << setw(5) << L.position();
+    if (L.position() < L.length()) {
+        cout << setw(9) << L.peekNext();
+    } else {
+        cout << setw(9) << "NA";
+    }
+    if (L.position() > 0) {
+        cout << setw(9) << L.peekPrev();
+    } else {
+        cout << setw(9) << "NA";
+    }
+    cout << endl;
+    cout << L << endl;
+}
 
 int main() {
 
     cout << "Hello ListTest!\n";
 
     List L;
-    cout << endl;
-    cout << L.length() << endl;
-    cout << L << endl;
+    printInfo(L);
 
     L.insertAfter(1);
-    cout << endl;
-    cout << L.length() << endl;
-    cout << L << endl;
+    printInfo(L);
 
     L.insertAfter(2);
     L.insertAfter(3);
     L.insertAfter(4);
-    cout << endl;
-    cout << L.length() << endl;
-    cout << L << endl;
+    printInfo(L);
 
     L.moveBack();
     L.eraseBefore();
-    cout << endl;
-    cout << L.length() << endl;
-    cout << L << endl;
+    printInfo(L);
 
     L.clear();
-    cout << endl;
-    cout << L.length() << endl;
-    cout << L << endl;
+    printInfo(L);
 
     provided();
 

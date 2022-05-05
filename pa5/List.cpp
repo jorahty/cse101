@@ -45,34 +45,46 @@ int List::length() const {
     return num_elements;
 }
 
-// // Returns the front element in this List
-// // pre: length()>0
-// ListElement List::front() const {
+// Returns the front element in this List
+// pre: length()>0
+ListElement List::front() const {
+    if (num_elements == 0) {
+        throw std::length_error("List: front(): empty List");
+    }
+    return frontDummy->next->data;
+}
 
-// }
+// Returns the back element in this List
+// pre: length()>0
+ListElement List::back() const {
+    if (num_elements == 0) {
+        throw std::length_error("List: back(): empty List");
+    }
+    return backDummy->prev->data;
+}
 
-// // Returns the back element in this List
-// // pre: length()>0
-// ListElement List::back() const {
+// Returns the position of cursor in this List: 0 <= position() <= length()
+int List::position() const {
+    return pos_cursor;
+}
 
-// }
+// Returns the element after the cursor
+// pre: position()<length()
+ListElement List::peekNext() const {
+    if (pos_cursor >= num_elements) {
+        throw std::length_error("List: peekNext(): nothing next");
+    }
+    return afterCursor->data;
+}
 
-// // Returns the position of cursor in this List: 0 <= position() <= length()
-// int List::position() const {
-
-// }
-
-// // Returns the element after the cursor
-// // pre: position()<length()
-// ListElement List::peekNext() const {
-
-// }
-
-// // Returns the element before the cursor
-// // pre: position()>0
-// ListElement List::peekPrev() const {
-
-// }
+// Returns the element before the cursor
+// pre: position()>0
+ListElement List::peekPrev() const {
+    if (pos_cursor <= 0) {
+        throw std::length_error("List: peekPrev(): nothing prev");
+    }
+    return beforeCursor->data;
+}
 
 // // ██ Manipulation procedures ██
 
