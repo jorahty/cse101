@@ -310,7 +310,7 @@ void List::cleanup() {
                     beforeCursor = beforeCursor->prev;
                 }
 
-                // decrement pos_cursor if R is before cursor
+                // Decrement pos_cursor if R is before cursor
                 if (j <= pos_cursor) {
                     pos_cursor--;
                     j--;
