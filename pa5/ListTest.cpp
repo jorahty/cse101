@@ -8,11 +8,21 @@
 
 using namespace std;
 
-void provided();
+void myTest();
+void providedTest();
+
+int main() {
+
+    myTest(); // Run my own test
+
+    providedTest(); // Run test provided in ListClient.cpp
+
+    return 0;
+}
 
 void printInfo(const List& L);
 
-int main() {
+void myTest() {
 
     cout << "\033[35m"; // Change color
 
@@ -103,10 +113,6 @@ int main() {
     printInfo(L);
 
     cout << "\033[0m"; // Reset color
-
-    provided(); // Run test provided in ListClient.cpp
-
-    return 0;
 }
 
 void printInfo(const List& L) {
@@ -135,7 +141,7 @@ void printInfo(const List& L) {
     cout << L << endl;
 }
 
-void provided() {
+void providedTest() {
     cout << "\nProvided test from ListClient.cpp:\n";
 
     int i, n = 10;
