@@ -18,7 +18,7 @@ List.o: List.h List.cpp
 	g++ -std=c++17 -Wall -c List.cpp
 
 clean:
-	rm -f Shuffle Shuffle.o ListTest ListTest.o List.o
+	rm -f Shuffle ListTest *.o
 
 format:
 	clang-format -i -style=file *.cpp *.h
