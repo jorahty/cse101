@@ -283,27 +283,20 @@ void List::cleanup() {
     // Is the element I'm deleting before or after cursor? Fix that
 
     // For each element N:
-    int i = 0;
-    for (Node* N = frontDummy->next; N != backDummy; N = N->next) {
+    Node* N = frontDummy->next;
+    for (int i = 0; N != backDummy; i++) {
 
         // For each element M that follows N:
         int j = i + 1;
-        for (Node* M = N->next; M != backDummy;) {
+        Node* M = N->next;
+        while (M != backDummy) {
 
             Node* R = M;
             M = M->next;
+            j++;
 
             // Is R a repeat of N?
             if (R->data == N->data) { // Then delete it!
-
-                // std::cout << "\n";
-                // std::cout << *this << "\n";
-                // std::cout << "found repeat " << R->data;
-                // std::cout << " at position " << j << "\n";
-                // if (j < pos_cursor) {
-                //     std::cout << R->data << " is before cursor so ";
-                //     std::cout << "cursor needs decremation\n";
-                // }
 
                 // 1. Adjust cursor (if necessary)
 
@@ -318,7 +311,7 @@ void List::cleanup() {
                 }
 
                 // decrement pos_cursor if R is before cursor
-                if (j < pos_cursor) {
+                if (j <= pos_cursor) {
                     pos_cursor--;
                     j--;
                 }
@@ -331,9 +324,9 @@ void List::cleanup() {
                 delete R;
                 num_elements--;
             }
-            j++;
         }
-        i++;
+
+        N = N->next;
     }
 }
 
