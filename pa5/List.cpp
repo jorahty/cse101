@@ -244,7 +244,6 @@ void List::eraseBefore() {
 // returns the final cursor position. If x is not found, places the cursor
 // at position length(), and returns -1
 int List::findNext(ListElement x) {
-    moveFront();
     while (pos_cursor != num_elements) {
         moveNext();
         if (beforeCursor->data == x) {
@@ -260,7 +259,6 @@ int List::findNext(ListElement x) {
 // returns the final cursor position. If x is not found, places the cursor
 // at position 0, and returns -1
 int List::findPrev(ListElement x) {
-    moveBack();
     while (pos_cursor != 0) {
         movePrev();
         if (afterCursor->data == x) {
