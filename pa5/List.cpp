@@ -275,25 +275,14 @@ int List::findPrev(ListElement x) {
 // the same two retained elements that it did before cleanup() was called
 void List::cleanup() {
 
-    // Scan from left to right, remove repeated elements
-
-    // For each element, remove all occurances that follow
-
-    // When removing an element, adjust cursor accordingly
-    // Is the element I'm deleting before or after cursor? Fix that
-
     // For each element N:
-    Node* N = frontDummy->next;
-    for (int i = 0; N != backDummy; i++) {
+    for (Node* N = frontDummy->next; N != backDummy; N = N->next) {
 
         // For each element M that follows N:
-        int j = i + 1;
-        Node* M = N->next;
-        while (M != backDummy) {
+        for (Node* M = N->next; M != backDummy;) {
 
             Node* R = M;
             M = M->next;
-            j++;
 
             // Is R a repeat of N?
             if (R->data == N->data) { // Then delete it!
@@ -301,20 +290,10 @@ void List::cleanup() {
                 // 1. Adjust cursor (if necessary)
 
                 // Is R directly after the cursor? Move afterCursor next
-                if (R == afterCursor) {
-                    afterCursor = afterCursor->next;
-                }
+                if (R == afterCursor) afterCursor = afterCursor->next;
 
                 // Is R directly before the cursor? Move beforeCursor prev
-                if (R == beforeCursor) {
-                    beforeCursor = beforeCursor->prev;
-                }
-
-                // Decrement pos_cursor if R is before cursor
-                if (j <= pos_cursor) {
-                    pos_cursor--;
-                    j--;
-                }
+                if (R == beforeCursor) beforeCursor = beforeCursor->prev;
 
                 // 2. Splice out R
                 R->prev->next = R->next;
@@ -325,8 +304,13 @@ void List::cleanup() {
                 num_elements--;
             }
         }
+    }
 
-        N = N->next;
+    // Set pos_cursor
+    pos_cursor = 0;
+    for (Node* N = frontDummy->next; N != backDummy; N = N->next) {
+        if (N == afterCursor) break;
+        pos_cursor++;
     }
 }
 
