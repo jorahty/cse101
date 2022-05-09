@@ -11,7 +11,9 @@ void providedTest();
 
 int main() {
 
-    cout << "Hello BigIntegerTest!\n";
+    BigInteger A;
+
+    cout << "A = " << endl;
 
     return 0;
 }

@@ -1,15 +1,23 @@
 // James Tennant • jtennant • pa6
 
+#include "BigInteger.h"
 #include "List.h"
 #include <iostream>
 #include <string>
+
+// Define global constants base & power
+const int power = 2;
+const long base = 100;
 
 // ██ Constructors & Destructors ██
 
 // BigInteger()
 // Constructor that creates a new BigInteger in the zero state:
 // signum=0, digits=().
-// BigInteger();
+BigInteger::BigInteger() {
+    signum = 0;
+    digits = List();
+}
 
 // BigInteger()
 // Constructor that creates a new BigInteger from the string s.
@@ -20,10 +28,6 @@
 // BigInteger()
 // Constructor that creates a copy of N.
 // BigInteger(const BigInteger& N);
-
-// Optional Destuctor
-// ~BigInteger()
-// ~BigInteger();
 
 // ██ Access functions ██
 
