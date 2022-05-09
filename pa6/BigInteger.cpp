@@ -3,6 +3,7 @@
 #include "BigInteger.h"
 #include "List.h"
 #include <iostream>
+#include <set>
 #include <string>
 
 // Define global constants base & power
@@ -23,7 +24,37 @@ BigInteger::BigInteger() {
 // Constructor that creates a new BigInteger from the string s.
 // Pre: s is a non-empty string consisting of (at least one) base 10 digit
 // {0,1,2,3,4,5,6,7,8,9}, and an optional sign {+,-} prefix.
-// BigInteger(std::string s);
+BigInteger::BigInteger(std::string s) {
+    if (s.size() == 0) {
+        throw std::invalid_argument("BigInteger: Constructor: empty string");
+    }
+
+    // Handle sign prefix
+    if (s[0] == '+' || s[0] == '-') {
+        signum = s[0] == '+' ? 1 : -1;
+        s = s.substr(1, s.size() - 1);
+    } else {
+        signum = 0;
+    }
+
+    if (s.size() == 0) {
+        throw std::invalid_argument("BigInteger: Constructor: empty string");
+    }
+
+    // Parse valid digits
+    std::set<char> valid = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+
+    List L;
+    for (long unsigned i = 0; i < s.size(); i++) {
+        if (valid.find(s[i]) == valid.end()) { // If not a valid digit
+            throw std::invalid_argument("BigInteger: Constructor: non-numeric string");
+        }
+
+        // Add s[i] to List L
+    }
+
+    digits = L;
+}
 
 // BigInteger()
 // Constructor that creates a copy of N.

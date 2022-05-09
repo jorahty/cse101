@@ -1,6 +1,7 @@
 // James Tennant • jtennant • pa6
 
 #include "BigInteger.h"
+#include <assert.h>
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -11,12 +12,38 @@ void providedTest();
 
 int main() {
 
+    cout << "\033[35m"; // Change color
+
+    // Constructor
     BigInteger A;
 
-    cout << "A.sign() = " << A.sign() << endl;
+    // sign()
+    assert(A.sign() == 0);
 
-    cout << "A = " << endl;
+    // Constructor from string
+    int caught = 0;
+    try {
+        string s = "";
+        BigInteger B = BigInteger(s);
+    } catch (std::invalid_argument& e) { caught++; }
+    try {
+        string s = "+";
+        BigInteger B = BigInteger(s);
+    } catch (std::invalid_argument& e) { caught++; }
+    try {
+        string s = "-2360f00";
+        BigInteger B = BigInteger(s);
+    } catch (std::invalid_argument& e) { caught++; }
+    assert(caught == 3);
 
+    string s1 = "-236000";
+    BigInteger B = BigInteger(s1);
+
+    // to_string()
+    // cout << "A.sign() = " << A.sign() << endl;
+    // cout << "A = " << endl;
+
+    cout << "\033[0m"; // Reset color
     return 0;
 }
 
