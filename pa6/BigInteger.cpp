@@ -34,7 +34,9 @@ BigInteger::BigInteger() {
 // sign()
 // Returns -1, 1 or 0 according to whether this BigInteger is positive,
 // negative or 0, respectively.
-// int sign() const;
+int BigInteger::sign() const {
+    return signum;
+}
 
 // compare()
 // Returns -1, 1 or 0 according to whether this BigInteger is less than N,

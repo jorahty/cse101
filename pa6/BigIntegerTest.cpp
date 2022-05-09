@@ -13,6 +13,8 @@ int main() {
 
     BigInteger A;
 
+    cout << "A.sign() = " << A.sign() << endl;
+
     cout << "A = " << endl;
 
     return 0;
