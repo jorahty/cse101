@@ -3,7 +3,6 @@
 #include "BigInteger.h"
 #include "List.h"
 #include <iostream>
-#include <set>
 #include <string>
 
 // Define global constants base & power
@@ -34,26 +33,40 @@ BigInteger::BigInteger(std::string s) {
         signum = s[0] == '+' ? 1 : -1;
         s = s.substr(1, s.size() - 1);
     } else {
-        signum = 0;
+        signum = 1;
     }
 
     if (s.size() == 0) {
-        throw std::invalid_argument("BigInteger: Constructor: empty string");
+        throw std::invalid_argument("BigInteger: Constructor: non-numeric string");
     }
 
-    // Parse valid digits
-    std::set<char> valid = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+    digits = List();
 
-    List L;
-    for (long unsigned i = 0; i < s.size(); i++) {
-        if (valid.find(s[i]) == valid.end()) { // If not a valid digit
+    // Handle zero
+    if (s == "0") {
+        signum = 0;
+        return;
+    }
+
+    // Chop s into power-wide chunks
+    while (s.size() > 0) {
+
+        // Calculate chunkSize
+        int remainder = s.size() % power;
+        int chunkSize = (remainder != 0) ? remainder : power;
+
+        std::string chunk = s.substr(0, chunkSize); // Get chunk
+
+        // Check if chunk is non-numeric string
+        if (chunk.find_first_not_of("0123456789") != std::string::npos)
             throw std::invalid_argument("BigInteger: Constructor: non-numeric string");
-        }
 
-        // Add s[i] to List L
+        long digit = stol(chunk, nullptr); // Convert chunk to digit
+
+        digits.insertBefore(digit); // Insert digit
+
+        s = s.substr(chunkSize, s.size() - chunkSize); // Trim s
     }
-
-    digits = L;
 }
 
 // BigInteger()

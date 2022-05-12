@@ -25,25 +25,24 @@ int main() {
     try {
         string s = "";
         BigInteger B = BigInteger(s);
-    } catch (std::invalid_argument& e) { caught++; }
+    } catch (invalid_argument& e) { caught++; }
     try {
         string s = "+";
         BigInteger B = BigInteger(s);
-    } catch (std::invalid_argument& e) { caught++; }
+    } catch (invalid_argument& e) { caught++; }
     try {
-        string s = "-2360f00";
+        string s = "1234f42";
         BigInteger B = BigInteger(s);
-    } catch (std::invalid_argument& e) { caught++; }
+    } catch (invalid_argument& e) { caught++; }
     assert(caught == 3);
 
-    string s1 = "-236000";
+    string s1 = "+0";
     BigInteger B = BigInteger(s1);
 
-    // to_string()
-    // cout << "A.sign() = " << A.sign() << endl;
-    // cout << "A = " << endl;
-
     cout << "\033[0m"; // Reset color
+
+    // providedTest();
+
     return 0;
 }
 
