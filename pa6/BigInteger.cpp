@@ -30,7 +30,7 @@ BigInteger::BigInteger(std::string s) {
 
     // Handle sign prefix
     if (s[0] == '+' || s[0] == '-') {
-        signum = s[0] == '+' ? 1 : -1;
+        signum = (s[0] == '+') ? 1 : -1;
         s = s.substr(1, s.size() - 1);
     } else {
         signum = 1;
@@ -39,6 +39,10 @@ BigInteger::BigInteger(std::string s) {
     if (s.size() == 0) {
         throw std::invalid_argument("BigInteger: Constructor: non-numeric string");
     }
+
+    // Check for non-numeric character
+    if (s.find_first_not_of("0123456789") != std::string::npos)
+        throw std::invalid_argument("BigInteger: Constructor: non-numeric string");
 
     digits = List();
 
@@ -56,10 +60,6 @@ BigInteger::BigInteger(std::string s) {
         int chunkSize = (remainder != 0) ? remainder : power;
 
         std::string chunk = s.substr(0, chunkSize); // Get chunk
-
-        // Check if chunk is non-numeric string
-        if (chunk.find_first_not_of("0123456789") != std::string::npos)
-            throw std::invalid_argument("BigInteger: Constructor: non-numeric string");
 
         long digit = stol(chunk, nullptr, 10); // Convert chunk to digit
 
