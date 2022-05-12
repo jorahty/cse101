@@ -61,7 +61,7 @@ BigInteger::BigInteger(std::string s) {
         if (chunk.find_first_not_of("0123456789") != std::string::npos)
             throw std::invalid_argument("BigInteger: Constructor: non-numeric string");
 
-        long digit = stol(chunk, nullptr); // Convert chunk to digit
+        long digit = stol(chunk, nullptr, 10); // Convert chunk to digit
 
         digits.insertBefore(digit); // Insert digit
 
