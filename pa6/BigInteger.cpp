@@ -119,7 +119,9 @@ int BigInteger::sign() const {
 // base 10 digits. If this BigInteger is negative, the returned string
 // will begin with a negative sign '-'. If this BigInteger is zero, the
 // returned string will consist of the character '0' only.
-// std::string to_string();
+std::string BigInteger::to_string() {
+    return "hola";
+}
 
 // ██ Overriden Operators ██
 

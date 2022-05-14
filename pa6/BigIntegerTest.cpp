@@ -8,40 +8,21 @@
 
 using namespace std;
 
-void providedTest();
-
 int main() {
 
-    cout << "\033[35m"; // Change color
+    cout << "Hello World!\n";
 
-    // Constructor
     BigInteger A;
 
-    // sign()
     assert(A.sign() == 0);
+    cout << "A.sign(): " << A.sign() << endl;
 
-    // Constructor from string
-    int caught = 0;
-    try {
-        string s = "";
-        BigInteger B = BigInteger(s);
-    } catch (invalid_argument& e) { caught++; }
-    try {
-        string s = "+";
-        BigInteger B = BigInteger(s);
-    } catch (invalid_argument& e) { caught++; }
-    try {
-        string s = "1234f42";
-        BigInteger B = BigInteger(s);
-    } catch (invalid_argument& e) { caught++; }
-    assert(caught == 3);
+    string s1 = "-2142134";
 
-    string s1 = "+0";
     BigInteger B = BigInteger(s1);
 
-    cout << "\033[0m"; // Reset color
+    cout << B.to_string() << endl;
 
-    // providedTest();
 
     return 0;
 }
