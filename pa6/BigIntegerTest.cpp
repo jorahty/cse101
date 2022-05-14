@@ -17,12 +17,11 @@ int main() {
     assert(A.sign() == 0);
     cout << "A.sign(): " << A.sign() << endl;
 
-    string s1 = "-2142134";
+    string s1 = "+250300901";
 
     BigInteger B = BigInteger(s1);
 
     cout << B.to_string() << endl;
-
 
     return 0;
 }

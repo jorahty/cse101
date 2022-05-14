@@ -120,7 +120,25 @@ int BigInteger::sign() const {
 // will begin with a negative sign '-'. If this BigInteger is zero, the
 // returned string will consist of the character '0' only.
 std::string BigInteger::to_string() {
-    return "hola";
+    if (digits.length() == 0) return "0";
+
+    std::string s = (signum == -1) ? "-" : "";
+
+    digits.moveFront();
+    s += std::to_string(digits.peekNext());
+    digits.moveNext();
+
+    while (digits.position() != digits.length()) {
+        std::string digit = std::to_string(digits.peekNext());
+        for (long unsigned i = 0; i < power - digit.size(); i++) {
+            s += "0";
+        }
+        s += digit;
+
+        digits.moveNext();
+    }
+
+    return s;
 }
 
 // ██ Overriden Operators ██
