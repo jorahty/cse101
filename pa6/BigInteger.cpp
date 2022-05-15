@@ -71,7 +71,10 @@ BigInteger::BigInteger(std::string s) {
 
 // BigInteger()
 // Constructor that creates a copy of N.
-// BigInteger(const BigInteger& N);
+BigInteger::BigInteger(const BigInteger& N) {
+    signum = N.signum;
+    digits = N.digits;
+}
 
 // ██ Access functions ██
 
