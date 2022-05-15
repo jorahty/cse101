@@ -10,18 +10,27 @@ using namespace std;
 
 int main() {
 
+    // test all cases
+    // test all errors, preconditions
+    // just be thorough so you can be confident and move forward
+    // from/to string milestone
+    // output of to_string as input to from string
+    // "now i can create a non-strivial big int and print it out. thats a milestone"
+    //
+
     cout << "Hello World!\n";
 
-    BigInteger A;
+    string s = "-2002010100000001";
 
-    assert(A.sign() == 0);
-    cout << "A.sign(): " << A.sign() << endl;
+    BigInteger A = BigInteger(s);
 
-    string s1 = "+250300901";
+    cout << A.to_string() << endl;
+    cout << A.sign() << endl;
 
-    BigInteger B = BigInteger(s1);
+    BigInteger B = BigInteger(A.to_string());
 
-    cout << B.to_string() << endl;
+    cout << A.to_string() << endl;
+    cout << A.sign() << endl;
 
     return 0;
 }

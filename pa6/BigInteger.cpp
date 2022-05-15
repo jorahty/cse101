@@ -122,18 +122,23 @@ int BigInteger::sign() const {
 std::string BigInteger::to_string() {
     if (digits.length() == 0) return "0";
 
-    std::string s = (signum == -1) ? "-" : "";
+    std::string s = (signum == -1) ? "-" : ""; // add sign prefix
 
     digits.moveFront();
-    s += std::to_string(digits.peekNext());
+    s += std::to_string(digits.peekNext()); // add leftmost digit
     digits.moveNext();
 
-    while (digits.position() != digits.length()) {
+    // add remaining digits
+    while (digits.position() != digits.length()) { // for each remaining digit
         std::string digit = std::to_string(digits.peekNext());
-        for (long unsigned i = 0; i < power - digit.size(); i++) {
-            s += "0";
-        }
-        s += digit;
+
+        // calculate number of leading zeros needed
+        int needed_zeros = power - digit.size();
+
+        for (int i = 0; i < needed_zeros; i++)
+            s += "0"; // add leading zeros
+
+        s += digit; // add digit
 
         digits.moveNext();
     }
