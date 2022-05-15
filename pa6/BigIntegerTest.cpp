@@ -20,12 +20,11 @@ int main() {
 
     cout << "Hello World!\n";
 
-    BigInteger A = BigInteger("1234");
+    string s1 = "-3400601942";
 
-    BigInteger B = BigInteger(A);
+    BigInteger A = BigInteger(s1);
 
-    cout << B.to_string() << endl;
-
+    cout << A << endl;
 
     return 0;
 }

@@ -153,7 +153,9 @@ std::string BigInteger::to_string() {
 
 // operator<<()
 // Inserts string representation of N into stream.
-// friend std::ostream& operator<<(std::ostream& stream, BigInteger N);
+std::ostream& operator<<(std::ostream& stream, BigInteger N) {
+    return stream << N.BigInteger::to_string();
+}
 
 // operator==()
 // Returns true if and only if A equals B.
