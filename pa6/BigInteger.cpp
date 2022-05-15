@@ -94,7 +94,10 @@ int BigInteger::sign() const {
 
 // makeZero()
 // Re-sets this BigInteger to the zero state.
-// void makeZero();
+void BigInteger::makeZero() {
+    signum = 0;
+    digits = List();
+}
 
 // negate()
 // If this BigInteger is zero, does nothing, otherwise reverses the sign of

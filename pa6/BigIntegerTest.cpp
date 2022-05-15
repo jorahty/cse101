@@ -10,19 +10,15 @@ using namespace std;
 
 int main() {
 
-    // test all cases
-    // test all errors, preconditions
-    // just be thorough so you can be confident and move forward
-    // from/to string milestone
-    // output of to_string as input to from string
-    // "now i can create a non-strivial big int and print it out. thats a milestone"
-    //
-
     cout << "Hello World!\n";
 
     string s1 = "-3400601942";
 
     BigInteger A = BigInteger(s1);
+
+    cout << A << endl;
+
+    A.makeZero();
 
     cout << A << endl;
 
