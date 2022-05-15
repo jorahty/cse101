@@ -18,8 +18,6 @@ int main() {
 
     cout << A << endl;
 
-    A.makeZero();
-
     cout << A << endl;
 
     return 0;

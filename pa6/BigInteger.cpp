@@ -102,7 +102,9 @@ void BigInteger::makeZero() {
 // negate()
 // If this BigInteger is zero, does nothing, otherwise reverses the sign of
 // this BigInteger positive <--> negative.
-// void negate();
+void BigInteger::negate() {
+    signum *= -1;
+}
 
 // ██ BigInteger Arithmetic operations ██
 
