@@ -6,8 +6,8 @@
 #include <string>
 
 // Define global constants base & power
-const int power = 9;
-const long base = 1000000000;
+const int power = 1;
+const long base = 10;
 
 // ██ Constructors & Destructors ██
 
@@ -202,6 +202,21 @@ int normalizeList(List& L) {
         L.setBefore(element);
     }
 
+    // remove leading zeros
+    while (L.peekNext() == 0) {
+        L.eraseAfter();
+        if (L.length() == 0) return 0;
+    }
+
+    // if leftmost digit is too big
+    if (L.peekNext() >= base) {
+        long leftmost = L.peekNext();
+        int multiple = leftmost / base;
+        leftmost -= multiple * base;
+        L.setAfter(leftmost);
+        L.insertAfter(multiple);
+    }
+
     // if leftmost digit is negative
     int sign = 1;
     if (L.peekNext() < 0) {
@@ -210,22 +225,8 @@ int normalizeList(List& L) {
         normalizeList(L);
     }
 
-    // remove leading zeros
-    while (L.peekNext() == 0) {
-        L.eraseAfter();
-        if (L.length() == 0) return 0;
-    }
-
     return sign;
 }
-
-// shiftList()
-// Prepends p zero digits to L, multiplying L by base^p. Used by mult().
-// void shiftList(List& L, int p);
-
-// scalarMultList()
-// Multiplies L (considered as a vector) by m. Used by mult().
-// void scalarMultList(List& L, ListElement m);
 
 // add()
 // Returns a BigInteger representing the sum of this and N.
@@ -288,22 +289,68 @@ BigInteger BigInteger::sub(const BigInteger& N) const {
     return add(temp);
 }
 
+// shiftList()
+// Prepends p zero digits to L, multiplying L by base^p. Used by mult().
+void shiftList(List& L, int p) {
+    L.moveBack();
+    for (int i = 0; i < p; i++) L.insertBefore(0);
+}
+
+// scalarMultList()
+// Multiplies L (considered as a vector) by m. Used by mult().
+void scalarMultList(List& L, ListElement m) {
+    for (L.moveBack(); L.position() != 0; L.movePrev())
+        L.setBefore(m * L.peekPrev()); // element *= m
+}
+
 // mult()
 // Returns a BigInteger representing the product of this and N.
 BigInteger BigInteger::mult(const BigInteger& N) const {
-    List L;
-    L.insertAfter(-500);
-    L.insertAfter(0);
-    L.insertAfter(73);
-    L.insertAfter(9);
-    L.insertAfter(-90);
-    L.insertAfter(1);
-    std::cout << L << "\n";
+    BigInteger P;
+    if (signum == 0 || N.signum == 0) return P;
 
-    normalizeList(L);
-    std::cout << L << "\n";
+    // std::cout << "digits:   " << digits << "\n";
+    // std::cout << "N.digits: " << N.digits << "\n";
 
-    return N; // INCOMPLETE
+    // identify the longer List
+    List longer = (digits.length() > N.digits.length()) ? digits : N.digits;
+    List other = (digits.length() > N.digits.length()) ? N.digits : digits;
+
+    // std::cout << "longer:   " << longer << "\n";
+    // std::cout << "other:    " << other << "\n";
+
+    // start with an empty list and no shift
+    List prod;
+    int shift = 0;
+
+    // walk over longer List from back to front
+    for (longer.moveBack(); longer.position() != 0; longer.movePrev()) {
+
+        long element = longer.peekPrev();
+
+        // get the shifted other list
+        List shifted = other;
+        shiftList(shifted, shift);
+
+        // scalar mult this element with the shifted list
+        List sm = shifted;
+        scalarMultList(sm, element); // sm = element * shifted
+        // std::cout << "\nsm:       " << sm << "\n";
+
+        // add the scalar mult to the product
+        sumList(prod, prod, sm, 1); // prod += sm
+        // std::cout << "prod:     " << prod << "\n";
+
+        // normalize the product
+        normalizeList(prod);
+        // std::cout << "norm:     " << prod << "\n";
+
+        shift++;
+    }
+
+    P.digits = prod;
+    P.signum = (signum == N.signum) ? 1 : -1;
+    return P;
 }
 
 // ██ Other Functions ██
@@ -340,7 +387,7 @@ std::string BigInteger::to_string() {
     return s;
 }
 
-// ██ Overriden Operators ██
+// ██ Overridden Operators ██
 
 // operator<<()
 // Inserts string representation of N into stream.

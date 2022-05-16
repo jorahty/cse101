@@ -10,14 +10,10 @@ using namespace std;
 
 int main() {
 
-    BigInteger A = BigInteger("-9990001");
-    BigInteger B = BigInteger("-2352");
+    BigInteger A = BigInteger("23141");
+    BigInteger B = BigInteger("9001");
 
-    cout << A << " + " << B << endl;
-    cout << A + B << endl;
-
-    cout << A << " - " << B << endl;
-    cout << A - B << endl;
+    cout << A.mult(B) << endl;
 
     return 0;
 }
