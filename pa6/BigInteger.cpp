@@ -191,23 +191,33 @@ std::ostream& operator<<(std::ostream& stream, BigInteger N) {
 
 // operator==()
 // Returns true if and only if A equals B.
-// friend bool operator==(const BigInteger& A, const BigInteger& B);
+bool operator==(const BigInteger& A, const BigInteger& B) {
+    return A.compare(B) == 0;
+}
 
 // operator<()
 // Returns true if and only if A is less than B.
-// friend bool operator<(const BigInteger& A, const BigInteger& B);
+bool operator<(const BigInteger& A, const BigInteger& B) {
+    return A.compare(B) == -1;
+}
 
 // operator<=()
 // Returns true if and only if A is less than or equal to B.
-// friend bool operator<=(const BigInteger& A, const BigInteger& B);
+bool operator<=(const BigInteger& A, const BigInteger& B) {
+    return A.compare(B) == -1 || A.compare(B) == 0;
+}
 
 // operator>()
 // Returns true if and only if A is greater than B.
-// friend bool operator>(const BigInteger& A, const BigInteger& B);
+bool operator>(const BigInteger& A, const BigInteger& B) {
+    return A.compare(B) == 1;
+}
 
 // operator>=()
 // Returns true if and only if A is greater than or equal to B.
-// friend bool operator>=(const BigInteger& A, const BigInteger& B);
+bool operator>=(const BigInteger& A, const BigInteger& B) {
+    return A.compare(B) == 1 || A.compare(B) == 0;
+}
 
 // operator+()
 // Returns the sum A+B.
