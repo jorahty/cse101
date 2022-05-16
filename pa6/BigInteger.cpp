@@ -135,6 +135,29 @@ void BigInteger::negate() {
 
 // ██ BigInteger Arithmetic operations ██
 
+// negateList()
+// Changes the sign of each integer in List L. Used by sub().
+void negateList(List& L);
+
+// sumList()
+// Overwrites the state of S with A + sgn*B (considered as vectors).
+// Used by both sum() and sub().
+void sumList(List& S, List A, List B, int sgn);
+
+// normalizeList()
+// Performs carries from right to left (least to most significant 
+// digits), then returns the sign of the resulting integer. Used 
+// by add(), sub() and mult().
+int normalizeList(List& L);
+
+// shiftList()
+// Prepends p zero digits to L, multiplying L by base^p. Used by mult().
+void shiftList(List& L, int p);
+
+// scalarMultList()
+// Multiplies L (considered as a vector) by m. Used by mult().
+void scalarMultList(List& L, ListElement m);
+
 // add()
 // Returns a BigInteger representing the sum of this and N.
 // BigInteger add(const BigInteger& N) const;
