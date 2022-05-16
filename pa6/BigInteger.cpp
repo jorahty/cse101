@@ -137,7 +137,12 @@ void BigInteger::negate() {
 
 // negateList()
 // Changes the sign of each integer in List L. Used by sub().
-// void negateList(List& L);
+void negateList(List& L) {
+    for (L.moveBack(); L.position() != 0; L.movePrev()) {
+        long element = -1 * L.peekPrev();
+        L.setBefore(element);
+    }
+}
 
 // sumList()
 // Overwrites the state of S with A + sgn*B (considered as vectors).
@@ -145,21 +150,24 @@ void BigInteger::negate() {
 void sumList(List& S, List A, List B, int sgn) {
     S.clear();
 
+    // start at back
     A.moveBack();
     B.moveBack();
 
     // while still walking over at least one List
     while (A.position() != 0 || B.position() != 0) {
 
-        // Compute sum
+        // add elements to eachother,
+        // or to zero if one of the Lists is exausted
         long Ai = (A.position() == 0) ? 0 : A.peekPrev();
         long Bi = (B.position() == 0) ? 0 : B.peekPrev();
-        long sum = Ai + sgn * Bi;
+        long element_sum = Ai + sgn * Bi;
 
-        S.insertAfter(sum); // append sum to S
+        S.insertAfter(element_sum); // append sum to S
 
-        A.movePrev();
-        B.movePrev();
+        // walk
+        if (A.position() != 0) A.movePrev();
+        if (B.position() != 0) B.movePrev();
     }
 }
 
@@ -168,7 +176,59 @@ void sumList(List& S, List A, List B, int sgn) {
 // digits), then returns the sign of the resulting integer. Used
 // by add(), sub() and mult().
 int normalizeList(List& L) {
-    return 0;
+    int carry = 0;
+    int sign = 1;
+
+    // remove leading zeros
+    L.moveFront();
+    while (L.position() != L.length() && L.peekNext() == 0)
+        L.eraseAfter();
+    if (L.length() == 0) return 0;
+
+    // pull out sign if leftmost digit is negative
+    if (L.front() < 0) {
+        sign = -1;
+        negateList(L);
+    }
+
+    // for each element
+    for (L.moveBack(); L.position() != 0; L.movePrev()) {
+        long element = L.peekPrev();
+
+        element += carry;
+
+        // element to big? push value to next element
+        if (element >= base) {
+            element -= base;
+            L.setBefore(element);
+            carry = 1; // update carry to balance accordingly
+            continue;
+        }
+
+        // element to small? pull value from next element
+        if (element < 0) {
+            element += base;
+            L.setBefore(element);
+            carry = -1; // update carry to balance accordingly
+            continue;
+        }
+
+        // element in range
+        L.setBefore(element);
+        carry = 0;
+    }
+
+    // remove leading zeros
+    L.moveFront();
+    while (L.position() != L.length() && L.peekNext() == 0)
+        L.eraseAfter();
+    if (L.length() == 0) return 0;
+
+    if (carry != 0) {
+        L.insertAfter(1);
+        return carry;
+    }
+    return sign;
 }
 
 // shiftList()
@@ -182,23 +242,55 @@ int normalizeList(List& L) {
 // add()
 // Returns a BigInteger representing the sum of this and N.
 BigInteger BigInteger::add(const BigInteger& N) const {
+    if (N.signum == 0) return *this;
+    if (signum == 0) return N;
+
     BigInteger sum;
 
-    List S; // init the vector sum
+    if (signum == N.signum) { // same sign?
 
-    sumList(S, digits, N.digits, 1); // S is now the vector sum of this and N
+        // get vector sum V
+        List V;
+        sumList(V, digits, N.digits, 1);
 
-    std::cout << S << "\n";
+        // normalize to get magnitude
+        normalizeList(V);
+        sum.digits = V;
 
-    sum.signum = normalizeList(S); // S is now normalized
-    sum.digits = S;
+        sum.signum = signum; // sign is unchanged
+
+        return sum;
+    }
+
+    // this and N have a different sign
+    // now the result could be positive, negative, OR ZERO
+
+    // get vector sum V
+    List V;
+    if (N.signum == -1) {
+        sumList(V, digits, N.digits, -1);
+    } else {
+        sumList(V, N.digits, digits, -1);
+    }
+
+    // normalize to get magnitude
+    sum.signum = normalizeList(V);
+    sum.digits = V;
 
     return sum;
 }
 
 // sub()
 // Returns a BigInteger representing the difference of this and N.
-// BigInteger sub(const BigInteger& N) const;
+BigInteger BigInteger::sub(const BigInteger& N) const {
+    // this - N = this + (-N)
+
+    // get negation of N
+    BigInteger temp = N;
+    temp.signum *= -1;
+
+    return add(temp);
+}
 
 // mult()
 // Returns a BigInteger representing the product of this and N.
@@ -278,19 +370,27 @@ bool operator>=(const BigInteger& A, const BigInteger& B) {
 
 // operator+()
 // Returns the sum A+B.
-// friend BigInteger operator+(const BigInteger& A, const BigInteger& B);
+BigInteger operator+(const BigInteger& A, const BigInteger& B) {
+    return A.add(B);
+}
 
 // operator+=()
 // Overwrites A with the sum A+B.
-// friend BigInteger operator+=(BigInteger& A, const BigInteger& B);
+BigInteger operator+=(BigInteger& A, const BigInteger& B) {
+    return A = A.add(B);
+}
 
 // operator-()
 // Returns the difference A-B.
-// friend BigInteger operator-(const BigInteger& A, const BigInteger& B);
+BigInteger operator-(const BigInteger& A, const BigInteger& B) {
+    return A.sub(B);
+}
 
 // operator-=()
 // Overwrites A with the difference A-B.
-// friend BigInteger operator-=(BigInteger& A, const BigInteger& B);
+BigInteger operator-=(BigInteger& A, const BigInteger& B) {
+    return A = A.sub(B);
+}
 
 // operator*()
 // Returns the product A*B.

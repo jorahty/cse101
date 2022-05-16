@@ -10,11 +10,18 @@ using namespace std;
 
 int main() {
 
-    BigInteger A = BigInteger("882133");
-    BigInteger B = BigInteger("659179");
+    BigInteger A = BigInteger("659179");
+    BigInteger B = BigInteger("882133");
 
-    A.add(B);
-
+    cout << A + B << endl;
+    cout << A - B << endl;
+    
+    BigInteger C;
+    C += A;
+    cout << C << endl; 
+    C += B;
+    cout << C << endl; 
+    
     return 0;
 }
 
