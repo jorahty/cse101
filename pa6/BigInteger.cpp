@@ -137,32 +137,63 @@ void BigInteger::negate() {
 
 // negateList()
 // Changes the sign of each integer in List L. Used by sub().
-void negateList(List& L);
+// void negateList(List& L);
 
 // sumList()
 // Overwrites the state of S with A + sgn*B (considered as vectors).
-// Used by both sum() and sub().
-void sumList(List& S, List A, List B, int sgn);
+// Used by both add() and sub().
+void sumList(List& S, List A, List B, int sgn) {
+    S.clear();
+
+    A.moveBack();
+    B.moveBack();
+
+    // while still walking over at least one List
+    while (A.position() != 0 || B.position() != 0) {
+
+        // Compute sum
+        long Ai = (A.position() == 0) ? 0 : A.peekPrev();
+        long Bi = (B.position() == 0) ? 0 : B.peekPrev();
+        long sum = Ai + sgn * Bi;
+
+        S.insertAfter(sum); // append sum to S
+
+        A.movePrev();
+        B.movePrev();
+    }
+}
 
 // normalizeList()
-// Performs carries from right to left (least to most significant 
-// digits), then returns the sign of the resulting integer. Used 
+// Performs carries from right to left (least to most significant
+// digits), then returns the sign of the resulting integer. Used
 // by add(), sub() and mult().
-int normalizeList(List& L);
+int normalizeList(List& L) {
+    return 0;
+}
 
 // shiftList()
 // Prepends p zero digits to L, multiplying L by base^p. Used by mult().
-void shiftList(List& L, int p);
+// void shiftList(List& L, int p);
 
 // scalarMultList()
 // Multiplies L (considered as a vector) by m. Used by mult().
-void scalarMultList(List& L, ListElement m);
+// void scalarMultList(List& L, ListElement m);
 
 // add()
 // Returns a BigInteger representing the sum of this and N.
 BigInteger BigInteger::add(const BigInteger& N) const {
-    std::cout << *this << " + " << N << std::endl;
-    return N;
+    BigInteger sum;
+
+    List S; // init the vector sum
+
+    sumList(S, digits, N.digits, 1); // S is now the vector sum of this and N
+
+    std::cout << S << "\n";
+
+    sum.signum = normalizeList(S); // S is now normalized
+    sum.digits = S;
+
+    return sum;
 }
 
 // sub()
