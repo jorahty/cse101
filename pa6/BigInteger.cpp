@@ -6,8 +6,8 @@
 #include <string>
 
 // Define global constants base & power
-const int power = 1;
-const long base = 10;
+const int power = 9;
+const long base = 1000000000;
 
 // ██ Constructors & Destructors ██
 
@@ -187,7 +187,6 @@ int normalizeList(List& L) {
         element += carry;
         // std::cout << "element + carry = " << element << "\n";
 
-        
         // adjust element by adding by a multple of the base
         if (L.position() != 1) {
             int multiple = -1 * element / base;
@@ -238,7 +237,6 @@ BigInteger BigInteger::add(const BigInteger& N) const {
 
     // std::cout << "digits: " << digits << "\n";
     // std::cout << "N.digits: " << N.digits << "\n";
-
 
     if (signum == N.signum) { // same sign?
 
@@ -293,7 +291,8 @@ BigInteger BigInteger::sub(const BigInteger& N) const {
 // Prepends p zero digits to L, multiplying L by base^p. Used by mult().
 void shiftList(List& L, int p) {
     L.moveBack();
-    for (int i = 0; i < p; i++) L.insertBefore(0);
+    for (int i = 0; i < p; i++)
+        L.insertBefore(0);
 }
 
 // scalarMultList()
@@ -452,11 +451,11 @@ BigInteger operator-=(BigInteger& A, const BigInteger& B) {
 // operator*()
 // Returns the product A*B.
 BigInteger operator*(const BigInteger& A, const BigInteger& B) {
-    return B; // INCOMPLETE
+    return A.mult(B);
 }
 
 // operator*=()
 // Overwrites A with the product A*B.
 BigInteger operator*=(BigInteger& A, const BigInteger& B) {
-    return A = B; // INCOMPLETE
+    return A = A.mult(B);
 }
