@@ -67,6 +67,13 @@ BigInteger::BigInteger(std::string s) {
 
         s = s.substr(chunkSize, s.size() - chunkSize); // Trim s
     }
+
+    // remove leading zeros
+    digits.moveFront();
+    while (digits.peekNext() == 0) {
+        digits.eraseAfter();
+        if (digits.length() == 0) signum = 0;
+    }
 }
 
 // BigInteger()
