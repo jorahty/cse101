@@ -6,8 +6,8 @@
 #include <string>
 
 // Define global constants base & power
-const int power = 2;
-const long base = 100;
+const int power = 9;
+const long base = 1000000000;
 
 // ██ Constructors & Destructors ██
 
@@ -177,57 +177,45 @@ void sumList(List& S, List A, List B, int sgn) {
 // by add(), sub() and mult().
 int normalizeList(List& L) {
     int carry = 0;
-    int sign = 1;
-
-    // remove leading zeros
-    L.moveFront();
-    while (L.position() != L.length() && L.peekNext() == 0)
-        L.eraseAfter();
-    if (L.length() == 0) return 0;
-
-    // pull out sign if leftmost digit is negative
-    if (L.front() < 0) {
-        sign = -1;
-        negateList(L);
-    }
 
     // for each element
     for (L.moveBack(); L.position() != 0; L.movePrev()) {
         long element = L.peekPrev();
 
+        // std::cout << "\ncarry = " << carry << "\n";
+        // std::cout << "element = " << element << "\n";
         element += carry;
+        // std::cout << "element + carry = " << element << "\n";
 
-        // element to big? push value to next element
-        if (element >= base) {
-            element -= base;
-            L.setBefore(element);
-            carry = 1; // update carry to balance accordingly
-            continue;
+        
+        // adjust element by adding by a multple of the base
+        if (L.position() != 1) {
+            int multiple = -1 * element / base;
+            if (element < 0 && element % base != 0) multiple++;
+
+            element += multiple * base;
+            // std::cout << "adding " << multiple * base << " to get "<< element << "\n";
+
+            carry = -1 * multiple;
         }
 
-        // element to small? pull value from next element
-        if (element < 0) {
-            element += base;
-            L.setBefore(element);
-            carry = -1; // update carry to balance accordingly
-            continue;
-        }
-
-        // element in range
         L.setBefore(element);
-        carry = 0;
+    }
+
+    // if leftmost digit is negative
+    int sign = 1;
+    if (L.peekNext() < 0) {
+        sign = -1;
+        negateList(L);
+        normalizeList(L);
     }
 
     // remove leading zeros
-    L.moveFront();
-    while (L.position() != L.length() && L.peekNext() == 0)
+    while (L.peekNext() == 0) {
         L.eraseAfter();
-    if (L.length() == 0) return 0;
-
-    if (carry != 0) {
-        L.insertAfter(1);
-        return carry;
+        if (L.length() == 0) return 0;
     }
+
     return sign;
 }
 
@@ -247,15 +235,23 @@ BigInteger BigInteger::add(const BigInteger& N) const {
 
     BigInteger sum;
 
+    // std::cout << "digits: " << digits << "\n";
+    // std::cout << "N.digits: " << N.digits << "\n";
+
+
     if (signum == N.signum) { // same sign?
 
         // get vector sum V
         List V;
         sumList(V, digits, N.digits, 1);
 
+        // std::cout << "vector sum: " << V << "\n";
+
         // normalize to get magnitude
         normalizeList(V);
         sum.digits = V;
+
+        // std::cout << "normalized: " << V << "\n";
 
         sum.signum = signum; // sign is unchanged
 
@@ -294,7 +290,21 @@ BigInteger BigInteger::sub(const BigInteger& N) const {
 
 // mult()
 // Returns a BigInteger representing the product of this and N.
-// BigInteger mult(const BigInteger& N) const;
+BigInteger BigInteger::mult(const BigInteger& N) const {
+    List L;
+    L.insertAfter(-500);
+    L.insertAfter(0);
+    L.insertAfter(73);
+    L.insertAfter(9);
+    L.insertAfter(-90);
+    L.insertAfter(1);
+    std::cout << L << "\n";
+
+    normalizeList(L);
+    std::cout << L << "\n";
+
+    return N; // INCOMPLETE
+}
 
 // ██ Other Functions ██
 
@@ -394,8 +404,12 @@ BigInteger operator-=(BigInteger& A, const BigInteger& B) {
 
 // operator*()
 // Returns the product A*B.
-// friend BigInteger operator*(const BigInteger& A, const BigInteger& B);
+BigInteger operator*(const BigInteger& A, const BigInteger& B) {
+    return B; // INCOMPLETE
+}
 
 // operator*=()
 // Overwrites A with the product A*B.
-// friend BigInteger operator*=(BigInteger& A, const BigInteger& B);
+BigInteger operator*=(BigInteger& A, const BigInteger& B) {
+    return A = B; // INCOMPLETE
+}
