@@ -10,16 +10,10 @@ using namespace std;
 
 int main() {
 
-    cout << "Hello World!\n";
+    BigInteger A = BigInteger("100");
+    BigInteger B = BigInteger("45");
 
-    BigInteger A = BigInteger("-0");
-    BigInteger B = BigInteger("0");
-
-    cout << ((A == B) ? "true\n" : "false\n");
-    cout << ((A < B) ? "true\n" : "false\n");
-    cout << ((A <= B) ? "true\n" : "false\n");
-    cout << ((A > B) ? "true\n" : "false\n");
-    cout << ((A >= B) ? "true\n" : "false\n");
+    A.add(B);
 
     return 0;
 }

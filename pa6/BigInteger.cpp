@@ -160,7 +160,10 @@ void scalarMultList(List& L, ListElement m);
 
 // add()
 // Returns a BigInteger representing the sum of this and N.
-// BigInteger add(const BigInteger& N) const;
+BigInteger BigInteger::add(const BigInteger& N) const {
+    std::cout << *this << " + " << N << std::endl;
+    return N;
+}
 
 // sub()
 // Returns a BigInteger representing the difference of this and N.
