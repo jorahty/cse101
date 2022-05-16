@@ -88,7 +88,34 @@ int BigInteger::sign() const {
 // compare()
 // Returns -1, 1 or 0 according to whether this BigInteger is less than N,
 // greater than N or equal to N, respectively.
-// int compare(const BigInteger& N) const;
+int BigInteger::compare(const BigInteger& N) const {
+    if (signum > N.signum) return 1;
+    if (signum < N.signum) return -1;
+    // same sign
+
+    if (signum == 0) return 0;
+    // same sign and nonzero
+
+    if (digits.length() > N.digits.length()) return signum;
+    if (digits.length() < N.digits.length()) return -1 * signum;
+    // same sign, same length, and nonzero
+
+    // scan from most-significant to least-significant (left to right)
+    // for unequal digits
+    List this_digits = this->digits;
+    List N_digits = N.digits;
+    this_digits.moveFront();
+    N_digits.moveFront();
+    while (this_digits.position() != this_digits.length()) {
+        if (this_digits.peekNext() > N_digits.peekNext()) return signum;
+        if (this_digits.peekNext() < N_digits.peekNext()) return -1 * signum;
+
+        this_digits.moveNext();
+        N_digits.moveNext();
+    }
+
+    return 0; // all digits equal
+}
 
 // ██ Manipulation procedures ██
 

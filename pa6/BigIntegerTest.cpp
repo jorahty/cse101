@@ -12,13 +12,17 @@ int main() {
 
     cout << "Hello World!\n";
 
-    string s1 = "-3400601942";
+    BigInteger A = BigInteger("-1239");
+    BigInteger B = BigInteger("-999");
 
-    BigInteger A = BigInteger(s1);
+    string result;
+    switch (A.compare(B)) {
+    case -1: result = "less than"; break;
+    case 1: result = "greater than"; break;
+    case 0: result = "equal to"; break;
+    }
 
-    cout << A << endl;
-
-    cout << A << endl;
+    cout << A << " is " + result + " " << B << endl;
 
     return 0;
 }
