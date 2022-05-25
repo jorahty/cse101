@@ -50,6 +50,19 @@ void Dictionary::inOrderString(std::string& s, Node* R) const {
   }
 }
 
+// search()
+// Searches the subtree rooted at R for a Node with key==k. Returns
+// the address of the Node if it exists, returns nil otherwise.
+Dictionary::Node* Dictionary::search(Node* R, keyType k) const {
+  if (R == nil || k == R->key) {
+    return R;
+  } else if (k < R->key) {
+    return search(R->left, k);
+  } else {
+    return search(R->right, k);
+  }
+}
+
 // ██ Access Functions ██
 
 // size()
@@ -62,17 +75,8 @@ int Dictionary::size() const {
 // Returns true if there exists a pair such that key==k, and returns false
 // otherwise.
 bool Dictionary::contains(keyType k) const {
-  Node* x = root;
-  while (x != nil) {
-    if (k == x->key) {
-      return true;
-    } else if (k < x->key) {
-      x = x->left;
-    } else {
-      x = x->right;
-    }
-  }
-  return false;
+  Node* N = search(root, k);
+  return N && N != nil;
 }
 
 // ██ Manipulation Procedures ██
@@ -113,8 +117,10 @@ void Dictionary::setValue(keyType k, valType v) {
 // Deletes the pair for which key==k. If that pair is current, then current
 // becomes undefined.
 // Pre: contains(k).
-// void remove(keyType k) {
-
+// void Dictionary::remove(keyType k) {
+//   if (contains(k) == false) {
+//     throw std::length_error("Dictionary: remove(): key \"" + k + "\" does not exist");
+//   }
 // }
 
 // ██ Other Functions ██

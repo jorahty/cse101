@@ -24,7 +24,8 @@ File descriptions
 - [x] InOrderString
 - [x] to_string
 - [x] << operator
-- [ ] contains()
+- [x] search()
+- [x] contains()
 - [ ] remove
 - [ ] Postorder delete
 - [ ] Destructor
