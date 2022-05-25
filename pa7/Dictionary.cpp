@@ -4,6 +4,38 @@
 #include <iostream>
 #include <string>
 
+// ██ Private Contructors ██
+
+Dictionary::Node::Node(keyType k, valType v) {
+  key = k;
+  val = v;
+  parent = nullptr;
+  left = nullptr;
+  right = nullptr;
+  // parent, left, right fields will be set later
+  // (probably by whoever called this contructor)
+}
+
+// ██ Class Constructors & Destructors ██
+
+Dictionary::Dictionary() {
+  nil = new Node("nil", 0);
+
+  root = nil;
+  current = nil;
+
+  num_pairs = 0;
+}
+
+// Copy constructor.
+// Dictionary::Dictionary(const Dictionary& D);
+
+// Destructor
+Dictionary::~Dictionary() {
+  // delete non-nil nodes
+  delete nil;
+}
+
 // // Exported types -------------------------------------------------------------
 // typedef std::string keyType; // must be comparable using <, <=, >, >=, ==, !=
 // typedef int valType;

@@ -11,6 +11,8 @@ int main() {
 
   cout << "Hello DictionaryTest!\n";
 
+  Dictionary A;
+
   return 0;
 }
 
