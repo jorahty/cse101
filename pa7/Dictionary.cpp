@@ -61,12 +61,24 @@ int Dictionary::size() const {
 // contains()
 // Returns true if there exists a pair such that key==k, and returns false
 // otherwise.
-// bool contains(keyType k) const;
+bool Dictionary::contains(keyType k) const {
+  Node* x = root;
+  while (x != nil) {
+    if (k == x->key) {
+      return true;
+    } else if (k < x->key) {
+      x = x->left;
+    } else {
+      x = x->right;
+    }
+  }
+  return false;
+}
 
 // ██ Manipulation Procedures ██
 
 // setValue()
-// If a pair with key==k exists, overwrites the corresponding value with v, 
+// If a pair with key==k exists, overwrites the corresponding value with v,
 // otherwise inserts the new pair (k, v).
 void Dictionary::setValue(keyType k, valType v) {
   Node* y = nil; // inch worm
@@ -109,8 +121,8 @@ void Dictionary::setValue(keyType k, valType v) {
 
 // to_string()
 // Returns a string representation of this Dictionary. Consecutive (key, value)
-// pairs are separated by a newline "\n" character, and the items key and value 
-// are separated by the sequence space-colon-space " : ". The pairs are arranged 
+// pairs are separated by a newline "\n" character, and the items key and value
+// are separated by the sequence space-colon-space " : ". The pairs are arranged
 // in order, as defined by the order operator <.
 std::string Dictionary::to_string() const {
   std::string s = "";
@@ -123,6 +135,6 @@ std::string Dictionary::to_string() const {
 // operator<<()
 // Inserts string representation of Dictionary D into stream, as defined by
 // member function to_string().
-std::ostream& operator<<( std::ostream& stream, Dictionary& D ) {
+std::ostream& operator<<(std::ostream& stream, Dictionary& D) {
   return stream << D.Dictionary::to_string();
 }

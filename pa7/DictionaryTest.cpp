@@ -20,6 +20,9 @@ int main() {
 
   cout << A;
 
+  cout << (A.contains("james") ? "true\n" : "false\n");
+  cout << (A.contains("obama") ? "true\n" : "false\n");
+
   return 0;
 }
 
