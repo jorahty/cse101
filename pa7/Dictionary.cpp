@@ -32,10 +32,6 @@ Dictionary::Dictionary() {
 
 // Destructor
 Dictionary::~Dictionary() {
-  std::string s = "";
-  inOrderString(s, root);
-  std::cout << s;
-
   // delete non-nil nodes
   delete nil;
 }
@@ -85,4 +81,17 @@ void Dictionary::setValue(keyType k, valType v) {
   } else {
     y->right = z;
   }
+}
+
+// ██ Other Functions ██
+
+// to_string()
+// Returns a string representation of this Dictionary. Consecutive (key, value)
+// pairs are separated by a newline "\n" character, and the items key and value 
+// are separated by the sequence space-colon-space " : ". The pairs are arranged 
+// in order, as defined by the order operator <.
+std::string Dictionary::to_string() const {
+  std::string s = "";
+  inOrderString(s, root);
+  return s;
 }

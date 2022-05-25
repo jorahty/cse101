@@ -18,7 +18,7 @@ int main() {
   A.setValue("bono", 28);
   A.setValue("arya", 12);
 
-  
+  cout << A.to_string();  
 
   return 0;
 }
