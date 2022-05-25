@@ -50,6 +50,19 @@ void Dictionary::inOrderString(std::string& s, Node* R) const {
   }
 }
 
+// ██ Access Functions ██
+
+// size()
+// Returns the size of this Dictionary.
+int Dictionary::size() const {
+  return num_pairs;
+}
+
+// contains()
+// Returns true if there exists a pair such that key==k, and returns false
+// otherwise.
+// bool contains(keyType k) const;
+
 // ██ Manipulation Procedures ██
 
 // setValue()
@@ -81,7 +94,16 @@ void Dictionary::setValue(keyType k, valType v) {
   } else {
     y->right = z;
   }
+  num_pairs++;
 }
+
+// remove()
+// Deletes the pair for which key==k. If that pair is current, then current
+// becomes undefined.
+// Pre: contains(k).
+// void remove(keyType k) {
+
+// }
 
 // ██ Other Functions ██
 

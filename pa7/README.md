@@ -23,6 +23,8 @@ File descriptions
 - [x] setValue
 - [x] InOrderString
 - [x] to_string
+- [x] << operator
+- [ ] contains()
 - [ ] remove
 - [ ] Postorder delete
 - [ ] Destructor
