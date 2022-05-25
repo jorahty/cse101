@@ -32,9 +32,29 @@ Dictionary::Dictionary() {
 
 // Destructor
 Dictionary::~Dictionary() {
+  std::string s = "";
+  inOrderString(s, root);
+  std::cout << s;
+
   // delete non-nil nodes
   delete nil;
 }
+
+// ██ Helper Functions ██
+
+// inOrderString()
+// Appends a string representation of the tree rooted at R to string s. The
+// string appended consists of: "key : value \n" for each key-value pair in
+// tree R, arranged in order by keys.
+void Dictionary::inOrderString(std::string& s, Node* R) const {
+  if (R != nil) {
+    inOrderString(s, R->left);
+    s += (R->key + " : " + std::to_string(R->val) + " \n");
+    inOrderString(s, R->right);
+  }
+}
+
+// ██ Manipulation Procedures ██
 
 // setValue()
 // If a pair with key==k exists, overwrites the corresponding value with v, 

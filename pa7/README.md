@@ -20,8 +20,8 @@ File descriptions
 
 ## TODO
 - [x] Constructor
-- [ ] setValue
-- [ ] Inorder traversal
+- [x] setValue
+- [x] InOrderString
 - [ ] to_string
 - [ ] remove
 - [ ] Postorder delete

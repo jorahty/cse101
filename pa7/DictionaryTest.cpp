@@ -15,6 +15,10 @@ int main() {
   A.setValue("jorah", 21);
   A.setValue("james", 21);
   A.setValue("james", 3);
+  A.setValue("bono", 28);
+  A.setValue("arya", 12);
+
+  
 
   return 0;
 }
