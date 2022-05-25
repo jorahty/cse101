@@ -22,7 +22,7 @@ File descriptions
 - [x] Constructor
 - [x] setValue
 - [x] InOrderString
-- [ ] to_string
+- [x] to_string
 - [ ] remove
 - [ ] Postorder delete
 - [ ] Destructor

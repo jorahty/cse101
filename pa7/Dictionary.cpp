@@ -95,3 +95,12 @@ std::string Dictionary::to_string() const {
   inOrderString(s, root);
   return s;
 }
+
+// ██ Overloaded Operators ██
+
+// operator<<()
+// Inserts string representation of Dictionary D into stream, as defined by
+// member function to_string().
+std::ostream& operator<<( std::ostream& stream, Dictionary& D ) {
+  return stream << D.Dictionary::to_string();
+}
