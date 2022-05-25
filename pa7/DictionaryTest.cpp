@@ -12,6 +12,9 @@ int main() {
   cout << "Hello DictionaryTest!\n";
 
   Dictionary A;
+  A.setValue("jorah", 21);
+  A.setValue("james", 21);
+  A.setValue("james", 3);
 
   return 0;
 }

@@ -17,3 +17,15 @@ Makefile for building Order & DictionaryTest executables
 
 ## README.md
 File descriptions
+
+## TODO
+- [x] Constructor
+- [ ] setValue
+- [ ] Inorder traversal
+- [ ] to_string
+- [ ] remove
+- [ ] Postorder delete
+- [ ] Destructor
+- [ ] Preorderstring
+- [ ] Preorder copy
+- [ ] Copy constructor
