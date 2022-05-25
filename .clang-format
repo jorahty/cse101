@@ -1,6 +1,6 @@
 ---
 BasedOnStyle: WebKit
-IndentWidth: 4
+IndentWidth: 2
 ---
 Language: Cpp
 AlignEscapedNewlines: Right
