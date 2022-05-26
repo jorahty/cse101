@@ -116,6 +116,53 @@ Dictionary::Node* Dictionary::findMin(Node* R) {
   return R;
 }
 
+// findMax()
+// If the subtree rooted at R is not empty, returns a pointer to the
+// rightmost Node in that subtree, otherwise returns nil.
+Dictionary::Node* Dictionary::findMax(Node* R) {
+  if (R == nil) return nil;
+  while (R->right != nil) {
+    R = R->right;
+  }
+  return R;
+}
+
+// findNext()
+// If N does not point to the rightmost Node, returns a pointer to the
+// Node after N in an in-order tree walk.  If N points to the rightmost
+// Node, or is nil, returns nil.
+Dictionary::Node* Dictionary::findNext(Node* N) {
+  if (N == nil) return nil;
+
+  if (N->right != nil) {
+    return findMin(N->right);
+  }
+  Node* y = N->parent;
+  while (y != nil && N == y->right) {
+    N = y;
+    y = y->parent;
+  }
+  return y;
+}
+
+// findPrev()
+// If N does not point to the leftmost Node, returns a pointer to the
+// Node before N in an in-order tree walk.  If N points to the leftmost
+// Node, or is nil, returns nil.
+Dictionary::Node* Dictionary::findPrev(Node* N) {
+  if (N == nil) return nil;
+
+  if (N->left != nil) {
+    return findMax(N->left);
+  }
+  Node* y = N->parent;
+  while (y != nil && N == y->left) {
+    N = y;
+    y = y->parent;
+  }
+  return y;
+}
+
 // transplant()
 // Replaces subtree rooted at u with subtree rooted at v.
 void Dictionary::transplant(Node* u, Node* v) {
