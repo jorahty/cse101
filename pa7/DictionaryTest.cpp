@@ -20,15 +20,19 @@ int main() {
 
   cout << A;
 
-  cout << (A.contains("james") ? "true\n" : "false\n");
-  cout << (A.contains("obama") ? "true\n" : "false\n");
+  A.begin();
+  cout << A.currentVal() << A.currentKey() << endl;
+  A.next();
+  cout << A.currentVal() << A.currentKey() << "\n\n";
 
-  cout << A;
+  A.end();
+  cout << A.currentVal() << A.currentKey() << endl;
+  A.prev();
+  cout << A.currentVal() << A.currentKey() << "\n\n";
 
-  cout << A.getValue("james") << endl;
 
-  cout << (A.hasCurrent() ? "true\n" : "false\n");
   
+
   return 0;
 }
 

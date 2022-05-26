@@ -304,6 +304,46 @@ void Dictionary::remove(keyType k) {
   num_pairs--;
 }
 
+// begin()
+// If non-empty, places current iterator at the first (key, value) pair
+// (as defined by the order operator < on keys), otherwise does nothing. 
+void Dictionary::begin() {
+  if (root == nil) return;
+  current = findMin(root);
+}
+
+// end()
+// If non-empty, places current iterator at the last (key, value) pair
+// (as defined by the order operator < on keys), otherwise does nothing. 
+void Dictionary::end() {
+  if (root == nil) return;
+  current = findMax(root);
+}
+
+// next()
+// If the current iterator is not at the last pair, advances current 
+// to the next pair (as defined by the order operator < on keys). If 
+// the current iterator is at the last pair, makes current undefined.
+// Pre: hasCurrent()
+void Dictionary::next() {
+  if (hasCurrent() == false) {
+    throw std::logic_error("Dictionary: next(): current not defined");
+  }
+  current = findNext(current);
+}
+
+// prev()
+// If the current iterator is not at the first pair, moves current to  
+// the previous pair (as defined by the order operator < on keys). If 
+// the current iterator is at the first pair, makes current undefined.
+// Pre: hasCurrent()
+void Dictionary::prev() {
+  if (hasCurrent() == false) {
+    throw std::logic_error("Dictionary: prev(): current not defined");
+  }
+  current = findPrev(current);
+}
+
 // ██ Other Functions ██
 
 // to_string()
