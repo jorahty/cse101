@@ -30,6 +30,7 @@ File descriptions
 - [x] findMin
 - [x] remove
 - [ ] Postorder delete
+- [ ] clear
 - [ ] Destructor
 - [ ] Preorderstring
 - [ ] Preorder copy

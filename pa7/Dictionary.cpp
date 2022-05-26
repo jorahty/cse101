@@ -32,7 +32,7 @@ Dictionary::Dictionary() {
 
 // Destructor
 Dictionary::~Dictionary() {
-  // delete non-nil nodes
+  clear();
   delete nil;
 }
 
@@ -47,6 +47,17 @@ void Dictionary::inOrderString(std::string& s, Node* R) const {
     inOrderString(s, R->left);
     s += (R->key + " : " + std::to_string(R->val) + " \n");
     inOrderString(s, R->right);
+  }
+}
+
+// postOrderDelete()
+// Deletes all Nodes in the subtree rooted at R, sets R to nil.
+void Dictionary::postOrderDelete(Node* R) {
+  if (R != nil) {
+    postOrderDelete(R->left);
+    postOrderDelete(R->right);
+    transplant(R, R->right);
+    delete R;
   }
 }
 
@@ -74,6 +85,21 @@ Dictionary::Node* Dictionary::findMin(Node* R) {
   return R;
 }
 
+// transplant()
+// Replaces subtree rooted at u with subtree rooted at v.
+void Dictionary::transplant(Node* u, Node* v) {
+  if (u->parent == nil) {
+    root = v;
+  } else if (u == u->parent->left) {
+    u->parent->left = v;
+  } else {
+    u->parent->right = v;
+  }
+  if (v != nil) {
+    v->parent = u->parent;
+  }
+}
+
 // ██ Access Functions ██
 
 // size()
@@ -91,6 +117,12 @@ bool Dictionary::contains(keyType k) const {
 }
 
 // ██ Manipulation Procedures ██
+
+// clear()
+// Resets this Dictionary to the empty state, containing no pairs.
+void Dictionary::clear() {
+  postOrderDelete(root);
+}
 
 // setValue()
 // If a pair with key==k exists, overwrites the corresponding value with v,
@@ -124,21 +156,6 @@ void Dictionary::setValue(keyType k, valType v) {
   num_pairs++;
 }
 
-// transplant()
-// Replaces subtree rooted at u with subtree rooted at v.
-void Dictionary::transplant(Node* u, Node* v) {
-  if (u->parent == nil) {
-    root = v;
-  } else if (u == u->parent->left) {
-    u->parent->left = v;
-  } else {
-    u->parent->right = v;
-  }
-  if (v != nil) {
-    v->parent = u->parent;
-  }
-}
-
 // remove()
 // Deletes the pair for which key==k. If that pair is current, then current
 // becomes undefined.
@@ -170,23 +187,6 @@ void Dictionary::remove(keyType k) {
 
   num_pairs--;
 }
-
-/*
-Delete(T, z)
-   if z.left == NIL               // case 1  or case 2.1 (right only)
-      Transplant(T, z, z.right)
-   else if z.right == NIL         // case 2.2 (left only)
-      Transplant(T, z, z.left)
-   else                           // case 3
-      y = TreeMinimum(z.right)
-      if y.parent != z
-         Transplant(T, y, y.right)
-         y.right = z.right
-         y.right.parent = y
-      Transplant(T, z, y)
-      y.left = z.left
-      y.left.parent = y
-*/
 
 // ██ Other Functions ██
 
