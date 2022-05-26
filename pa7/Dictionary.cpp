@@ -238,6 +238,7 @@ valType& Dictionary::currentVal() const {
 // Resets this Dictionary to the empty state, containing no pairs.
 void Dictionary::clear() {
   postOrderDelete(root);
+  current = nil;
 }
 
 // setValue()
@@ -281,6 +282,8 @@ void Dictionary::remove(keyType k) {
     throw std::logic_error("Dictionary: remove(): key \"" + k + "\" does not exist");
   }
   Node* z = search(root, k);
+
+  if (current == z) current = nil;
 
   if (z->left == nil) {
     transplant(z, z->right);
@@ -395,7 +398,7 @@ bool operator==(const Dictionary& A, const Dictionary& B) {
 // operator=()
 // Overwrites the state of this Dictionary with state of D, and returns a
 // reference to this Dictionary.
-Dictionary& Dictionary::operator=( const Dictionary& D ) {
+Dictionary& Dictionary::operator=(const Dictionary& D) {
   if (this != &D) { // Not self assignment
     // Make a temporary copy of D
     Dictionary temp = D;
