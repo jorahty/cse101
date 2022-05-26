@@ -212,6 +212,26 @@ bool Dictionary::hasCurrent() const {
   return current != nil;
 }
 
+// currentKey()
+// Returns the current key.
+// Pre: hasCurrent() 
+keyType Dictionary::currentKey() const {
+  if (hasCurrent() == false) {
+    throw std::logic_error("Dictionary: currentKey(): current undefined");
+  }
+  return current->key;
+}
+
+// currentVal()
+// Returns a reference to the current value.
+// Pre: hasCurrent()
+valType& Dictionary::currentVal() const {
+  if (hasCurrent() == false) {
+    throw std::logic_error("Dictionary: currentVal(): current undefined");
+  }
+  return current->val;
+}
+
 // ██ Manipulation Procedures ██
 
 // clear()
