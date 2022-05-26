@@ -205,6 +205,13 @@ valType& Dictionary::getValue(keyType k) const {
   return N->val;
 }
 
+// hasCurrent()
+// Returns true if the current iterator is defined, and returns false 
+// otherwise.
+bool Dictionary::hasCurrent() const {
+  return current != nil;
+}
+
 // ██ Manipulation Procedures ██
 
 // clear()

@@ -27,6 +27,8 @@ int main() {
 
   cout << A.getValue("james") << endl;
 
+  cout << (A.hasCurrent() ? "true\n" : "false\n");
+  
   return 0;
 }
 
