@@ -30,6 +30,8 @@ int main() {
 
   cout << (A == B ? "true\n" : "false\n");
 
+  B = A;
+
   return 0;
 }
 

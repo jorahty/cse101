@@ -395,4 +395,17 @@ bool operator==(const Dictionary& A, const Dictionary& B) {
 // operator=()
 // Overwrites the state of this Dictionary with state of D, and returns a
 // reference to this Dictionary.
-// Dictionary& operator=( const Dictionary& D );
+Dictionary& Dictionary::operator=( const Dictionary& D ) {
+  if (this != &D) { // Not self assignment
+    // Make a temporary copy of D
+    Dictionary temp = D;
+
+    // Swap fields
+    std::swap(nil, temp.nil);
+    std::swap(root, temp.root);
+    std::swap(current, temp.current);
+    std::swap(num_pairs, temp.num_pairs);
+  }
+
+  return *this;
+}
