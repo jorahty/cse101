@@ -87,6 +87,10 @@ private:
    // Node, or is nil, returns nil.
    Node* findPrev(Node* N);
 
+   // transplant()
+   // Replaces subtree rooted at u with subtree rooted at v.
+   void transplant(Node* u, Node* v);
+
 public:
 
    // Class Constructors & Destructors ----------------------------------------

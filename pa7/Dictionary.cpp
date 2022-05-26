@@ -63,6 +63,17 @@ Dictionary::Node* Dictionary::search(Node* R, keyType k) const {
   }
 }
 
+// findMin()
+// If the subtree rooted at R is not empty, returns a pointer to the 
+// leftmost Node in that subtree, otherwise returns nil.
+Dictionary::Node* Dictionary::findMin(Node* R) {
+  if (R == nil) return nil;
+  while (R->left != nil) {
+    R = R->left;
+  }
+  return R;
+}
+
 // ██ Access Functions ██
 
 // size()
@@ -113,15 +124,69 @@ void Dictionary::setValue(keyType k, valType v) {
   num_pairs++;
 }
 
+// transplant()
+// Replaces subtree rooted at u with subtree rooted at v.
+void Dictionary::transplant(Node* u, Node* v) {
+  if (u->parent == nil) {
+    root = v;
+  } else if (u == u->parent->left) {
+    u->parent->left = v;
+  } else {
+    u->parent->right = v;
+  }
+  if (v != nil) {
+    v->parent = u->parent;
+  }
+}
+
 // remove()
 // Deletes the pair for which key==k. If that pair is current, then current
 // becomes undefined.
 // Pre: contains(k).
-// void Dictionary::remove(keyType k) {
-//   if (contains(k) == false) {
-//     throw std::length_error("Dictionary: remove(): key \"" + k + "\" does not exist");
-//   }
-// }
+void Dictionary::remove(keyType k) {
+  if (contains(k) == false) {
+    throw std::logic_error("Dictionary: remove(): key \"" + k + "\" does not exist");
+  }
+  Node* z = search(root, k);
+
+  if (z->left == nil) {
+    transplant(z, z->right);
+    delete z;
+  } else if (z->right == nil) {
+    transplant(z, z->left);
+    delete z;
+  } else {
+    Node* y = findMin(z->right);
+    if (y->parent != z) {
+      transplant(y, y->right);
+      y->right = z->right;
+      y->right->parent = y;
+    }
+    transplant(z, y);
+    y->left = z->left;
+    y->left->parent = y;
+    delete z;
+  }
+
+  num_pairs--;
+}
+
+/*
+Delete(T, z)
+   if z.left == NIL               // case 1  or case 2.1 (right only)
+      Transplant(T, z, z.right)
+   else if z.right == NIL         // case 2.2 (left only)
+      Transplant(T, z, z.left)
+   else                           // case 3
+      y = TreeMinimum(z.right)
+      if y.parent != z
+         Transplant(T, y, y.right)
+         y.right = z.right
+         y.right.parent = y
+      Transplant(T, z, y)
+      y.left = z.left
+      y.left.parent = y
+*/
 
 // ██ Other Functions ██
 

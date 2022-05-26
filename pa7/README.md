@@ -26,7 +26,9 @@ File descriptions
 - [x] << operator
 - [x] search()
 - [x] contains()
-- [ ] remove
+- [x] transplant
+- [x] findMin
+- [x] remove
 - [ ] Postorder delete
 - [ ] Destructor
 - [ ] Preorderstring

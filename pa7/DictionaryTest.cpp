@@ -23,7 +23,12 @@ int main() {
   cout << (A.contains("james") ? "true\n" : "false\n");
   cout << (A.contains("obama") ? "true\n" : "false\n");
 
-  // A.remove("bro");
+  A.remove("bono");
+  A.remove("jorah");
+  A.remove("james");
+  A.remove("arya");
+
+  cout << A;
 
   return 0;
 }
