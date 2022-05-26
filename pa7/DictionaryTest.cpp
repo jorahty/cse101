@@ -18,20 +18,17 @@ int main() {
   A.setValue("bono", 28);
   A.setValue("arya", 12);
 
-  cout << A;
+  Dictionary B;
+  B.setValue("james", 21);
+  B.setValue("jorah", 21);
+  B.setValue("james", 3);
+  B.setValue("arya", 12);
+  B.setValue("bono", 28);
 
-  A.begin();
-  cout << A.currentVal() << A.currentKey() << endl;
-  A.next();
-  cout << A.currentVal() << A.currentKey() << "\n\n";
+  cout << A << "\n\n";
+  cout << B << "\n\n";
 
-  A.end();
-  cout << A.currentVal() << A.currentKey() << endl;
-  A.prev();
-  cout << A.currentVal() << A.currentKey() << "\n\n";
-
-
-  
+  cout << (A == B ? "true\n" : "false\n");
 
   return 0;
 }

@@ -206,7 +206,7 @@ valType& Dictionary::getValue(keyType k) const {
 }
 
 // hasCurrent()
-// Returns true if the current iterator is defined, and returns false 
+// Returns true if the current iterator is defined, and returns false
 // otherwise.
 bool Dictionary::hasCurrent() const {
   return current != nil;
@@ -214,7 +214,7 @@ bool Dictionary::hasCurrent() const {
 
 // currentKey()
 // Returns the current key.
-// Pre: hasCurrent() 
+// Pre: hasCurrent()
 keyType Dictionary::currentKey() const {
   if (hasCurrent() == false) {
     throw std::logic_error("Dictionary: currentKey(): current undefined");
@@ -306,7 +306,7 @@ void Dictionary::remove(keyType k) {
 
 // begin()
 // If non-empty, places current iterator at the first (key, value) pair
-// (as defined by the order operator < on keys), otherwise does nothing. 
+// (as defined by the order operator < on keys), otherwise does nothing.
 void Dictionary::begin() {
   if (root == nil) return;
   current = findMin(root);
@@ -314,15 +314,15 @@ void Dictionary::begin() {
 
 // end()
 // If non-empty, places current iterator at the last (key, value) pair
-// (as defined by the order operator < on keys), otherwise does nothing. 
+// (as defined by the order operator < on keys), otherwise does nothing.
 void Dictionary::end() {
   if (root == nil) return;
   current = findMax(root);
 }
 
 // next()
-// If the current iterator is not at the last pair, advances current 
-// to the next pair (as defined by the order operator < on keys). If 
+// If the current iterator is not at the last pair, advances current
+// to the next pair (as defined by the order operator < on keys). If
 // the current iterator is at the last pair, makes current undefined.
 // Pre: hasCurrent()
 void Dictionary::next() {
@@ -333,8 +333,8 @@ void Dictionary::next() {
 }
 
 // prev()
-// If the current iterator is not at the first pair, moves current to  
-// the previous pair (as defined by the order operator < on keys). If 
+// If the current iterator is not at the first pair, moves current to
+// the previous pair (as defined by the order operator < on keys). If
 // the current iterator is at the first pair, makes current undefined.
 // Pre: hasCurrent()
 void Dictionary::prev() {
@@ -367,6 +367,15 @@ std::string Dictionary::pre_string() const {
   return s;
 }
 
+// equals()
+// Returns true if and only if this Dictionary contains the same (key, value)
+// pairs as Dictionary D.
+bool Dictionary::equals(const Dictionary& D) const {
+  std::string s1 = to_string();
+  std::string s2 = D.to_string();
+  return s1 == s2;
+}
+
 // ██ Overloaded Operators ██
 
 // operator<<()
@@ -375,3 +384,15 @@ std::string Dictionary::pre_string() const {
 std::ostream& operator<<(std::ostream& stream, Dictionary& D) {
   return stream << D.Dictionary::to_string();
 }
+
+// operator==()
+// Returns true if and only if Dictionary A equals Dictionary B, as defined
+// by member function equals().
+bool operator==(const Dictionary& A, const Dictionary& B) {
+  return A.Dictionary::equals(B);
+}
+
+// operator=()
+// Overwrites the state of this Dictionary with state of D, and returns a
+// reference to this Dictionary.
+// Dictionary& operator=( const Dictionary& D );
