@@ -198,10 +198,10 @@ bool Dictionary::contains(keyType k) const {
 // Returns a reference to the value corresponding to key k.
 // Pre: contains(k)
 valType& Dictionary::getValue(keyType k) const {
-  if (contains(k) == false) {
+  Node* N = search(root, k);
+  if (N == nil) {
     throw std::logic_error("Dictionary: getValue(): key \"" + k + "\" does not exist");
   }
-  Node* N = search(root, k);
   return N->val;
 }
 
@@ -278,10 +278,10 @@ void Dictionary::setValue(keyType k, valType v) {
 // becomes undefined.
 // Pre: contains(k).
 void Dictionary::remove(keyType k) {
-  if (contains(k) == false) {
+  Node* z = search(root, k);
+  if (z == nil) {
     throw std::logic_error("Dictionary: remove(): key \"" + k + "\" does not exist");
   }
-  Node* z = search(root, k);
 
   if (current == z) current = nil;
 
