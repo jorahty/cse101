@@ -24,7 +24,11 @@ int main() {
   cout << (A.contains("obama") ? "true\n" : "false\n");
 
   cout << A;
+  cout << A.pre_string();
 
+  Dictionary B = A;
+
+  cout << endl << A;
 
   return 0;
 }

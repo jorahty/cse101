@@ -29,9 +29,10 @@ File descriptions
 - [x] transplant
 - [x] findMin
 - [x] remove
-- [ ] Postorder delete
-- [ ] clear
-- [ ] Destructor
-- [ ] Preorderstring
-- [ ] Preorder copy
-- [ ] Copy constructor
+- [x] Postorder delete
+- [x] clear
+- [x] Destructor
+- [x] Preorderstring
+- [x] pre_string
+- [x] Preorder copy
+- [x] Copy constructor

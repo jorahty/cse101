@@ -28,7 +28,14 @@ Dictionary::Dictionary() {
 }
 
 // Copy constructor.
-// Dictionary::Dictionary(const Dictionary& D);
+Dictionary::Dictionary(const Dictionary& D) {
+  nil = new Node("nil", 0);
+  root = nil;
+  current = nil;
+  num_pairs = 0;
+
+  preOrderCopy(D.root, D.nil);
+}
 
 // Destructor
 Dictionary::~Dictionary() {
@@ -50,6 +57,29 @@ void Dictionary::inOrderString(std::string& s, Node* R) const {
   }
 }
 
+// preOrderString()
+// Appends a string representation of the tree rooted at R to s. The appended
+// string consists of keys only, separated by "\n", with the order determined
+// by a pre-order tree walk.
+void Dictionary::preOrderString(std::string& s, Node* R) const {
+  if (R != nil) {
+    s += (R->key + "\n");
+    preOrderString(s, R->left);
+    preOrderString(s, R->right);
+  }
+}
+
+// preOrderCopy()
+// Recursively inserts a deep copy of the subtree rooted at R into this
+// Dictionary. Recursion terminates at N.
+void Dictionary::preOrderCopy(Node* R, Node* N) {
+  if (R != N) {
+    setValue(R->key, R->val);
+    preOrderCopy(R->left, N);
+    preOrderCopy(R->right, N);
+  }
+}
+
 // postOrderDelete()
 // Deletes all Nodes in the subtree rooted at R, sets R to nil.
 void Dictionary::postOrderDelete(Node* R) {
@@ -58,6 +88,7 @@ void Dictionary::postOrderDelete(Node* R) {
     postOrderDelete(R->right);
     transplant(R, R->right);
     delete R;
+    num_pairs--;
   }
 }
 
@@ -75,7 +106,7 @@ Dictionary::Node* Dictionary::search(Node* R, keyType k) const {
 }
 
 // findMin()
-// If the subtree rooted at R is not empty, returns a pointer to the 
+// If the subtree rooted at R is not empty, returns a pointer to the
 // leftmost Node in that subtree, otherwise returns nil.
 Dictionary::Node* Dictionary::findMin(Node* R) {
   if (R == nil) return nil;
@@ -198,6 +229,16 @@ void Dictionary::remove(keyType k) {
 std::string Dictionary::to_string() const {
   std::string s = "";
   inOrderString(s, root);
+  return s;
+}
+
+// pre_string()
+// Returns a string consisting of all keys in this Dictionary. Consecutive
+// keys are separated by newline "\n" characters. The key order is given
+// by a pre-order tree walk.
+std::string Dictionary::pre_string() const {
+  std::string s = "";
+  preOrderString(s, root);
   return s;
 }
 
