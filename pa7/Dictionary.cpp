@@ -194,6 +194,17 @@ bool Dictionary::contains(keyType k) const {
   return N && N != nil;
 }
 
+// getValue()
+// Returns a reference to the value corresponding to key k.
+// Pre: contains(k)
+valType& Dictionary::getValue(keyType k) const {
+  if (contains(k) == false) {
+    throw std::logic_error("Dictionary: getValue(): key \"" + k + "\" does not exist");
+  }
+  Node* N = search(root, k);
+  return N->val;
+}
+
 // ██ Manipulation Procedures ██
 
 // clear()
