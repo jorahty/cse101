@@ -52,7 +52,7 @@ Dictionary::~Dictionary() {
 void Dictionary::inOrderString(std::string& s, Node* R) const {
   if (R != nil) {
     inOrderString(s, R->left);
-    s += (R->key + " : " + std::to_string(R->val) + " \n");
+    s += (R->key + " : " + std::to_string(R->val) + "\n");
     inOrderString(s, R->right);
   }
 }
