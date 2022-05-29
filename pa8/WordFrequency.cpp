@@ -33,7 +33,7 @@ int main(int argc, char* argv[]) {
 
   Dictionary D;
 
-  string delim = " \t\\\"\',<.>/?;:[{]}|`~!@#$^&*()-_=+0123456789";
+  string delim = " \t\\\"\',<.>/?;:[{]}|`~!@#$%^&*()-_=+0123456789";
 
   string line;
   while (getline(in, line)) {
@@ -64,7 +64,7 @@ int main(int argc, char* argv[]) {
     }
   }
 
-  out << D;
+  out << D << endl;
 
   // close files
   in.close();
