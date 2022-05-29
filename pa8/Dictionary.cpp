@@ -4,6 +4,9 @@
 #include <iostream>
 #include <string>
 
+#define BLACK 0
+#define RED 1
+
 // ██ Private Contructors ██
 
 Dictionary::Node::Node(keyType k, valType v) {
@@ -14,7 +17,7 @@ Dictionary::Node::Node(keyType k, valType v) {
   right = nullptr;
   // parent, left, right fields will be set later
   // (probably by whoever called this contructor)
-  color = 0; // { 0: black, 1: red }
+  color = BLACK;
 }
 
 // ██ Class Constructors & Destructors ██
@@ -179,6 +182,108 @@ void Dictionary::transplant(Node* u, Node* v) {
   }
 }
 
+// ██ RBT Helper Functions ██
+
+// LeftRotate()
+void Dictionary::LeftRotate(Node* N) {
+  // set y
+  Node* y = N->right;
+
+  // turn y's left subtree into N's right subtree
+  N->right = y->left;
+  if (y->left != nil) { // not necessary if using sentinal nil node
+    y->left->parent = N;
+  }
+  // link y's parent to N
+  y->parent = N->parent;
+  if (N->parent == nil) {
+    root = y;
+  } else if (N == N->parent->left) {
+    N->parent->left = y;
+  } else {
+    N->parent->right = y;
+  }
+  // put N on y's left
+  y->left = N;
+  N->parent = y;
+}
+
+// RightRotate()
+void Dictionary::RightRotate(Node* N) {
+  // set y
+  Node* y = N->left;
+
+  // turn y's right subtree into N's left subtree
+  N->left = y->right;
+  if (y->right != nil) { // not necessary if using sentinal nil node
+    y->right->parent = N;
+  }
+  // link y's parent to N
+  y->parent = N->parent;
+  if (N->parent == nil) {
+    root = y;
+  } else if (N == N->parent->right) {
+    N->parent->right = y;
+  } else {
+    N->parent->left = y;
+  }
+  // put N on y's right
+  y->right = N;
+  N->parent = y;
+}
+
+// RB_InsertFixUp()
+void Dictionary::RB_InsertFixUp(Node* N) {
+  while (N->parent->color == RED) {
+    if (N->parent == N->parent->parent->left) {
+      Node* y = N->parent->parent->right;
+      if (y->color == RED) {
+        N->parent->color = BLACK;
+        y->color = BLACK;
+        N->parent->parent->color = RED;
+        N = N->parent->parent;
+      } else {
+        if (N == N->parent->right) {
+          N = N->parent;
+          LeftRotate(N);
+        }
+        N->parent->color = BLACK;
+        N->parent->parent->color = RED;
+        RightRotate(N->parent->parent);
+      }
+    } else {
+      Node* y = N->parent->parent->left;
+      if (y->color == RED) {
+        N->parent->color = BLACK;
+        y->color = BLACK;
+        N->parent->parent->color = RED;
+        N = N->parent->parent;
+      } else {
+        if (N == N->parent->left) {
+          N = N->parent;
+          RightRotate(N);
+        }
+        N->parent->color = BLACK;
+        N->parent->parent->color = RED;
+        LeftRotate(N->parent->parent);
+      }
+    }
+  }
+  root->color = BLACK;
+}
+
+// RB_Transplant()
+void Dictionary::RB_Transplant(Node* u, Node* v) {
+}
+
+// RB_DeleteFixUp()
+void Dictionary::RB_DeleteFixUp(Node* N) {
+}
+
+// RB_Delete()
+void Dictionary::RB_Delete(Node* N) {
+}
+
 // ██ Access Functions ██
 
 // size()
@@ -262,8 +367,6 @@ void Dictionary::setValue(keyType k, valType v) {
   // existing node was not found
   Node* z = new Node(k, v);
   z->parent = y;
-  z->left = nil;
-  z->right = nil;
   if (y == nil) { // if tree was empty
     root = z;
   } else if (z->key < y->key) {
@@ -271,6 +374,11 @@ void Dictionary::setValue(keyType k, valType v) {
   } else {
     y->right = z;
   }
+  z->left = nil;
+  z->right = nil;
+  z->color = RED;
+  RB_InsertFixUp(z);
+
   num_pairs++;
 }
 

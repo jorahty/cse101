@@ -11,17 +11,18 @@ int main() {
 
   cout << "Hello DictionaryTest!\n";
 
-  // Dictionary A;
+  Dictionary A;
 
-  // A.setValue("jorah", 21);
-  // A.setValue("james", 21);
-  // A.setValue("james", 3);
-  // A.setValue("bono", 28);
-  // A.setValue("arya", 12);
+  A.setValue("jorah", 21);
+  A.setValue("james", 21);
+  A.setValue("james", 3);
+  A.setValue("bono", 28);
+  A.setValue("arya", 12);
+
+  cout << A;
+  cout << A.pre_string();
 
   // cout << A.to_string();
-  // cout << A;
-
   // cout << (A.contains("james") ? "true\n" : "false\n");
   // cout << (A.contains("obama") ? "true\n" : "false\n");
 
