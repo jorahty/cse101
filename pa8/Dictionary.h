@@ -1,6 +1,6 @@
 //-----------------------------------------------------------------------------
 // Dictionary.h
-// Header file for Dictionary ADT based on a Binary Search Tree. Includes a
+// Header file for Dictionary ADT based on a Red-Black Tree. Includes a
 // built in iterator called current that can perform a smallest-to-largest
 // (forward) or a largest-to-smallest (reverse) iteration over all keys.
 //-----------------------------------------------------------------------------
@@ -27,6 +27,7 @@ private:
       Node* parent;
       Node* left;
       Node* right;
+      int color;
       // Node constructor
       Node(keyType k, valType v);
    };
@@ -90,6 +91,27 @@ private:
    // transplant()
    // Replaces subtree rooted at u with subtree rooted at v.
    void transplant(Node* u, Node* v);
+
+   // RBT Helper Functions (Optional) -----------------------------------------
+   
+   // LeftRotate()
+   void LeftRotate(Node* N);
+
+   // RightRotate()
+   void RightRotate(Node* N);
+
+   // RB_InsertFixUP()
+   void RB_InsertFixUp(Node* N);
+
+   // RB_Transplant()
+   void RB_Transplant(Node* u, Node* v);
+
+   // RB_DeleteFixUp()
+   void RB_DeleteFixUp(Node* N);
+
+   // RB_Delete()
+   void RB_Delete(Node* N);
+
 
 public:
 

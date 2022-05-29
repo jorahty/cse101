@@ -1,6 +1,6 @@
 # James Tennant • jtennant • pa7
 
-MAIN           = Order
+MAIN           = WordFrequency
 ADT            = Dictionary
 SOURCE         = $(MAIN).cpp
 OBJECT         = $(MAIN).o

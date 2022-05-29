@@ -14,6 +14,7 @@ Dictionary::Node::Node(keyType k, valType v) {
   right = nullptr;
   // parent, left, right fields will be set later
   // (probably by whoever called this contructor)
+  color = 0; // { 0: black, 1: red }
 }
 
 // ██ Class Constructors & Destructors ██
