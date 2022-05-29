@@ -11,7 +11,10 @@ ADT_HEADER     = $(ADT).h
 COMPILE        = g++ -std=c++17 -Wall -c
 LINK           = g++ -std=c++17 -Wall -o
 
-all: $(MAIN) $(ADT_TEST)
+all: $(MAIN) $(ADT_TEST) Order
+
+Order: Order.o $(ADT_OBJECT)
+	$(LINK) Order Order.o $(ADT_OBJECT)
 
 $(MAIN): $(OBJECT) $(ADT_OBJECT)
 	$(LINK) $(MAIN) $(OBJECT) $(ADT_OBJECT)
@@ -29,7 +32,7 @@ $(ADT_OBJECT): $(ADT_SOURCE) $(ADT_HEADER)
 	$(COMPILE) $(ADT_SOURCE)
 
 clean:
-	rm -rf $(MAIN) $(ADT_TEST) *.o
+	rm -rf $(MAIN) $(ADT_TEST) Order *.o
 
 format:
 	clang-format -i -style=file *.cpp
