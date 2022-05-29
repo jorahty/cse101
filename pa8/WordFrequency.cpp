@@ -3,7 +3,6 @@
 #include "Dictionary.h"
 #include <fstream>
 #include <iostream>
-#include <stdexcept>
 #include <string>
 
 using namespace std;
@@ -32,20 +31,44 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
-  // insert line and line number into dictionary
+  // read in each line of a file,
+  // parse the individual words on each line,
+  // convert each word to all lower case characters,
+  // then place it(as key) in a Dictionary.
+
+  // the value is the number of occurances
+
+  // as your program is reading in words,
+  // first check to see if the word(key)is already present, using contains().
+  // If it is a new word, add it using setValue().
+  // If it already exists, increment the corresponding value by calling getValue().
+  // Recall that the getValue() function returns a reference to avalue,
+  // which can then be used to alter that value.
 
   Dictionary D;
 
+  string delim = " \t\\\"\',<.>/?;:[{]}|`~!@#$^&*()-_=+0123456789";
+
   string line;
-  int line_count = 0;
   while (getline(in, line)) {
-    line_count++;
+    size_t len = line.length();
 
-    D.setValue(line, line_count);
+    // get first token
+    size_t begin = min(line.find_first_not_of(delim, 0), len);
+    size_t end = min(line.find_first_of(delim, begin), len);
+    string token = line.substr(begin, end - begin);
+
+    while (token != "") { // we have a token
+
+      cout << token << endl; // token!
+      
+      // get next token
+      begin = min(line.find_first_not_of(delim, end + 1), len);
+      end = min(line.find_first_of(delim, begin), len);
+      token = line.substr(begin, end - begin);
+    }
+
   }
-
-  out << D << endl;
-  out << D.pre_string() << endl;
 
   // close files
   in.close();
