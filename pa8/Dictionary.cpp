@@ -274,14 +274,102 @@ void Dictionary::RB_InsertFixUp(Node* N) {
 
 // RB_Transplant()
 void Dictionary::RB_Transplant(Node* u, Node* v) {
+  if (u->parent == nil) {
+    root = v;
+  } else if (u == u->parent->left) {
+    u->parent->left = v;
+  } else {
+    u->parent->right = v;
+  }
+  v->parent = u->parent;
 }
 
 // RB_DeleteFixUp()
-void Dictionary::RB_DeleteFixUp(Node* N) {
+void Dictionary::RB_DeleteFixUp(Node* x) {
+  while (x != root and x->color == BLACK) {
+    if (x == x->parent->left) {
+      Node* w = x->parent->right;
+      if (w->color == RED) {
+        w->color = BLACK;
+        x->parent->color = RED;
+        LeftRotate(x->parent);
+        w = x->parent->right;
+      }
+      if (w->left->color == BLACK and w->right->color == BLACK) {
+        w->color = RED;
+        x = x->parent;
+      } else {
+        if (w->right->color == BLACK) {
+          w->left->color = BLACK;
+          w->color = RED;
+          RightRotate(w);
+          w = x->parent->right;
+        }
+        w->color = x->parent->color;
+        x->parent->color = BLACK;
+        w->right->color = BLACK;
+        LeftRotate(x->parent);
+        x = root;
+      }
+    } else {
+      Node* w = x->parent->left;
+      if (w->color == RED) {
+        w->color = BLACK;
+        x->parent->color = RED;
+        RightRotate(x->parent);
+        w = x->parent->left;
+      }
+      if (w->right->color == BLACK and w->left->color == BLACK) {
+        w->color = RED;
+        x = x->parent;
+      } else {
+        if (w->left->color == BLACK) {
+          w->right->color = BLACK;
+          w->color = RED;
+          LeftRotate(w);
+          w = x->parent->left;
+        }
+        w->color = x->parent->color;
+        x->parent->color = BLACK;
+        w->left->color = BLACK;
+        RightRotate(x->parent);
+        x = root;
+      }
+    }
+  }
+  x->color = BLACK;
 }
 
 // RB_Delete()
-void Dictionary::RB_Delete(Node* N) {
+void Dictionary::RB_Delete(Node* z) {
+  Node* y = z;
+  int y_original_color = y->color;
+  Node* x;
+  if (z->left == nil) {
+    x = z->right;
+    RB_Transplant(z, z->right);
+  } else if (z->right == nil) {
+    x = z->left;
+    RB_Transplant(z, z->left);
+  } else {
+    y = findMin(z->right);
+    y_original_color = y->color;
+    x = y->right;
+    if (y->parent == z) {
+      x->parent = y;
+    } else {
+      RB_Transplant(y, y->right);
+      y->right = z->right;
+      y->right->parent = y;
+    }
+    RB_Transplant(z, y);
+    y->left = z->left;
+    y->left->parent = y;
+    y->color = z->color;
+  }
+  if (y_original_color == BLACK) {
+    RB_DeleteFixUp(x);
+  }
 }
 
 // ██ Access Functions ██
@@ -394,24 +482,7 @@ void Dictionary::remove(keyType k) {
 
   if (current == z) current = nil;
 
-  if (z->left == nil) {
-    transplant(z, z->right);
-    delete z;
-  } else if (z->right == nil) {
-    transplant(z, z->left);
-    delete z;
-  } else {
-    Node* y = findMin(z->right);
-    if (y->parent != z) {
-      transplant(y, y->right);
-      y->right = z->right;
-      y->right->parent = y;
-    }
-    transplant(z, y);
-    y->left = z->left;
-    y->left->parent = y;
-    delete z;
-  }
+  RB_Delete(z);
 
   num_pairs--;
 }
@@ -439,7 +510,7 @@ void Dictionary::end() {
 // Pre: hasCurrent()
 void Dictionary::next() {
   if (hasCurrent() == false) {
-    throw std::logic_error("Dictionary: next(): current not defined");
+    throw std::logic_error("Dictionary: next(): current undefined");
   }
   current = findNext(current);
 }
@@ -451,7 +522,7 @@ void Dictionary::next() {
 // Pre: hasCurrent()
 void Dictionary::prev() {
   if (hasCurrent() == false) {
-    throw std::logic_error("Dictionary: prev(): current not defined");
+    throw std::logic_error("Dictionary: prev(): current undefined");
   }
   current = findPrev(current);
 }

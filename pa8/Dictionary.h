@@ -107,10 +107,10 @@ private:
    void RB_Transplant(Node* u, Node* v);
 
    // RB_DeleteFixUp()
-   void RB_DeleteFixUp(Node* N);
+   void RB_DeleteFixUp(Node* x);
 
    // RB_Delete()
-   void RB_Delete(Node* N);
+   void RB_Delete(Node* z);
 
 
 public:
